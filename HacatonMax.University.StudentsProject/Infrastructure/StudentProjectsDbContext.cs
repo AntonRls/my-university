@@ -3,14 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HacatonMax.University.StudentsProject.Infrastructure;
 
-internal sealed class StudentProjectsDbContext : DbContext
+public sealed class StudentProjectsDbContext : DbContext
 {
     public const string Schema = "students-projects";
 
     public StudentProjectsDbContext(DbContextOptions<StudentProjectsDbContext> options)
         : base(options)
     {
-        Database.EnsureCreated();
     }
 
 

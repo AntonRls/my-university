@@ -19,7 +19,7 @@ public static class DependencyExtensions
             configuration.GetValue<string>("MaxBot:BaseUrl")!,
             configuration.GetValue<string>("MaxBot:AccessToken")!);
         services.AddSingleton<IBotProvider, MaxBotProvider>();
-        services.AddMediatR(cfg =>
+        services.AddMediator(cfg =>
         {
             cfg.RegisterServicesFromAssembly(typeof(PlainTextCommand).Assembly);
         });

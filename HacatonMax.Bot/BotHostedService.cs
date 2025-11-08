@@ -1,8 +1,8 @@
 using HacatonMax.Bot.Commands.PlainText;
 using HacatonMax.Bot.Domain;
 using HacatonMax.Bot.Domain.Events;
-using MediatR;
 using Microsoft.Extensions.Hosting;
+using TimeWarp.Mediator;
 
 namespace HacatonMax.Bot;
 

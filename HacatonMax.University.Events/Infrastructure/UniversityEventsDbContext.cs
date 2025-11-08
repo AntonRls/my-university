@@ -4,14 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HacatonMax.University.Events.Infrastructure;
 
-internal sealed class UniversityEventsDbContext : DbContext
+public sealed class UniversityEventsDbContext : DbContext
 {
     public const string Schema = "university-events";
 
     public UniversityEventsDbContext(DbContextOptions<UniversityEventsDbContext> options)
         : base(options)
     {
-        Database.EnsureCreated();
     }
 
     public DbSet<Tag> Tags { get; set; }

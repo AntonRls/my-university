@@ -1,6 +1,6 @@
 using HacatonMax.Bot.Domain;
 using HacatonMax.Bot.Domain.Events;
-using MediatR;
+using TimeWarp.Mediator;
 
 namespace HacatonMax.Bot.Commands.PlainText;
 
