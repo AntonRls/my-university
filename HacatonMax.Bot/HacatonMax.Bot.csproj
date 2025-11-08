@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>HacatonMax.Bot</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\HacatonMax.MaxClient\HacatonMax.MaxClient.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="13.1.0" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+      <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.10" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.10" />
+    </ItemGroup>
+
+</Project>

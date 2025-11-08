@@ -1,0 +1,26 @@
+﻿services:
+  hacatonmax.webhost:
+    image: hacatonmax.webhost
+    build:
+      context: .
+      dockerfile: HacatonMax.WebHost/Dockerfile
+    environment:
+      "ConnectionStrings__Postgres": "User ID=postgres;Password=password;Host=db;Port=5432;Database=my-university"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_DB: my-university
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
