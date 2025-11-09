@@ -1,4 +1,4 @@
-using HacatonMax.Bot.Commands.PlainText;
+using HacatonMax.Bot.Application.Commands.PlainText;
 using HacatonMax.Bot.Domain;
 using HacatonMax.MaxClient;
 using Microsoft.Extensions.Caching.Distributed;

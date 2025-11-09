@@ -2,7 +2,7 @@ using HacatonMax.Bot.Domain;
 using HacatonMax.Bot.Domain.Events;
 using TimeWarp.Mediator;
 
-namespace HacatonMax.Bot.Commands.PlainText;
+namespace HacatonMax.Bot.Application.Commands.PlainText;
 
 public record PlainTextCommand(MessageCreatedEvent Event) : IRequest;
 

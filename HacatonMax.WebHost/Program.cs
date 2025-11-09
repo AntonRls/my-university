@@ -1,13 +1,16 @@
 using HacatonMax.Bot.MaxProvider;
+using HacatonMax.Common.HangfireProvider;
 using HacatonMax.University.Auth;
 using HacatonMax.University.Events.Infrastructure;
 using HacatonMax.University.Library.Infrastructure;
 using HacatonMax.University.StudentsProject;
 using HacatonMax.University.StudentsProject.Infrastructure;
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.StartMaxBot(builder.Configuration);
+// builder.Services.AddHangfireProvider(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -30,7 +33,12 @@ builder.Services
     .AddUniversityStudentProjectsModule(builder.Configuration)
     .AddUniversityEventsModule(builder.Configuration)
     .AddUniversityLibraryModule(builder.Configuration);
+builder.Services.AddCors(x =>
+{
+    x.AddPolicy("AllowAll", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
 var app = builder.Build();
+app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSwagger();
@@ -52,5 +60,5 @@ using (var scope = app.Services.CreateScope())
     studentsDb.Database.Migrate();
 }
 
-
+// app.UseHangfireDashboard();
 app.Run();
