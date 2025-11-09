@@ -1,4 +1,5 @@
 using HacatonMax.Bot.MaxProvider;
+using HacatonMax.University.Auth;
 using HacatonMax.University.Events.Infrastructure;
 using HacatonMax.University.Library.Infrastructure;
 using HacatonMax.University.StudentsProject;
@@ -21,10 +22,13 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 builder.Services
+    .AddAuthModule(builder.Configuration)
     .AddUniversityStudentProjectsModule(builder.Configuration)
     .AddUniversityEventsModule(builder.Configuration)
     .AddUniversityLibraryModule(builder.Configuration);
 var app = builder.Build();
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.MapControllers();

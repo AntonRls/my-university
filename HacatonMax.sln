@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.University.Event
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.University.Library", "HacatonMax.University.Library\HacatonMax.University.Library.csproj", "{28AB2ADD-EF57-4276-8823-29CB5C4B270D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.University.Auth", "HacatonMax.University.Auth\HacatonMax.University.Auth.csproj", "{FA745D80-7A97-40AB-8BE6-4888BD23ED44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.Common", "HacatonMax.Common\HacatonMax.Common.csproj", "{F113F8DD-5FEA-40F6-BBE2-58593BA5F25D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,5 +51,13 @@ Global
 		{28AB2ADD-EF57-4276-8823-29CB5C4B270D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28AB2ADD-EF57-4276-8823-29CB5C4B270D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28AB2ADD-EF57-4276-8823-29CB5C4B270D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA745D80-7A97-40AB-8BE6-4888BD23ED44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA745D80-7A97-40AB-8BE6-4888BD23ED44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA745D80-7A97-40AB-8BE6-4888BD23ED44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA745D80-7A97-40AB-8BE6-4888BD23ED44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F113F8DD-5FEA-40F6-BBE2-58593BA5F25D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F113F8DD-5FEA-40F6-BBE2-58593BA5F25D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F113F8DD-5FEA-40F6-BBE2-58593BA5F25D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F113F8DD-5FEA-40F6-BBE2-58593BA5F25D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
