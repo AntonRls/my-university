@@ -14,12 +14,23 @@ public class CreateBookHandler : IRequestHandler<CreateBookCommand>
 
     public async Task Handle(CreateBookCommand request, CancellationToken cancellationToken)
     {
+        var tagById = request.Tags.ToDictionary(x => x.Id, x => x.Name);
+        var existsTags = await _bookRepository.ExistsTags(tagById.Keys.ToList());
+        var existsTagsIds = existsTags.Select(x => x.Id).ToList();
+
+        var addedTags = tagById.Keys
+            .Except(existsTagsIds)
+            .Select(tagId => new Tag(tagId, tagById[tagId])).ToList();
+        await _bookRepository.SaveTags(addedTags);
+
+        var tags = existsTags.Concat(addedTags);
+
         var book = new Book(
             request.Title,
             request.Description,
             request.Count,
             0,
-            request.Tags.Select(x => new Tag(x.Id, x.Name)).ToList());
+            tags.ToList());
 
         await _bookRepository.Save(book);
     }

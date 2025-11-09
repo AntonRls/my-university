@@ -54,6 +54,32 @@ namespace HacatonMax.University.Library.Infrastructure.Migrations
                     b.ToTable("books", "university-library");
                 });
 
+            modelBuilder.Entity("HacatonMax.University.Library.Domain.ReservationBook", b =>
+                {
+                    b.Property<long>("ReservationOwnerId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("reservation_owner_id");
+
+                    b.Property<long>("BookId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("book_id");
+
+                    b.Property<int>("CountExtendReservation")
+                        .HasColumnType("integer")
+                        .HasColumnName("count_extend_reservation");
+
+                    b.Property<DateTimeOffset>("EndReservationDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("end_reservation_date");
+
+                    b.HasKey("ReservationOwnerId", "BookId");
+
+                    b.HasIndex("BookId")
+                        .IsUnique();
+
+                    b.ToTable("reservation_books", "university-library");
+                });
+
             modelBuilder.Entity("HacatonMax.University.Library.Domain.Tag", b =>
                 {
                     b.Property<Guid>("Id")
@@ -71,6 +97,23 @@ namespace HacatonMax.University.Library.Infrastructure.Migrations
                     b.ToTable("tags", "university-library");
                 });
 
+            modelBuilder.Entity("HacatonMax.University.Library.Domain.UserFavoriteBook", b =>
+                {
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.Property<long>("BookId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("book_id");
+
+                    b.HasKey("UserId", "BookId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("user_favorite_books", "university-library");
+                });
+
             modelBuilder.Entity("university_books_tags", b =>
                 {
                     b.Property<long>("university_book_id")
@@ -84,6 +127,17 @@ namespace HacatonMax.University.Library.Infrastructure.Migrations
                     b.HasIndex("tag_id");
 
                     b.ToTable("university_books_tags", "university-library");
+                });
+
+            modelBuilder.Entity("HacatonMax.University.Library.Domain.ReservationBook", b =>
+                {
+                    b.HasOne("HacatonMax.University.Library.Domain.Book", "Book")
+                        .WithOne()
+                        .HasForeignKey("HacatonMax.University.Library.Domain.ReservationBook", "BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("university_books_tags", b =>

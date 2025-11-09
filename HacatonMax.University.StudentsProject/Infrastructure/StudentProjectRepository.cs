@@ -34,21 +34,16 @@ internal class StudentProjectRepository : IStudentProjectsRepository
 
     public async Task Save(StudentProject studentProject)
     {
-        var existsSkills = await GetExistsSkills(studentProject.NeedSkills.Select(x => x.Id).ToArray());
-        foreach (var notExistsSkills in studentProject.NeedSkills.Except(existsSkills))
+        var skillsById = studentProject.NeedSkills.ToDictionary(x => x.Id, x => x.Name);
+        var existsSkills = await GetExistsSkills(skillsById.Keys.ToArray());
+        foreach (var notExistsSkillId in skillsById.Keys.Except(existsSkills.Select(x => x.Id)))
         {
-            await _context.Skills.AddAsync(notExistsSkills);
-            existsSkills.Add(notExistsSkills);
+            var skill = new Skill(notExistsSkillId, skillsById[notExistsSkillId]);
+            await _context.Skills.AddAsync(skill);
+            existsSkills.Add(skill);
         }
 
-        foreach (var skill in existsSkills)
-        {
-            await _context.SkillStudentProjectDictionary.AddAsync(new SkillStudentProject
-            {
-                SkillId = skill.Id,
-                StudentProjectId = studentProject.Id,
-            });
-        }
+        studentProject.UpdateNeedSkills(existsSkills);
 
         await _context.StudentProjects.AddAsync(studentProject);
         await _context.SaveChangesAsync();

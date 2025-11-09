@@ -14,12 +14,18 @@ public enum UpdateType
 public class Message
 {
     public MessageRecipient Recipient { get; init; }
+    public MessageSender Sender { get; init; }
     public MessageBody Body { get; init; }
 }
 
 public class MessageRecipient
 {
     public long ChatId { get; init; }
+    public long UserId { get; init; }
+}
+
+public class MessageSender
+{
     public long UserId { get; init; }
 }
 

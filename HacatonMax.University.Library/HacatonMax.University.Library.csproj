@@ -4,6 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,6 +14,11 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.10" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
         <PackageReference Include="TimeWarp.Mediator" Version="13.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\HacatonMax.Common\HacatonMax.Common.csproj" />
+      <ProjectReference Include="..\HacatonMax.University.Auth\HacatonMax.University.Auth.csproj" />
     </ItemGroup>
     
 </Project>

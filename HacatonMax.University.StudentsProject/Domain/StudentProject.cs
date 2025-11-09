@@ -18,6 +18,11 @@ public class StudentProject
 
     public List<Skill> NeedSkills { get; private set; }
 
+    public void UpdateNeedSkills(List<Skill> skills)
+    {
+        NeedSkills = skills;
+    }
+
     private StudentProject()
     {
     }

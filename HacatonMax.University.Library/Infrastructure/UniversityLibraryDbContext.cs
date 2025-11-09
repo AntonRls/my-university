@@ -17,11 +17,17 @@ public sealed class UniversityLibraryDbContext : DbContext
 
     public DbSet<Book> Books { get; set; }
 
+    public DbSet<UserFavoriteBook> UserFavoriteBooks { get; set; }
+
+    public DbSet<ReservationBook> ReservationBooks { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(Schema);
 
         modelBuilder.ApplyConfiguration(new TagConfiguration());
         modelBuilder.ApplyConfiguration(new BookConfiguration());
+        modelBuilder.ApplyConfiguration(new UserFavoriteBookConfiguration());
+        modelBuilder.ApplyConfiguration(new ReservationBookConfiguration());
     }
 }

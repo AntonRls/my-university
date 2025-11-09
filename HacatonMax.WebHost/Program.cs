@@ -20,6 +20,10 @@ builder.Services.AddSwaggerGen(c =>
             return "EventsTagDto";
         return type.Name;
     });
+
+    var libraryDocx = Path.Combine(AppContext.BaseDirectory, $"{typeof(HacatonMax.University.Library.Controllers.UniversityBooksController).Assembly.GetName().Name}.xml");
+
+    c.IncludeXmlComments(libraryDocx, includeControllerXmlComments: true);
 });
 builder.Services
     .AddAuthModule(builder.Configuration)

@@ -46,6 +46,41 @@ namespace HacatonMax.University.Library.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "user_favorite_books",
+                schema: "university-library",
+                columns: table => new
+                {
+                    user_id = table.Column<long>(type: "bigint", nullable: false),
+                    book_id = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_user_favorite_books", x => new { x.user_id, x.book_id });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "reservation_books",
+                schema: "university-library",
+                columns: table => new
+                {
+                    book_id = table.Column<long>(type: "bigint", nullable: false),
+                    reservation_owner_id = table.Column<long>(type: "bigint", nullable: false),
+                    end_reservation_date = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    count_extend_reservation = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_reservation_books", x => new { x.reservation_owner_id, x.book_id });
+                    table.ForeignKey(
+                        name: "FK_reservation_books_books_book_id",
+                        column: x => x.book_id,
+                        principalSchema: "university-library",
+                        principalTable: "books",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "university_books_tags",
                 schema: "university-library",
                 columns: table => new
@@ -73,17 +108,38 @@ namespace HacatonMax.University.Library.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_reservation_books_book_id",
+                schema: "university-library",
+                table: "reservation_books",
+                column: "book_id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_university_books_tags_tag_id",
                 schema: "university-library",
                 table: "university_books_tags",
                 column: "tag_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_favorite_books_user_id",
+                schema: "university-library",
+                table: "user_favorite_books",
+                column: "user_id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "reservation_books",
+                schema: "university-library");
+
+            migrationBuilder.DropTable(
                 name: "university_books_tags",
+                schema: "university-library");
+
+            migrationBuilder.DropTable(
+                name: "user_favorite_books",
                 schema: "university-library");
 
             migrationBuilder.DropTable(

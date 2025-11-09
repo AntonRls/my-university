@@ -1,3 +1,5 @@
+using HacatonMax.Common.Exceptions;
+
 namespace HacatonMax.University.Library.Domain;
 
 public class Book
@@ -22,6 +24,21 @@ public class Book
     public long TakeCount { get; private set; }
 
     public List<Tag> Tags { get; private set; }
+
+    public void Take()
+    {
+        if (TakeCount >= Count)
+        {
+            throw new BadRequestException("Нет свободных книг");
+        }
+
+        TakeCount++;
+    }
+
+    public void GiveAway()
+    {
+        TakeCount--;
+    }
 
     private Book()
     {

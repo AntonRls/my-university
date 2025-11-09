@@ -14,12 +14,6 @@ internal sealed class UniversityEventsRepository : IUniversityEventsRepository
 
     public async Task Save(UniversityEvent universityEvent)
     {
-        var existsTags = await GetExistsTags(universityEvent.Tags);
-        foreach (var notExistsTag in universityEvent.Tags.Except(existsTags))
-        {
-            await _context.Tags.AddAsync(notExistsTag);
-        }
-
         await _context.AddAsync(universityEvent);
         await _context.SaveChangesAsync();
     }
@@ -44,8 +38,16 @@ internal sealed class UniversityEventsRepository : IUniversityEventsRepository
         return _context.Tags.ToListAsync();
     }
 
-    private async Task<List<Tag>> GetExistsTags(List<Tag> tags)
+    public async Task<List<Tag>> GetExistsTags(List<Guid> tagIds)
     {
-        return await _context.Tags.Where(x => tags.Select(tag => tag.Id).Contains(x.Id)).ToListAsync();
+        return await _context.Tags
+            .Where(x => tagIds.Contains(x.Id))
+            .ToListAsync();
+    }
+
+    public async Task SaveTags(List<Tag> tags)
+    {
+        await _context.Tags.AddRangeAsync(tags);
+        await _context.SaveChangesAsync();
     }
 }

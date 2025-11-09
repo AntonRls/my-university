@@ -26,7 +26,7 @@ public static class EventConverter
     {
         return new MessageCreatedEvent
         {
-            UserId = @event.Message.Recipient.UserId,
+            UserId = @event.Message.Sender.UserId,
             ChatId = @event.Message.Recipient.ChatId,
             Text = @event.Message.Body.Text
         };
