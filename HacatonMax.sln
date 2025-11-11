@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.University.Auth"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.Common", "HacatonMax.Common\HacatonMax.Common.csproj", "{F113F8DD-5FEA-40F6-BBE2-58593BA5F25D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdminService", "AdminService", "{3FBAC9D7-1496-4129-8A9F-32F316C7B456}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.Admin", "HacatonMax.Admin\HacatonMax.Admin.csproj", "{5E824EBB-3787-4AD7-8DCD-1E0A0BBB2861}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,5 +63,12 @@ Global
 		{F113F8DD-5FEA-40F6-BBE2-58593BA5F25D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F113F8DD-5FEA-40F6-BBE2-58593BA5F25D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F113F8DD-5FEA-40F6-BBE2-58593BA5F25D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E824EBB-3787-4AD7-8DCD-1E0A0BBB2861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E824EBB-3787-4AD7-8DCD-1E0A0BBB2861}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E824EBB-3787-4AD7-8DCD-1E0A0BBB2861}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E824EBB-3787-4AD7-8DCD-1E0A0BBB2861}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5E824EBB-3787-4AD7-8DCD-1E0A0BBB2861} = {3FBAC9D7-1496-4129-8A9F-32F316C7B456}
 	EndGlobalSection
 EndGlobal

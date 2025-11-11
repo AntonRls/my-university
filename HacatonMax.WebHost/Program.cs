@@ -10,13 +10,23 @@ using Hangfire;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(x =>
+{
+    x.AddPolicy("AllowAll",
+        policy =>
+            policy
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+});
+
 builder.Services.StartMaxBot(builder.Configuration);
 builder.Services.AddHangfireProvider(builder.Configuration);
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
     options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.SnakeCaseLower;
-});;
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -38,12 +48,11 @@ builder.Services
     .AddUniversityStudentProjectsModule(builder.Configuration)
     .AddUniversityEventsModule(builder.Configuration)
     .AddUniversityLibraryModule(builder.Configuration);
-builder.Services.AddCors(x =>
-{
-    x.AddPolicy("AllowAll", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-});
+
 var app = builder.Build();
+
 app.UseCors("AllowAll");
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSwagger();

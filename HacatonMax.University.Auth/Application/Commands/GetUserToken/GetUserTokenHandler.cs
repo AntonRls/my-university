@@ -39,7 +39,7 @@ public class GetUserTokenHandler : IRequestHandler<GetUserTokenCommand, string>
         var validHash = Convert.ToHexStringLower(hmacData);
         if (validHash != hash)
         {
-            return null;
+            throw new BadRequestException("Invalid hash");
         }
 
         try

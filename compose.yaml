@@ -5,22 +5,50 @@
       context: .
       dockerfile: HacatonMax.WebHost/Dockerfile
     environment:
-      "ConnectionStrings__Postgres": "User ID=postgres;Password=password;Host=db;Port=5432;Database=my-university"
+      "ConnectionStrings__Postgres": "User ID=postgres;Password=password;Host=db.university;Port=5434;Database=my-university"
+      "MaxBot__AccessToken": ""
     ports:
       - "8080:8080"
     depends_on:
-      - db
-  db:
+      - db.university
+  hacatonmax.admin:
+    image: hacatonmax.admin
+    build:
+      context: .
+      dockerfile: HacatonMax.Admin/Dockerfile
+    environment:
+      "ConnectionStrings__Postgres": "User ID=postgres;Password=password;Host=db.admin;Port=5433;Database=my-admin"
+    ports:
+      - "5001:5001"
+    depends_on:
+      - db.university
+
+  db.university:
     image: postgres:16
     restart: always
     environment:
       POSTGRES_DB: my-university
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
+      PGPORT: 5434
     ports:
-      - "5432:5432"
+      - "5434:5434"
     volumes:
       - db_data:/var/lib/postgresql/data
 
+  db.admin:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_DB: my-admin
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      PGPORT: 5433
+    ports:
+      - "5433:5433"
+    volumes:
+      - db_data_admin:/var/lib/postgresql/data
+
 volumes:
   db_data:
+  db_data_admin:

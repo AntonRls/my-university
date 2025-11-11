@@ -46,6 +46,6 @@ public class ReservationBookHandler : IRequestHandler<ReservationBookCommand>
         await _jobsProvider.ScheduleJobWithTag<IMediator>(
             x => x.Send(command, cancellationToken),
             command.GetJobId(),
-            reservation.EndReservationDate.AddDays(-1));
+            reservation.EndReservationDate.AddDays(-2));
     }
 }
