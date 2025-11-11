@@ -3,6 +3,7 @@ using System;
 using HacatonMax.University.Library.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HacatonMax.University.Library.Infrastructure.Migrations
 {
     [DbContext(typeof(UniversityLibraryDbContext))]
-    partial class UniversityLibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251111230809_AddedAuthor")]
+    partial class AddedAuthor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

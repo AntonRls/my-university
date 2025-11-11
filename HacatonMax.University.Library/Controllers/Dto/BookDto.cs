@@ -7,4 +7,5 @@ public record BookDto(
     long Count,
     long TakeCount,
     bool IsFavorite,
+    string? Author,
     List<TagDto> Tags);

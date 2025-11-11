@@ -30,6 +30,7 @@ public class GetMyReservationsHandler : IRequestHandler<GetMyReservationsCommand
                 x.Book.Count,
                 x.Book.TakeCount,
                 userFavoritesBooks.Contains(x.Book.Id),
+                x.Book.Author,
                 x.Book.Tags.Select(x => new TagDto(x.Id, x.Name)).ToList()))).ToList();
     }
 }

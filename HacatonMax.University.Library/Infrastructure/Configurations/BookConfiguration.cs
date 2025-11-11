@@ -22,6 +22,8 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
             .HasColumnName("count");
         builder.Property(x => x.TakeCount)
             .HasColumnName("take_count");
+        builder.Property(x => x.Author)
+            .HasColumnName("author");
 
         builder
             .HasMany(e => e.Tags)

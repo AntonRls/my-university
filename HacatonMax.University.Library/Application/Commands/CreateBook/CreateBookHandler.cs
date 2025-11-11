@@ -30,7 +30,8 @@ public class CreateBookHandler : IRequestHandler<CreateBookCommand>
             request.Description,
             request.Count,
             0,
-            tags.ToList());
+            tags.ToList(),
+            request.Author);
 
         await _bookRepository.Save(book);
     }

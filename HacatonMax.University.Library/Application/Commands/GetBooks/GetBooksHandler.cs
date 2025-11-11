@@ -30,6 +30,7 @@ public class GetBooksHandler : IRequestHandler<GetBooksCommand, List<BookDto>>
             x.Count,
             x.TakeCount,
             favoriteBooks.Contains(x.Id),
+            x.Author,
             x.Tags.Select(tag => new TagDto(tag.Id, tag.Name)).ToList()))
             .ToList();
     }
