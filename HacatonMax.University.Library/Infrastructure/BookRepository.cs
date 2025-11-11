@@ -81,11 +81,13 @@ internal sealed class BookRepository : IBookRepository
             .ToHashSetAsync();
     }
 
-    public async Task ReservationBook(long bookId, long userId)
+    public async Task<ReservationBook> ReservationBook(long bookId, long userId)
     {
-        await _context.ReservationBooks.AddAsync(
+        var result = await _context.ReservationBooks.AddAsync(
             new ReservationBook(bookId, userId, DateTimeOffset.UtcNow.AddDays(7)));
         await _context.SaveChangesAsync();
+
+        return result.Entity;
     }
 
     public Task<ReservationBook?> GetReservationBook(long bookId, long userId)

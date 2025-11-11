@@ -20,7 +20,6 @@ public class PlainTextHandler : IRequestHandler<PlainTextCommand>
         await _botProvider.SendMessage(new Message
         {
             UserId = request.Event.UserId,
-            ChatId = request.Event.ChatId,
             Text = "Привет! Тестовое сообщение"
         });
     }

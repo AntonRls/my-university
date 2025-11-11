@@ -30,6 +30,6 @@ public class MaxBotProvider : IBotProvider
 
     public Task SendMessage(Message message)
     {
-        return _maxBotClient.SendMessage(new MessageDto(message.UserId, message.Text, message.ChatId));
+        return _maxBotClient.SendMessage(new MessageDto(message.UserId, message.Text));
     }
 }

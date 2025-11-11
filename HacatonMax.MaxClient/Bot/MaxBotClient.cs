@@ -28,6 +28,6 @@ public class MaxBotClient
 
     public Task SendMessage(MessageDto message)
     {
-        return _httpClient.PostAsJsonAsync($"messages?user_id={message.UserId}&chat_id={message.ChatId}", message, _jsonSerializerOptions);
+        return _httpClient.PostAsJsonAsync($"messages?user_id={message.UserId}", message, _jsonSerializerOptions);
     }
 }

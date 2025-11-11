@@ -16,7 +16,7 @@ public class UserContextService : IUserContextService
 
     public User GetCurrentUser()
     {
-        return new User(1, "test", "test", "test");
+        return new User(96056860, "test", "test", "test");
 
         var user = _httpContextAccessor.HttpContext?.User;
 

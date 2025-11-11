@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.StartMaxBot(builder.Configuration);
-// builder.Services.AddHangfireProvider(builder.Configuration);
+builder.Services.AddHangfireProvider(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -60,5 +60,5 @@ using (var scope = app.Services.CreateScope())
     studentsDb.Database.Migrate();
 }
 
-// app.UseHangfireDashboard();
+app.UseHangfireDashboard();
 app.Run();

@@ -1,5 +1,7 @@
+using HacatonMax.Common.Abstractions;
 using HacatonMax.Common.Exceptions;
 using HacatonMax.University.Auth.Domain;
+using HacatonMax.University.Library.Application.Commands.SendNotificationEstimatedReservationTimeBook;
 using HacatonMax.University.Library.Domain;
 using TimeWarp.Mediator;
 
@@ -9,11 +11,13 @@ public class ReservationBookHandler : IRequestHandler<ReservationBookCommand>
 {
     private readonly IBookRepository _bookRepository;
     private readonly IUserContextService _userContextService;
+    private readonly IJobsProvider _jobsProvider;
 
-    public ReservationBookHandler(IBookRepository bookRepository, IUserContextService  userContextService)
+    public ReservationBookHandler(IBookRepository bookRepository, IUserContextService  userContextService, IJobsProvider jobsProvider)
     {
         _bookRepository = bookRepository;
         _userContextService = userContextService;
+        _jobsProvider = jobsProvider;
     }
 
     public async Task Handle(ReservationBookCommand request, CancellationToken cancellationToken)
@@ -35,6 +39,13 @@ public class ReservationBookHandler : IRequestHandler<ReservationBookCommand>
 
         book.Take();
 
-        await _bookRepository.ReservationBook(request.BookId, user.Id);
+        var reservation = await _bookRepository.ReservationBook(request.BookId, user.Id);
+
+        var command = new SendNotificationEstimatedReservationTimeBookCommand(user.Id,
+            DateOnly.FromDateTime(reservation.EndReservationDate.Date));
+        await _jobsProvider.ScheduleJobWithTag<IMediator>(
+            x => x.Send(command, cancellationToken),
+            command.GetJobId(),
+            reservation.EndReservationDate.AddDays(-1));
     }
 }

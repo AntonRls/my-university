@@ -27,6 +27,12 @@ public class HangfireProvider : IJobsProvider
         return Task.CompletedTask;
     }
 
+    public Task DeleteJob(string tag)
+    {
+        Deschedule(tag);
+        return Task.CompletedTask;
+    }
+
     private void Schedule<T>(string jobId, Expression<Func<T, Task>> methodCall, ScheduledState state)
     {
         using var connection = _jobStorage.GetConnection();

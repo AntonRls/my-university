@@ -1,3 +1,3 @@
 namespace HacatonMax.MaxClient.Bot.DTO;
 
-public record MessageDto(long UserId, string Text, long ChatId);
+public record MessageDto(long UserId, string Text);

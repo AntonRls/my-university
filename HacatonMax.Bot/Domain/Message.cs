@@ -4,7 +4,5 @@ public class Message
 {
     public string Text { get; init; }
 
-    public long ChatId { get; init; }
-
     public long UserId { get; init; }
 }

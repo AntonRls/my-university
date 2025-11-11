@@ -24,7 +24,9 @@ public class GetUserTokenHandler : IRequestHandler<GetUserTokenCommand, string>
     {
         var dict = new SortedDictionary<string, string>(StringComparer.Ordinal)
         {
-            ["auth_date"] = request.AuthDate,
+            ["chat"] = request.Chat.GetRawText(),
+            ["ip"] = request.Ip,
+            ["auth_date"] = request.AuthDate.ToString(),
             ["query_id"] = request.QueryId,
             ["user"] = request.User.GetRawText()
         };

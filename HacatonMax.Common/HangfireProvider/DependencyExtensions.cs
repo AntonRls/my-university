@@ -1,7 +1,6 @@
 using HacatonMax.Common.Abstractions;
 using Hangfire;
 using Hangfire.PostgreSql;
-using Hangfire.Tags;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,15 +11,12 @@ public static class DependencyExtensions
     public static IServiceCollection AddHangfireProvider(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddHangfire(config =>
-            config.UsePostgreSqlStorage(x =>
-            {
-                x.UseNpgsqlConnection(configuration.GetConnectionString("Postgres"));
-            })
-                .UseTags()
+                config
+                    .UsePostgreSqlStorage(configuration.GetConnectionString("Postgres"))
         );
 
         services.AddHangfireServer();
-        services.AddScoped<IJobsProvider, Common.HangfireProvider.HangfireProvider>();
+        services.AddScoped<IJobsProvider, HangfireProvider>();
         return services;
     }
 }

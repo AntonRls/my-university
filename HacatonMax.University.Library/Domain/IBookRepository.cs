@@ -16,7 +16,7 @@ public interface IBookRepository
 
     Task<HashSet<long>> GetUserFavoriteBooks(long userId);
 
-    Task ReservationBook(long bookId, long userId);
+    Task<ReservationBook> ReservationBook(long bookId, long userId);
 
     Task<ReservationBook?> GetReservationBook(long bookId, long userId);
 
