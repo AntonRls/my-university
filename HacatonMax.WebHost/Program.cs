@@ -1,3 +1,4 @@
+using System.Text.Json;
 using HacatonMax.Bot.MaxProvider;
 using HacatonMax.Common.HangfireProvider;
 using HacatonMax.University.Auth;
@@ -11,7 +12,11 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.StartMaxBot(builder.Configuration);
 builder.Services.AddHangfireProvider(builder.Configuration);
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
+    options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.SnakeCaseLower;
+});;
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {

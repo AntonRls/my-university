@@ -1,6 +1,8 @@
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Web;
 using HacatonMax.Common.Exceptions;
 using HacatonMax.University.Auth.Domain;
 using Microsoft.Extensions.Configuration;
@@ -22,46 +24,32 @@ public class GetUserTokenHandler : IRequestHandler<GetUserTokenCommand, string>
 
     public Task<string> Handle(GetUserTokenCommand request, CancellationToken cancellationToken)
     {
-        var dict = new SortedDictionary<string, string>(StringComparer.Ordinal)
+        var authParams = HttpUtility.ParseQueryString(request.QueryParams);
+        var hash = authParams["hash"];
+        authParams.Remove("hash");
+        var paramKeys = authParams.AllKeys.ToList();
+        paramKeys.Sort();
+        var sortedParams = string.Join("\n", paramKeys.Select(key => $"{key}={authParams[key]}"));
+
+        using var keyHmac = new HMACSHA256("WebAppData"u8.ToArray());
+        var keyHmacData = keyHmac.ComputeHash(Encoding.UTF8.GetBytes(_botToken));
+
+        using var hmac = new HMACSHA256(keyHmacData);
+        var hmacData = hmac.ComputeHash(Encoding.UTF8.GetBytes(sortedParams));
+        var validHash = Convert.ToHexStringLower(hmacData);
+        if (validHash != hash)
         {
-            ["chat"] = request.Chat.GetRawText(),
-            ["ip"] = request.Ip,
-            ["auth_date"] = request.AuthDate.ToString(),
-            ["query_id"] = request.QueryId,
-            ["user"] = request.User.GetRawText()
-        };
-
-        var dataCheckString = string.Join("\n", dict.Select(kv => $"{kv.Key}={kv.Value}"));
-
-        byte[] keyBytes = Encoding.UTF8.GetBytes("WebAppData" + _botToken);
-        byte[] secretKeyBytes;
-        using (var hmac = new HMACSHA256(keyBytes))
-        {
-            secretKeyBytes = hmac.ComputeHash("WebAppData"u8.ToArray());
-        }
-
-        byte[] dataBytes = Encoding.UTF8.GetBytes(dataCheckString);
-        byte[] hashBytes;
-        using (var hmac2 = new HMACSHA256(secretKeyBytes))
-        {
-            hashBytes = hmac2.ComputeHash(dataBytes);
-        }
-
-        string computedHash = BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
-
-        if (!string.Equals(computedHash, request.Hash, StringComparison.OrdinalIgnoreCase))
-        {
-            throw new BadRequestException("Invalid hash");
+            return null;
         }
 
         try
         {
-            var userElem = request.User;
-            var id = userElem.GetProperty("id").GetInt64();
-            var firstName = userElem.GetProperty("first_name").GetString()!;
-            var lastName = userElem.GetProperty("last_name").GetString()!;
+            var userElem = JsonDocument.Parse(authParams["user"]!);
+            var id = userElem.RootElement.GetProperty("id").GetInt64();
+            var firstName = userElem.RootElement.GetProperty("first_name").GetString()!;
+            var lastName = userElem.RootElement.GetProperty("last_name").GetString()!;
             var username = string.Empty;
-            if (userElem.TryGetProperty("username", out var unProp) && unProp.ValueKind != JsonValueKind.Null)
+            if (userElem.RootElement.TryGetProperty("username", out var unProp) && unProp.ValueKind != JsonValueKind.Null)
             {
                 username = unProp.GetString()!;
             }
@@ -73,5 +61,15 @@ public class GetUserTokenHandler : IRequestHandler<GetUserTokenCommand, string>
         {
             throw new BadRequestException(ex.Message);
         }
+    }
+
+    private static string GetCompactJson(JsonElement element)
+    {
+        var options = new JsonSerializerOptions
+        {
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            WriteIndented = false
+        };
+        return JsonSerializer.Serialize(element, options);
     }
 }
