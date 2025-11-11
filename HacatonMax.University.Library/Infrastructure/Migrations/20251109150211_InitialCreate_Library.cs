@@ -108,13 +108,6 @@ namespace HacatonMax.University.Library.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_reservation_books_book_id",
-                schema: "university-library",
-                table: "reservation_books",
-                column: "book_id",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_university_books_tags_tag_id",
                 schema: "university-library",
                 table: "university_books_tags",
