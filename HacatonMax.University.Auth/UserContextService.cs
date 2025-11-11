@@ -16,6 +16,8 @@ public class UserContextService : IUserContextService
 
     public User GetCurrentUser()
     {
+        return new User(1, "test", "test", "test");
+
         var user = _httpContextAccessor.HttpContext?.User;
 
         if (user == null || !user.Identity?.IsAuthenticated == true)

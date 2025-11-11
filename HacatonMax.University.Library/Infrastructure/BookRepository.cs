@@ -122,4 +122,14 @@ internal sealed class BookRepository : IBookRepository
             .Where(x => x.BookId == bookId && x.ReservationOwnerId == userId)
             .ExecuteDeleteAsync();
     }
+
+    public Task<List<Book>> GetFavoritesBook(long userId)
+    {
+        return _context.UserFavoriteBooks
+            .Where(x => x.UserId == userId)
+            .Include(x => x.Book)
+            .ThenInclude(x => x.Tags)
+            .Select(x => x.Book)
+            .ToListAsync();
+    }
 }

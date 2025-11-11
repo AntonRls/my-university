@@ -27,4 +27,6 @@ public interface IBookRepository
     Task<List<ReservationBook>> GetUserReservations(long userId);
 
     Task DeleteReservation(long bookId, long userId);
+
+    Task<List<Book>> GetFavoritesBook(long userId);
 }

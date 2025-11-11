@@ -11,4 +11,6 @@ public class UserFavoriteBook
     public long UserId { get; private set; }
 
     public long BookId { get; private set; }
+
+    public Book Book { get; private set; }
 }
