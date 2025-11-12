@@ -5,7 +5,7 @@ public class SkillStudentProject
     public Guid SkillId { get; set; }
     public Guid StudentProjectId { get; set; }
 
-    public StudentProject StudentProject { get; set; }
+    public StudentProject StudentProject { get; set; } = null!;
 
-    public Skill Skill { get; set; }
+    public Skill Skill { get; set; } = null!;
 }

@@ -22,6 +22,8 @@ public class UniversityEventsConfiguration : IEntityTypeConfiguration<University
             .HasColumnName("end_datetime");
         builder.Property(p => p.StartDateTime)
             .HasColumnName("start_datetime");
+        builder.Property(p => p.CreatorId)
+            .HasColumnName("creator_id");
 
         builder
             .HasMany(e => e.Tags)

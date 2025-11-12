@@ -6,10 +6,14 @@ namespace HacatonMax.University.Library.Application.Commands.CreateBook;
 public class CreateBookHandler : IRequestHandler<CreateBookCommand>
 {
     private readonly IBookRepository _bookRepository;
+    private readonly IBookIndexingPublisher _bookIndexingPublisher;
 
-    public CreateBookHandler(IBookRepository bookRepository)
+    public CreateBookHandler(
+        IBookRepository bookRepository,
+        IBookIndexingPublisher bookIndexingPublisher)
     {
         _bookRepository = bookRepository;
+        _bookIndexingPublisher = bookIndexingPublisher;
     }
 
     public async Task Handle(CreateBookCommand request, CancellationToken cancellationToken)
@@ -34,5 +38,6 @@ public class CreateBookHandler : IRequestHandler<CreateBookCommand>
             request.Author);
 
         await _bookRepository.Save(book);
+        await _bookIndexingPublisher.PublishIndex(book.Id, cancellationToken);
     }
 }

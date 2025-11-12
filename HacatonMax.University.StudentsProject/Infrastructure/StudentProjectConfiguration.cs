@@ -19,10 +19,20 @@ public class StudentProjectConfiguration : IEntityTypeConfiguration<StudentProje
             .HasColumnName("title");
         builder.Property(x => x.Description)
             .HasColumnName("description");
+        builder.Property(x => x.CreatorId)
+            .HasColumnName("creator_id");
+        builder.Property(x => x.EventId)
+            .HasColumnName("event_id");
 
         builder
             .HasMany(s => s.NeedSkills)
             .WithMany(p => p.StudentProjects)
             .UsingEntity(j => j.ToTable("student_project_skills"));
+
+        builder
+            .HasMany(studentProject => studentProject.Participants)
+            .WithOne(participant => participant.StudentProject)
+            .HasForeignKey(participant => participant.StudentProjectId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

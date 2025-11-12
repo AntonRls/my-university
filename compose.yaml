@@ -7,10 +7,13 @@
     environment:
       "ConnectionStrings__Postgres": "User ID=postgres;Password=password;Host=db.university;Port=5434;Database=my-university"
       "MaxBot__AccessToken": ""
+      "Elasticsearch__Uri": "http://elasticsearch:9200"
+      "RabbitMq__Uri": "amqp://guest:guest@rabbitmq:5672/"
     ports:
       - "8080:8080"
     depends_on:
       - db.university
+      - rabbitmq
   hacatonmax.admin:
     image: hacatonmax.admin
     build:
@@ -34,7 +37,7 @@
     ports:
       - "5434:5434"
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data2:/var/lib/postgresql/data
 
   db.admin:
     image: postgres:16
@@ -48,7 +51,40 @@
       - "5433:5433"
     volumes:
       - db_data_admin:/var/lib/postgresql/data
+  
+  elasticsearch:
+    image: elasticsearch:9.2.1
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - cluster.routing.allocation.disk.threshold_enabled=false
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "status" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 volumes:
-  db_data:
+  db_data2:
   db_data_admin:
+  elasticsearch_data:

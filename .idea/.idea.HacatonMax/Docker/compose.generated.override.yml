@@ -1,0 +1,21 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  hacatonmax.webhost:
+    build:
+      context: "/Users/se.chernyshev/max-hacaton/my-university"
+      dockerfile: "HacatonMax.WebHost/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net9.0/HacatonMax.WebHost.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "hacatonmax.webhost:dev"
+    ports: []
+    volumes:
+    - "/Users/se.chernyshev/max-hacaton/my-university/HacatonMax.WebHost:/app:rw"
+    - "/Users/se.chernyshev/max-hacaton/my-university:/src:rw"
+    - "/Users/se.chernyshev/.nuget/packages:/home/app/.nuget/packages"
+    working_dir: "/app"

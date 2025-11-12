@@ -19,12 +19,21 @@ public sealed class StudentProjectsDbContext : DbContext
 
     public DbSet<SkillStudentProject> SkillStudentProjectDictionary { get; set; }
 
+    public DbSet<TeamRole> TeamRoles { get; set; }
+
+    public DbSet<StudentProjectParticipant> StudentProjectParticipants { get; set; }
+
+    public DbSet<StudentProjectParticipantRole> StudentProjectParticipantRoles { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(Schema);
 
         modelBuilder.ApplyConfiguration(new SkillConfiguration());
         modelBuilder.ApplyConfiguration(new StudentProjectConfiguration());
+        modelBuilder.ApplyConfiguration(new TeamRoleConfiguration());
+        modelBuilder.ApplyConfiguration(new StudentProjectParticipantConfiguration());
+        modelBuilder.ApplyConfiguration(new StudentProjectParticipantRoleConfiguration());
 
         modelBuilder.Entity<SkillStudentProject>(b =>
         {

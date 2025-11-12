@@ -21,6 +21,7 @@ public class GetUniversityEventsHandler : IRequestHandler<GetUniversityEventsCom
             x.Id,
             x.Title,
             x.Description,
+            x.CreatorId,
             x.StartDateTime,
             x.EndDateTime,
             x.ParticipantsLimit,
