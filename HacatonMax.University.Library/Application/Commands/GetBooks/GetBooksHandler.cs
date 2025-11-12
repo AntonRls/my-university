@@ -21,7 +21,7 @@ public class GetBooksHandler : IRequestHandler<GetBooksCommand, List<BookDto>>
         var user = _userContextService.GetCurrentUser();
 
         var books = await _bookRepository.Get(request.Tags);
-        var favoriteBooks = await _bookRepository.GetUserFavoriteBooks(user.Id);
+        var favoriteBooks = await _bookRepository.GetUserFavoriteBookIds(user.Id);
 
         return books.Select(x => new BookDto(
             x.Id,

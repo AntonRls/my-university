@@ -1,4 +1,5 @@
 using HacatonMax.University.Library.Application.Commands.CreateBook;
+using HacatonMax.University.Library.Application.Commands.GetBookById;
 using HacatonMax.University.Library.Application.Commands.GetBooks;
 using HacatonMax.University.Library.Application.Commands.GetFavoriteBooks;
 using HacatonMax.University.Library.Application.Commands.GetTags;
@@ -24,6 +25,12 @@ public class UniversityBooksController(IMediator mediator)
     public Task<List<BookDto>> GetBooks([FromQuery] GetBooksCommand command)
     {
         return mediator.Send(command);
+    }
+
+    [HttpGet("{id:long}")]
+    public Task<BookDto> GetBook([FromRoute] long id)
+    {
+        return mediator.Send(new GetBookByIdCommand(id));
     }
 
     /// <summary>

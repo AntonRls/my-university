@@ -14,7 +14,7 @@ public interface IBookRepository
 
     Task SaveTags(List<Tag> tags);
 
-    Task<HashSet<long>> GetUserFavoriteBooks(long userId);
+    Task<HashSet<long>> GetUserFavoriteBookIds(long userId);
 
     Task<ReservationBook> ReservationBook(long bookId, long userId);
 
@@ -28,5 +28,5 @@ public interface IBookRepository
 
     Task DeleteReservation(long bookId, long userId);
 
-    Task<List<Book>> GetFavoritesBook(long userId);
+    Task<List<Book>> GetUserFavoriteBooks(long userId);
 }

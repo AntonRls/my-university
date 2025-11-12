@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using HacatonMax.Bot.MaxProvider;
 using HacatonMax.Common.HangfireProvider;
+using HacatonMax.Common.Middleware;
 using HacatonMax.University.Admin.Infrastructure;
 using HacatonMax.University.Auth;
 using HacatonMax.University.Events.Infrastructure;
@@ -56,7 +57,7 @@ builder.Services
     .AddUniversityLibraryModule(builder.Configuration);
 
 var app = builder.Build();
-
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseCors("AllowAll");
 
 app.UseAuthentication();

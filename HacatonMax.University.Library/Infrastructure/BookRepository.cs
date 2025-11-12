@@ -73,7 +73,7 @@ internal sealed class BookRepository : IBookRepository
         await _context.SaveChangesAsync();
     }
 
-    public Task<HashSet<long>> GetUserFavoriteBooks(long userId)
+    public Task<HashSet<long>> GetUserFavoriteBookIds(long userId)
     {
         return _context.UserFavoriteBooks
             .Where(x => x.UserId == userId)
@@ -104,7 +104,7 @@ internal sealed class BookRepository : IBookRepository
 
     public Task<Book?> GetBookById(long bookId)
     {
-        return _context.Books.FirstOrDefaultAsync(x => x.Id == bookId);
+        return _context.Books.Include(x => x.Tags).FirstOrDefaultAsync(x => x.Id == bookId);
     }
 
     public Task<List<ReservationBook>> GetUserReservations(long userId)
@@ -123,7 +123,7 @@ internal sealed class BookRepository : IBookRepository
             .ExecuteDeleteAsync();
     }
 
-    public Task<List<Book>> GetFavoritesBook(long userId)
+    public Task<List<Book>> GetUserFavoriteBooks(long userId)
     {
         return _context.UserFavoriteBooks
             .Where(x => x.UserId == userId)

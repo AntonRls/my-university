@@ -18,7 +18,7 @@ public class GetFavoriteBooksHandler : IRequestHandler<GetFavoriteBooksCommand, 
 
     public async Task<List<BookDto>> Handle(GetFavoriteBooksCommand request, CancellationToken cancellationToken)
     {
-        var favoriteBooks = await _bookRepository.GetFavoritesBook(_userContextService.GetCurrentUser().Id);
+        var favoriteBooks = await _bookRepository.GetUserFavoriteBooks(_userContextService.GetCurrentUser().Id);
 
         return favoriteBooks.Select(x => new BookDto(
             x.Id, x.Title, x.Description, x.Count, x.TakeCount, true, x.Author,

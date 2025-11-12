@@ -20,7 +20,7 @@ public class GetMyReservationsHandler : IRequestHandler<GetMyReservationsCommand
     {
         var userReservations = await _bookRepository.GetUserReservations(_userContextService.GetCurrentUser().Id);
 
-        var userFavoritesBooks = await _bookRepository.GetUserFavoriteBooks(_userContextService.GetCurrentUser().Id);
+        var userFavoritesBooks = await _bookRepository.GetUserFavoriteBookIds(_userContextService.GetCurrentUser().Id);
 
         return userReservations.Select(x => new ReservationDto(x.EndReservationDate,
             new BookDto(
