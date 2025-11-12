@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace HacatonMax.University.StudentsProject.Domain;
 
 public interface IStudentProjectsRepository
@@ -14,8 +17,22 @@ public interface IStudentProjectsRepository
     /// </summary>
     Task Save(StudentProject studentProject);
 
+    Task Update(StudentProject studentProject, Dictionary<Guid, string> requestedSkills);
+
     /// <summary>
     /// Получить все скиллы
     /// </summary>
     Task<IReadOnlyCollection<Skill>> GetAllSkills();
+
+    Task<StudentProject?> GetById(Guid id);
+
+    Task SaveChanges();
+
+    Task<List<TeamRole>> GetTeamRolesByIds(IEnumerable<Guid> roleIds);
+
+    Task<IReadOnlyCollection<TeamRole>> GetAllTeamRoles();
+
+    Task<List<TeamRole>> GetTeamRolesByNames(IEnumerable<string> names);
+
+    Task AddTeamRoles(IEnumerable<TeamRole> roles);
 }

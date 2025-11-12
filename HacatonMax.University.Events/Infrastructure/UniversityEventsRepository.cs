@@ -45,6 +45,16 @@ internal sealed class UniversityEventsRepository : IUniversityEventsRepository
             .ToListAsync();
     }
 
+    public Task<List<UniversityEvent>> Search(string query)
+    {
+        var pattern = $"%{query}%";
+
+        return _context.UniversityEvents
+            .Where(x => EF.Functions.ILike(x.Title, pattern) || EF.Functions.ILike(x.Description, pattern))
+            .Include(x => x.Tags)
+            .ToListAsync();
+    }
+
     public async Task SaveTags(List<Tag> tags)
     {
         await _context.Tags.AddRangeAsync(tags);

@@ -2,6 +2,7 @@ using HacatonMax.University.Events.Application.Commands.CreateUniversityEvent;
 using HacatonMax.University.Events.Application.Commands.DeleteUniversityEvent;
 using HacatonMax.University.Events.Application.Commands.GetUniversityEvents;
 using HacatonMax.University.Events.Application.Commands.GetUniversityEventTags;
+using HacatonMax.University.Events.Application.Commands.SearchUniversityEvents;
 using HacatonMax.University.Events.Application.Commands.UpdateUniversityEvent;
 using HacatonMax.University.Events.Controllers.Dto;
 using Microsoft.AspNetCore.Authorization;
@@ -55,5 +56,12 @@ public class UniversityEventsController(IMediator mediator)
     public Task<List<TagDto>> GetTagsUniversityEvent()
     {
         return mediator.Send(new GetUniversityEventTagsCommand());
+    }
+
+    [HttpGet("search")]
+    [Authorize]
+    public Task<List<UniversityEventDto>> SearchUniversityEvents([FromQuery] string query)
+    {
+        return mediator.Send(new SearchUniversityEventsCommand(query));
     }
 }

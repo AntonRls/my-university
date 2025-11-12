@@ -5,6 +5,7 @@ public class UniversityEvent
     public UniversityEvent(
         string title,
         string description,
+        long creatorId,
         DateTimeOffset startDateTime,
         DateTimeOffset endDateTime,
         long? participantsLimit,
@@ -12,6 +13,7 @@ public class UniversityEvent
     {
         Title = title;
         Description = description;
+        CreatorId = creatorId;
         StartDateTime = startDateTime;
         EndDateTime = endDateTime;
         ParticipantsLimit = participantsLimit;
@@ -20,9 +22,11 @@ public class UniversityEvent
 
     public long Id { get; private set; }
 
-    public string Title { get; private set; }
+    public string Title { get; private set; } = null!;
 
-    public string Description { get; private set; }
+    public string Description { get; private set; } = null!;
+
+    public long CreatorId { get; private set; }
 
     public DateTimeOffset StartDateTime { get; private set; }
 
@@ -30,7 +34,7 @@ public class UniversityEvent
 
     public long? ParticipantsLimit { get; private set; }
 
-    public List<Tag> Tags { get; private set; }
+    public List<Tag> Tags { get; private set; } = new();
 
     public void Update(
         string title,
@@ -50,5 +54,6 @@ public class UniversityEvent
 
     private UniversityEvent()
     {
+        Tags = new List<Tag>();
     }
 }

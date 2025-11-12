@@ -30,9 +30,9 @@ public class UniversityBooksController(IMediator mediator)
     }
 
     [HttpGet]
-    public Task<List<BookDto>> GetBooks([FromQuery] GetBooksCommand command)
+    public Task<List<BookDto>> GetBooks([FromQuery(Name = "Tags")] List<Guid>? tags = null)
     {
-        return mediator.Send(command);
+        return mediator.Send(new GetBooksCommand(tags));
     }
 
     [HttpGet("{id:long}")]

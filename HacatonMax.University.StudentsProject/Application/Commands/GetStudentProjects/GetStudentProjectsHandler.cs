@@ -1,4 +1,5 @@
 using HacatonMax.University.Events.Domain;
+using HacatonMax.University.StudentsProject.Application.Mappers;
 using HacatonMax.University.StudentsProject.Controllers.Dto;
 using HacatonMax.University.StudentsProject.Domain;
 using TimeWarp.Mediator;
@@ -36,10 +37,6 @@ public class GetStudentProjectsHandler : IRequestHandler<GetStudentProjectsComma
 
         return projects.Select(project =>
             {
-                var skills = project.NeedSkills
-                    .Select(skill => new SkillDto(skill.Id, skill.Name))
-                    .ToList();
-
                 StudentProjectEventDto? eventDto = null;
                 if (project.EventId.HasValue &&
                     eventsById.TryGetValue(project.EventId.Value, out var eventEntity))
@@ -51,7 +48,7 @@ public class GetStudentProjectsHandler : IRequestHandler<GetStudentProjectsComma
                         eventEntity.EndDateTime);
                 }
 
-                return new StudentProjectsDto(project.Id, project.Title, project.Description, skills, eventDto);
+                return StudentProjectDtoMapper.ToDto(project, eventDto);
             })
             .ToList();
     }

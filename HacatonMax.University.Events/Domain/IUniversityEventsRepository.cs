@@ -6,6 +6,8 @@ public interface IUniversityEventsRepository
 
     Task<List<UniversityEvent>> Get(List<Guid>? tags);
 
+    Task<List<UniversityEvent>> Search(string query);
+
     Task<List<Tag>> GetTags();
 
     Task<List<Tag>> GetExistsTags(List<Guid> tagIds);

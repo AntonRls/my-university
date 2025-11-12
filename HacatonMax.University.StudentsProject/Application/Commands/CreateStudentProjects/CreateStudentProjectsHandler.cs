@@ -1,7 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using HacatonMax.Common.Exceptions;
+using HacatonMax.University.Auth.Domain;
 using HacatonMax.University.Events.Domain;
 using HacatonMax.University.StudentsProject.Controllers.Dto;
 using HacatonMax.University.StudentsProject.Domain;
+using HacatonMax.University.StudentsProject.Application.Mappers;
 using TimeWarp.Mediator;
 
 namespace HacatonMax.University.StudentsProject.Application.Commands.CreateStudentProjects;
@@ -10,13 +15,16 @@ public class CreateStudentProjectsHandler : IRequestHandler<CreateStudentProject
 {
     private readonly IStudentProjectsRepository _studentProjectsRepository;
     private readonly IUniversityEventsRepository _universityEventsRepository;
+    private readonly IUserContextService _userContextService;
 
     public CreateStudentProjectsHandler(
         IStudentProjectsRepository studentProjectsRepository,
-        IUniversityEventsRepository universityEventsRepository)
+        IUniversityEventsRepository universityEventsRepository,
+        IUserContextService userContextService)
     {
         _studentProjectsRepository = studentProjectsRepository;
         _universityEventsRepository = universityEventsRepository;
+        _userContextService = userContextService;
     }
 
     public async Task<StudentProjectsDto> Handle(CreateStudentProjectsCommand request, CancellationToken cancellationToken)
@@ -32,25 +40,38 @@ public class CreateStudentProjectsHandler : IRequestHandler<CreateStudentProject
             }
         }
 
+        var currentUser = _userContextService.GetCurrentUser();
+
         var studentProject = new StudentProject(
             Guid.NewGuid(),
             request.Title,
             request.Description,
+            currentUser.Id,
             request.NeedSkills.Select(x => new Skill(x.Id, x.Name)).ToList(),
             request.EventId);
 
-        await _studentProjectsRepository.Save(studentProject);
-        return new StudentProjectsDto(
+        var creatorParticipant = new StudentProjectParticipant(
+            Guid.NewGuid(),
             studentProject.Id,
-            studentProject.Title,
-            studentProject.Description,
-            request.NeedSkills,
-            linkedEvent == null
-                ? null
-                : new StudentProjectEventDto(
-                    linkedEvent.Id,
-                    linkedEvent.Title,
-                    linkedEvent.StartDateTime,
-                    linkedEvent.EndDateTime));
+            currentUser.Id,
+            StudentProjectParticipantStatus.Approved,
+            true,
+            DateTimeOffset.UtcNow);
+        creatorParticipant.SetParticipantRoles(new List<StudentProjectParticipantRole>());
+        studentProject.AddParticipant(creatorParticipant);
+
+        await _studentProjectsRepository.Save(studentProject);
+
+        StudentProjectEventDto? eventDto = null;
+        if (linkedEvent != null)
+        {
+            eventDto = new StudentProjectEventDto(
+                linkedEvent.Id,
+                linkedEvent.Title,
+                linkedEvent.StartDateTime,
+                linkedEvent.EndDateTime);
+        }
+
+        return StudentProjectDtoMapper.ToDto(studentProject, eventDto);
     }
 }

@@ -22,15 +22,16 @@ internal sealed class BookRepository : IBookRepository
 
     public async Task<List<Book>> Get(List<Guid>? targetTags = null)
     {
-        if (targetTags == null)
+        IQueryable<Book> query = _context.Books;
+
+        if (targetTags != null && targetTags.Count > 0)
         {
-            return await _context.Books
-                .Include(x => x.Tags)
-                .ToListAsync();
+            var tagSet = targetTags.ToHashSet();
+            query = query.Where(book => book.Tags.Any(tag => tagSet.Contains(tag.Id)));
         }
 
-        return await _context.Books
-            .Where(x => x.Tags.Any(tag => targetTags.Contains(tag.Id)))
+        return await query
+            .Include(book => book.Tags)
             .ToListAsync();
     }
 

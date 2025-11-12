@@ -62,6 +62,10 @@ namespace HacatonMax.University.StudentsProject.Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<long>("CreatorId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("creator_id");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text")
@@ -81,6 +85,86 @@ namespace HacatonMax.University.StudentsProject.Infrastructure.Migrations
                     b.ToTable("student_projects", "students-projects");
                 });
 
+            modelBuilder.Entity("HacatonMax.University.StudentsProject.Domain.StudentProjectParticipant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<bool>("IsCreator")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_creator");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
+
+                    b.Property<Guid>("StudentProjectId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("student_project_id");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentProjectId", "UserId")
+                        .IsUnique();
+
+                    b.ToTable("student_project_participants", "students-projects");
+                });
+
+            modelBuilder.Entity("HacatonMax.University.StudentsProject.Domain.StudentProjectParticipantRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("ParticipantId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("participant_id");
+
+                    b.Property<Guid>("TeamRoleId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("team_role_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamRoleId");
+
+                    b.HasIndex("ParticipantId", "TeamRoleId")
+                        .IsUnique();
+
+                    b.ToTable("student_project_participant_roles", "students-projects");
+                });
+
+            modelBuilder.Entity("HacatonMax.University.StudentsProject.Domain.TeamRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("team_roles", "students-projects");
+                });
+
             modelBuilder.Entity("HacatonMax.University.StudentsProject.Domain.SkillStudentProject", b =>
                 {
                     b.HasOne("HacatonMax.University.StudentsProject.Domain.Skill", "Skill")
@@ -98,6 +182,46 @@ namespace HacatonMax.University.StudentsProject.Infrastructure.Migrations
                     b.Navigation("Skill");
 
                     b.Navigation("StudentProject");
+                });
+
+            modelBuilder.Entity("HacatonMax.University.StudentsProject.Domain.StudentProjectParticipant", b =>
+                {
+                    b.HasOne("HacatonMax.University.StudentsProject.Domain.StudentProject", "StudentProject")
+                        .WithMany("Participants")
+                        .HasForeignKey("StudentProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StudentProject");
+                });
+
+            modelBuilder.Entity("HacatonMax.University.StudentsProject.Domain.StudentProjectParticipantRole", b =>
+                {
+                    b.HasOne("HacatonMax.University.StudentsProject.Domain.StudentProjectParticipant", "Participant")
+                        .WithMany("ParticipantRoles")
+                        .HasForeignKey("ParticipantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HacatonMax.University.StudentsProject.Domain.TeamRole", "TeamRole")
+                        .WithMany()
+                        .HasForeignKey("TeamRoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Participant");
+
+                    b.Navigation("TeamRole");
+                });
+
+            modelBuilder.Entity("HacatonMax.University.StudentsProject.Domain.StudentProject", b =>
+                {
+                    b.Navigation("Participants");
+                });
+
+            modelBuilder.Entity("HacatonMax.University.StudentsProject.Domain.StudentProjectParticipant", b =>
+                {
+                    b.Navigation("ParticipantRoles");
                 });
 #pragma warning restore 612, 618
         }

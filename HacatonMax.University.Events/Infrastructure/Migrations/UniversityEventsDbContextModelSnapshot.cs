@@ -54,6 +54,10 @@ namespace HacatonMax.University.Events.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("description");
 
+                    b.Property<long>("CreatorId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("creator_id");
+
                     b.Property<DateTimeOffset>("EndDateTime")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("end_datetime");

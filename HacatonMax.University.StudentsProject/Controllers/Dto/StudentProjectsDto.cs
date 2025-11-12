@@ -4,5 +4,7 @@ public record StudentProjectsDto(
     Guid Id,
     string Title,
     string Description,
+    long CreatorId,
     List<SkillDto> NeedSkills,
-    StudentProjectEventDto? Event = null);
+    StudentProjectEventDto? Event,
+    List<StudentProjectParticipantDto> Participants);
