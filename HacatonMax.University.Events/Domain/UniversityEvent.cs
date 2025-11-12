@@ -32,6 +32,22 @@ public class UniversityEvent
 
     public List<Tag> Tags { get; private set; }
 
+    public void Update(
+        string title,
+        string description,
+        DateTimeOffset startDateTime,
+        DateTimeOffset endDateTime,
+        long? participantsLimit,
+        List<Tag> tags)
+    {
+        Title = title;
+        Description = description;
+        StartDateTime = startDateTime;
+        EndDateTime = endDateTime;
+        ParticipantsLimit = participantsLimit;
+        Tags = tags;
+    }
+
     private UniversityEvent()
     {
     }

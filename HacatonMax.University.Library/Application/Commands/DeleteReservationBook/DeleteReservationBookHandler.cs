@@ -11,18 +11,18 @@ public class DeleteReservationBookHandler : IRequestHandler<DeleteReservationBoo
     private readonly IBookRepository _bookRepository;
     private readonly IUserContextService _userContextService;
     private readonly IJobsProvider _jobsProvider;
-    private readonly IBookSearchService _bookSearchService;
+    private readonly IBookIndexingPublisher _bookIndexingPublisher;
 
     public DeleteReservationBookHandler(
         IBookRepository bookRepository,
         IUserContextService userContextService,
         IJobsProvider jobsProvider,
-        IBookSearchService bookSearchService)
+        IBookIndexingPublisher bookIndexingPublisher)
     {
         _bookRepository = bookRepository;
         _userContextService = userContextService;
         _jobsProvider = jobsProvider;
-        _bookSearchService = bookSearchService;
+        _bookIndexingPublisher = bookIndexingPublisher;
     }
 
     public async Task Handle(DeleteReservationBookCommand request, CancellationToken cancellationToken)
@@ -47,7 +47,7 @@ public class DeleteReservationBookHandler : IRequestHandler<DeleteReservationBoo
 
         await _bookRepository.DeleteReservation(request.BookId, user.Id);
         await _bookRepository.SaveChanges();
-        await _bookSearchService.Index(book);
+        await _bookIndexingPublisher.PublishIndex(book.Id, cancellationToken);
 
         var command =
             new SendNotificationEstimatedReservationTimeBookCommand(user.Id,

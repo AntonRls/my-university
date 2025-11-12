@@ -132,4 +132,10 @@ internal sealed class BookRepository : IBookRepository
             .Select(x => x.Book)
             .ToListAsync();
     }
+
+    public async Task DeleteBook(Book book)
+    {
+        _context.Books.Remove(book);
+        await _context.SaveChangesAsync();
+    }
 }

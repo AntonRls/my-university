@@ -62,7 +62,7 @@ internal sealed class BookSearchService : IBookSearchService
         }
     }
 
-    public async Task Index(Book book)
+    public async Task<bool> Index(Book book)
     {
         var document = MapToDocument(book);
 
@@ -79,7 +79,10 @@ internal sealed class BookSearchService : IBookSearchService
                     book.Id,
                     _options.IndexName,
                     response.ElasticsearchServerError?.ToString());
+                return false;
             }
+
+            return true;
         }
         catch (Exception exception)
         {
@@ -88,6 +91,7 @@ internal sealed class BookSearchService : IBookSearchService
                 "Ошибка при индексировании книги {BookId} в индекс {IndexName}",
                 book.Id,
                 _options.IndexName);
+            return false;
         }
     }
 
@@ -121,11 +125,18 @@ internal sealed class BookSearchService : IBookSearchService
 
         foreach (var book in books)
         {
-            await Index(book);
+            var indexed = await Index(book);
+
+            if (!indexed)
+            {
+                _logger.LogWarning(
+                    "Не удалось проиндексировать книгу {BookId} во время массовой переиндексации",
+                    book.Id);
+            }
         }
     }
 
-    public async Task Remove(long bookId)
+    public async Task<bool> Remove(long bookId)
     {
         try
         {
@@ -139,7 +150,10 @@ internal sealed class BookSearchService : IBookSearchService
                     bookId,
                     _options.IndexName,
                     response.ElasticsearchServerError?.ToString());
+                return false;
             }
+
+            return true;
         }
         catch (Exception exception)
         {
@@ -148,6 +162,7 @@ internal sealed class BookSearchService : IBookSearchService
                 "Ошибка при удалении книги {BookId} из индекса {IndexName}",
                 bookId,
                 _options.IndexName);
+            return false;
         }
     }
 

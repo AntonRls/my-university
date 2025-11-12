@@ -15,4 +15,9 @@
       <PackageReference Include="TimeWarp.Mediator" Version="13.0.0" />
     </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HacatonMax.Common\HacatonMax.Common.csproj" />
+    <ProjectReference Include="..\HacatonMax.University.Events\HacatonMax.University.Events.csproj" />
+  </ItemGroup>
+
 </Project>

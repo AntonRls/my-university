@@ -19,6 +19,8 @@ public class StudentProjectConfiguration : IEntityTypeConfiguration<StudentProje
             .HasColumnName("title");
         builder.Property(x => x.Description)
             .HasColumnName("description");
+        builder.Property(x => x.EventId)
+            .HasColumnName("event_id");
 
         builder
             .HasMany(s => s.NeedSkills)

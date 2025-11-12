@@ -12,21 +12,35 @@ internal class StudentProjectRepository : IStudentProjectsRepository
         _context = context;
     }
 
-    public async Task<IReadOnlyCollection<StudentProject>> GetProjectsByFilter(List<Guid>? needSkillIds = null)
+    public async Task<IReadOnlyCollection<StudentProject>> GetProjectsByFilter(
+        List<Guid>? needSkillIds = null,
+        long? eventId = null)
     {
-        if (needSkillIds == null)
+        IQueryable<StudentProject> query = _context.StudentProjects;
+
+        if (eventId.HasValue)
         {
-            return await _context.StudentProjects.Include(x => x.NeedSkills).AsNoTracking().ToListAsync();
+            query = query.Where(x => x.EventId == eventId.Value);
         }
 
-        var projectIds = await _context.SkillStudentProjectDictionary
-            .Where(x => needSkillIds.Contains(x.SkillId))
-            .AsNoTracking()
-            .Select(x => x.StudentProjectId)
-            .ToListAsync();
+        if (needSkillIds is { Count: > 0 })
+        {
+            var projectIds = await _context.SkillStudentProjectDictionary
+                .Where(x => needSkillIds.Contains(x.SkillId))
+                .AsNoTracking()
+                .Select(x => x.StudentProjectId)
+                .Distinct()
+                .ToListAsync();
 
-        return await _context.StudentProjects
-            .Where(x => projectIds.Contains(x.Id))
+            if (projectIds.Count == 0)
+            {
+                return Array.Empty<StudentProject>();
+            }
+
+            query = query.Where(x => projectIds.Contains(x.Id));
+        }
+
+        return await query
             .Include(x => x.NeedSkills)
             .AsNoTracking()
             .ToListAsync();

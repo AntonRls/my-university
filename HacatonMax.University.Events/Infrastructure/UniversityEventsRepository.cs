@@ -50,4 +50,35 @@ internal sealed class UniversityEventsRepository : IUniversityEventsRepository
         await _context.Tags.AddRangeAsync(tags);
         await _context.SaveChangesAsync();
     }
+
+    public Task<UniversityEvent?> GetById(long eventId)
+    {
+        return _context.UniversityEvents
+            .Include(x => x.Tags)
+            .FirstOrDefaultAsync(x => x.Id == eventId);
+    }
+
+    public async Task<List<UniversityEvent>> GetByIds(List<long> eventIds)
+    {
+        if (eventIds.Count == 0)
+        {
+            return new List<UniversityEvent>();
+        }
+
+        return await _context.UniversityEvents
+            .Where(x => eventIds.Contains(x.Id))
+            .Include(x => x.Tags)
+            .ToListAsync();
+    }
+
+    public async Task Delete(UniversityEvent universityEvent)
+    {
+        _context.UniversityEvents.Remove(universityEvent);
+        await _context.SaveChangesAsync();
+    }
+
+    public Task SaveChanges()
+    {
+        return _context.SaveChangesAsync();
+    }
 }

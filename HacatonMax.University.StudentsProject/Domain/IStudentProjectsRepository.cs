@@ -5,7 +5,9 @@ public interface IStudentProjectsRepository
     /// <summary>
     /// Возвращает все проекты студентов или только те, у которых есть указанные скиллы
     /// </summary>
-    Task<IReadOnlyCollection<StudentProject>> GetProjectsByFilter(List<Guid>? needSkillIds = null);
+    Task<IReadOnlyCollection<StudentProject>> GetProjectsByFilter(
+        List<Guid>? needSkillIds = null,
+        long? eventId = null);
 
     /// <summary>
     /// Сохранить проект

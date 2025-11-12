@@ -1,4 +1,5 @@
 using HacatonMax.University.Library.Application.Commands.CreateBook;
+using HacatonMax.University.Library.Application.Commands.DeleteBook;
 using HacatonMax.University.Library.Application.Commands.GetBookById;
 using HacatonMax.University.Library.Application.Commands.GetBooks;
 using HacatonMax.University.Library.Application.Commands.GetFavoriteBooks;
@@ -20,6 +21,12 @@ public class UniversityBooksController(IMediator mediator)
     public Task CreateBook(CreateBookCommand command)
     {
         return mediator.Send(command);
+    }
+
+    [HttpDelete("{id:long}")]
+    public Task DeleteBook([FromRoute] long id)
+    {
+        return mediator.Send(new DeleteBookCommand(id));
     }
 
     [HttpGet]

@@ -11,4 +11,12 @@ public interface IUniversityEventsRepository
     Task<List<Tag>> GetExistsTags(List<Guid> tagIds);
 
     Task SaveTags(List<Tag> tags);
+
+    Task<UniversityEvent?> GetById(long eventId);
+
+    Task<List<UniversityEvent>> GetByIds(List<long> eventIds);
+
+    Task Delete(UniversityEvent universityEvent);
+
+    Task SaveChanges();
 }
