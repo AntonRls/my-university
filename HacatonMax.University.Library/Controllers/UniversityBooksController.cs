@@ -4,8 +4,9 @@ using HacatonMax.University.Library.Application.Commands.GetBooks;
 using HacatonMax.University.Library.Application.Commands.GetFavoriteBooks;
 using HacatonMax.University.Library.Application.Commands.GetTags;
 using HacatonMax.University.Library.Application.Commands.InvertFavoriteStatusBook;
+using HacatonMax.University.Library.Application.Commands.SearchBooks;
 using HacatonMax.University.Library.Controllers.Dto;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TimeWarp.Mediator;
 
@@ -52,5 +53,19 @@ public class UniversityBooksController(IMediator mediator)
     public Task<List<TagDto>> GetTags()
     {
         return mediator.Send(new GetTagsCommand());
+    }
+
+    /// <summary>
+    /// Полнотекстовый поиск по книгам (название, описание, автор, теги)
+    /// </summary>
+    [HttpPost("search")]
+    [ProducesResponseType(typeof(SearchBooksResponseDto), StatusCodes.Status200OK)]
+    public Task<SearchBooksResponseDto> SearchBooks([FromBody] SearchBooksRequestDto request)
+    {
+        return mediator.Send(new SearchBooksCommand(
+            request.Query,
+            request.Tags,
+            request.Page,
+            request.PageSize));
     }
 }

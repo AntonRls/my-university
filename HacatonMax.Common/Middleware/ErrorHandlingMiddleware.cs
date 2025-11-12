@@ -31,9 +31,10 @@ public class ErrorHandlingMiddleware
     {
         var statusCode = ex switch
         {
-            BadRequestException     => HttpStatusCode.BadRequest,
-            NotFoundException   => HttpStatusCode.NotFound,
-            _                   => HttpStatusCode.InternalServerError
+            BadRequestException => HttpStatusCode.BadRequest,
+            NotFoundException => HttpStatusCode.NotFound,
+            ServiceUnavailableException => HttpStatusCode.ServiceUnavailable,
+            _ => HttpStatusCode.InternalServerError
         };
 
         var response = new
