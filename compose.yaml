@@ -24,7 +24,7 @@
     ports:
       - "5001:5001"
     depends_on:
-      - db.university
+      - db.admin
 
   db.university:
     image: postgres:16
