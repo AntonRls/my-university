@@ -1,6 +1,8 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using HacatonMax.Bot.MaxProvider;
 using HacatonMax.Common.HangfireProvider;
+using HacatonMax.University.Admin.Infrastructure;
 using HacatonMax.University.Auth;
 using HacatonMax.University.Events.Infrastructure;
 using HacatonMax.University.Library.Infrastructure;
@@ -26,6 +28,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
     options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.SnakeCaseLower;
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -40,10 +43,13 @@ builder.Services.AddSwaggerGen(c =>
     });
 
     var libraryDocx = Path.Combine(AppContext.BaseDirectory, $"{typeof(HacatonMax.University.Library.Controllers.UniversityBooksController).Assembly.GetName().Name}.xml");
+    var adminDocx = Path.Combine(AppContext.BaseDirectory, $"{typeof(HacatonMax.University.Admin.Controllers.AdminController).Assembly.GetName().Name}.xml");
 
     c.IncludeXmlComments(libraryDocx, includeControllerXmlComments: true);
+    c.IncludeXmlComments(adminDocx, includeControllerXmlComments: true);
 });
 builder.Services
+    .AddUniversityAdmin(builder.Configuration)
     .AddAuthModule(builder.Configuration)
     .AddUniversityStudentProjectsModule(builder.Configuration)
     .AddUniversityEventsModule(builder.Configuration)
@@ -70,8 +76,11 @@ using (var scope = app.Services.CreateScope())
     var eventsDb = services.GetRequiredService<UniversityEventsDbContext>();
     eventsDb.Database.Migrate();
 
-    var studentsDb = services.GetRequiredService<StudentProjectsDbContext>();
-    studentsDb.Database.Migrate();
+    var studentProjectsDb = services.GetRequiredService<StudentProjectsDbContext>();
+    studentProjectsDb.Database.Migrate();
+
+    var adminDb = services.GetRequiredService<AdminDbContext>();
+    adminDb.Database.Migrate();
 }
 
 app.UseHangfireDashboard();
