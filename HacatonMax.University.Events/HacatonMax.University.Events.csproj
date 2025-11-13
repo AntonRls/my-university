@@ -18,6 +18,7 @@
     <ItemGroup>
         <ProjectReference Include="..\HacatonMax.Common\HacatonMax.Common.csproj" />
         <ProjectReference Include="..\HacatonMax.University.Auth\HacatonMax.University.Auth.csproj" />
+        <ProjectReference Include="..\HacatonMax.Bot\HacatonMax.Bot.csproj" />
     </ItemGroup>
 
 </Project>

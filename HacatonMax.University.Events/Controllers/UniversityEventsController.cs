@@ -2,7 +2,9 @@ using HacatonMax.University.Events.Application.Commands.CreateUniversityEvent;
 using HacatonMax.University.Events.Application.Commands.DeleteUniversityEvent;
 using HacatonMax.University.Events.Application.Commands.GetUniversityEvents;
 using HacatonMax.University.Events.Application.Commands.GetUniversityEventTags;
+using HacatonMax.University.Events.Application.Commands.RegisterForUniversityEvent;
 using HacatonMax.University.Events.Application.Commands.SearchUniversityEvents;
+using HacatonMax.University.Events.Application.Commands.UnregisterFromUniversityEvent;
 using HacatonMax.University.Events.Application.Commands.UpdateUniversityEvent;
 using HacatonMax.University.Events.Controllers.Dto;
 using Microsoft.AspNetCore.Authorization;
@@ -31,6 +33,7 @@ public class UniversityEventsController(IMediator mediator)
             id,
             request.Title,
             request.Description,
+            request.Location,
             request.ParticipantsLimit,
             request.StartDateTime,
             request.EndDateTime,
@@ -63,5 +66,19 @@ public class UniversityEventsController(IMediator mediator)
     public Task<List<UniversityEventDto>> SearchUniversityEvents([FromQuery] string query)
     {
         return mediator.Send(new SearchUniversityEventsCommand(query));
+    }
+
+    [HttpPost("{id:long}/registrations")]
+    [Authorize]
+    public Task<UniversityEventDto> RegisterForUniversityEvent([FromRoute] long id)
+    {
+        return mediator.Send(new RegisterForUniversityEventCommand(id));
+    }
+
+    [HttpDelete("{id:long}/registrations")]
+    [Authorize]
+    public Task<UniversityEventDto> UnregisterFromUniversityEvent([FromRoute] long id)
+    {
+        return mediator.Send(new UnregisterFromUniversityEventCommand(id));
     }
 }

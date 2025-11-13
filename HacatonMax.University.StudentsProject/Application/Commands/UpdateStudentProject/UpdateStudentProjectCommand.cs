@@ -9,6 +9,6 @@ public record UpdateStudentProjectCommand(
     Guid ProjectId,
     string Title,
     string Description,
-    List<SkillDto> NeedSkills,
-    long? EventId) : IRequest<StudentProjectsDto>;
+    List<SkillDto>? NeedSkills = null,
+    long? EventId = null) : IRequest<StudentProjectsDto>;
 

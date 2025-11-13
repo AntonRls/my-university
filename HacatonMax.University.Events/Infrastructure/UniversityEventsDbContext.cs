@@ -17,11 +17,14 @@ public sealed class UniversityEventsDbContext : DbContext
 
     public DbSet<UniversityEvent> UniversityEvents { get; set; }
 
+    public DbSet<UniversityEventRegistration> UniversityEventRegistrations { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(Schema);
 
         modelBuilder.ApplyConfiguration(new TagConfiguration());
         modelBuilder.ApplyConfiguration(new UniversityEventsConfiguration());
+        modelBuilder.ApplyConfiguration(new UniversityEventRegistrationConfiguration());
     }
 }

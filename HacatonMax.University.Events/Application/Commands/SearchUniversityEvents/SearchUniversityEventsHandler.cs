@@ -1,4 +1,6 @@
 using HacatonMax.Common.Exceptions;
+using HacatonMax.University.Auth.Domain;
+using HacatonMax.University.Events.Application.Common;
 using HacatonMax.University.Events.Controllers.Dto;
 using HacatonMax.University.Events.Domain;
 using TimeWarp.Mediator;
@@ -8,10 +10,14 @@ namespace HacatonMax.University.Events.Application.Commands.SearchUniversityEven
 public sealed class SearchUniversityEventsHandler : IRequestHandler<SearchUniversityEventsCommand, List<UniversityEventDto>>
 {
     private readonly IUniversityEventsRepository _universityEventsRepository;
+    private readonly IUserContextService _userContextService;
 
-    public SearchUniversityEventsHandler(IUniversityEventsRepository universityEventsRepository)
+    public SearchUniversityEventsHandler(
+        IUniversityEventsRepository universityEventsRepository,
+        IUserContextService userContextService)
     {
         _universityEventsRepository = universityEventsRepository;
+        _userContextService = userContextService;
     }
 
     public async Task<List<UniversityEventDto>> Handle(SearchUniversityEventsCommand request, CancellationToken cancellationToken)
@@ -24,18 +30,9 @@ public sealed class SearchUniversityEventsHandler : IRequestHandler<SearchUniver
         }
 
         var universityEvents = await _universityEventsRepository.Search(query);
+        var currentUser = _userContextService.GetCurrentUser();
 
-        return universityEvents
-            .Select(x => new UniversityEventDto(
-                x.Id,
-                x.Title,
-                x.Description,
-                x.CreatorId,
-                x.StartDateTime,
-                x.EndDateTime,
-                x.ParticipantsLimit,
-                x.Tags.Select(tag => new TagDto(tag.Id, tag.Name)).ToList()))
-            .ToList();
+        return UniversityEventMapper.ToDtoList(universityEvents, currentUser.Id);
     }
 }
 

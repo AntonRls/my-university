@@ -1,5 +1,6 @@
 using System.Linq;
 using HacatonMax.Common.Exceptions;
+using HacatonMax.University.Events.Application.Services;
 using HacatonMax.University.Events.Controllers.Dto;
 using HacatonMax.University.Events.Domain;
 using TimeWarp.Mediator;
@@ -9,10 +10,14 @@ namespace HacatonMax.University.Events.Application.Commands.UpdateUniversityEven
 public sealed class UpdateUniversityEventHandler : IRequestHandler<UpdateUniversityEventCommand>
 {
     private readonly IUniversityEventsRepository _universityEventsRepository;
+    private readonly IUniversityEventReminderScheduler _reminderScheduler;
 
-    public UpdateUniversityEventHandler(IUniversityEventsRepository universityEventsRepository)
+    public UpdateUniversityEventHandler(
+        IUniversityEventsRepository universityEventsRepository,
+        IUniversityEventReminderScheduler reminderScheduler)
     {
         _universityEventsRepository = universityEventsRepository;
+        _reminderScheduler = reminderScheduler;
     }
 
     public async Task Handle(UpdateUniversityEventCommand request, CancellationToken cancellationToken)
@@ -29,12 +34,14 @@ public sealed class UpdateUniversityEventHandler : IRequestHandler<UpdateUnivers
         universityEvent.Update(
             request.Title,
             request.Description,
+            request.Location,
             request.StartDateTime,
             request.EndDateTime,
             request.ParticipantsLimit,
             tags);
 
         await _universityEventsRepository.SaveChanges();
+        await _reminderScheduler.RescheduleForEvent(universityEvent, universityEvent.Registrations, cancellationToken);
     }
 
     private async Task<List<Tag>> ResolveTags(List<TagDto> requestTags)

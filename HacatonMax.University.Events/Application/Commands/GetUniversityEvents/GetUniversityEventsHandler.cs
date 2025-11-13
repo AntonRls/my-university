@@ -1,3 +1,5 @@
+using HacatonMax.University.Auth.Domain;
+using HacatonMax.University.Events.Application.Common;
 using HacatonMax.University.Events.Controllers.Dto;
 using HacatonMax.University.Events.Domain;
 using TimeWarp.Mediator;
@@ -7,25 +9,21 @@ namespace HacatonMax.University.Events.Application.Commands.GetUniversityEvents;
 public class GetUniversityEventsHandler : IRequestHandler<GetUniversityEventsCommand, List<UniversityEventDto>>
 {
     private readonly IUniversityEventsRepository _universityEventsRepository;
+    private readonly IUserContextService _userContextService;
 
-    public GetUniversityEventsHandler(IUniversityEventsRepository  universityEventsRepository)
+    public GetUniversityEventsHandler(
+        IUniversityEventsRepository universityEventsRepository,
+        IUserContextService userContextService)
     {
         _universityEventsRepository = universityEventsRepository;
+        _userContextService = userContextService;
     }
 
     public async Task<List<UniversityEventDto>> Handle(GetUniversityEventsCommand request, CancellationToken cancellationToken)
     {
         var universityEvents = await _universityEventsRepository.Get(request.TagIds);
+        var currentUser = _userContextService.GetCurrentUser();
 
-        return universityEvents.Select(x => new UniversityEventDto(
-            x.Id,
-            x.Title,
-            x.Description,
-            x.CreatorId,
-            x.StartDateTime,
-            x.EndDateTime,
-            x.ParticipantsLimit,
-            x.Tags.Select(tag => new TagDto(tag.Id, tag.Name)).ToList()))
-            .ToList();
+        return UniversityEventMapper.ToDtoList(universityEvents, currentUser.Id);
     }
 }
