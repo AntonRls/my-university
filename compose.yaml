@@ -12,8 +12,12 @@
     ports:
       - "8080:8080"
     depends_on:
-      - db.university
-      - rabbitmq
+      db.university:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
   hacatonmax.admin:
     image: hacatonmax.admin
     build:
