@@ -10,7 +10,7 @@
       "Elasticsearch__Uri": "http://elasticsearch:9200"
       "RabbitMq__Uri": "amqp://guest:guest@rabbitmq:5672/"
     ports:
-      - "8080:8080"
+      - "5099:5099"
     depends_on:
       db.university:
         condition: service_started

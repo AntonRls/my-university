@@ -66,7 +66,6 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.MapControllers();
 
-// Автоматическое применение миграций при старте
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
