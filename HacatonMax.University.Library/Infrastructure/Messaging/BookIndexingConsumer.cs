@@ -34,49 +34,91 @@ internal sealed class BookIndexingConsumer : BackgroundService
         _logger = logger;
     }
 
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _stoppingToken = stoppingToken;
-        _channel = _connection.CreateModel();
 
-        _channel.QueueDeclare(
-            queue: _options.IndexingQueueName,
-            durable: true,
-            exclusive: false,
-            autoDelete: false,
-            arguments: null);
-
-        _channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
-
-        var consumer = new AsyncEventingBasicConsumer(_channel);
-        consumer.Received += HandleMessageAsync;
-
-        _channel.BasicConsume(
-            queue: _options.IndexingQueueName,
-            autoAck: false,
-            consumer: consumer);
-
-        var completionSource = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-
-        stoppingToken.Register(() =>
+        while (!stoppingToken.IsCancellationRequested)
         {
             try
             {
-                _channel?.Close();
-                _channel?.Dispose();
+                if (!_connection.IsOpen)
+                {
+                    _logger.LogWarning("Подключение к RabbitMQ закрыто. Ожидание восстановления...");
+                    await Task.Delay(RetryDelay, stoppingToken);
+                    continue;
+                }
+
+                _channel = _connection.CreateModel();
+
+                _channel.QueueDeclare(
+                    queue: _options.IndexingQueueName,
+                    durable: true,
+                    exclusive: false,
+                    autoDelete: false,
+                    arguments: null);
+
+                _channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+
+                var consumer = new AsyncEventingBasicConsumer(_channel);
+                consumer.Received += HandleMessageAsync;
+
+                _channel.BasicConsume(
+                    queue: _options.IndexingQueueName,
+                    autoAck: false,
+                    consumer: consumer);
+
+                _logger.LogInformation("Потребитель очереди {QueueName} запущен", _options.IndexingQueueName);
+
+                var completionSource = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+
+                stoppingToken.Register(() =>
+                {
+                    try
+                    {
+                        _channel?.Close();
+                        _channel?.Dispose();
+                    }
+                    catch (Exception exception)
+                    {
+                        _logger.LogWarning(
+                            exception,
+                            "Ошибка при остановке потребителя очереди {QueueName}",
+                            _options.IndexingQueueName);
+                    }
+
+                    completionSource.TrySetResult();
+                });
+
+                await completionSource.Task;
+                break;
             }
             catch (Exception exception)
             {
-                _logger.LogWarning(
+                _logger.LogError(
                     exception,
-                    "Ошибка при остановке потребителя очереди {QueueName}",
-                    _options.IndexingQueueName);
+                    "Ошибка при инициализации потребителя очереди {QueueName}. Повторная попытка через {Delay} секунд",
+                    _options.IndexingQueueName,
+                    RetryDelay.TotalSeconds);
+
+                try
+                {
+                    _channel?.Close();
+                    _channel?.Dispose();
+                }
+                catch
+                {
+                    // Игнорируем ошибки при закрытии канала
+                }
+
+                _channel = null;
+
+                if (!stoppingToken.IsCancellationRequested)
+                {
+                    await Task.Delay(RetryDelay, stoppingToken);
+                }
             }
-
-            completionSource.TrySetResult();
-        });
-
-        return completionSource.Task;
+        }
     }
 
     private async Task HandleMessageAsync(object sender, BasicDeliverEventArgs eventArgs)
