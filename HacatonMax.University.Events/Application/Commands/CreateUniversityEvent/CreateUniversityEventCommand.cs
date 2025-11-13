@@ -6,6 +6,7 @@ namespace HacatonMax.University.Events.Application.Commands.CreateUniversityEven
 public record CreateUniversityEventCommand(
     string Title,
     string Description,
+    string Location,
     long? ParticipantsLimit,
     DateTimeOffset StartDateTime,
     DateTimeOffset EndDateTime,

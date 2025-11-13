@@ -21,4 +21,16 @@ public interface IUniversityEventsRepository
     Task Delete(UniversityEvent universityEvent);
 
     Task SaveChanges();
+
+    Task<int> GetRegistrationsCount(long eventId);
+
+    Task<bool> HasUserRegistration(long eventId, long userId);
+
+    Task AddRegistration(UniversityEventRegistration registration);
+
+    Task<List<UniversityEventRegistration>> GetRegistrationsForEvent(long eventId);
+
+    Task<UniversityEventRegistration?> GetUserRegistration(long eventId, long userId);
+
+    Task RemoveRegistration(UniversityEventRegistration registration);
 }

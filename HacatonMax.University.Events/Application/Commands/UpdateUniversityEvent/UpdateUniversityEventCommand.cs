@@ -7,6 +7,7 @@ public record UpdateUniversityEventCommand(
     long EventId,
     string Title,
     string Description,
+    string Location,
     long? ParticipantsLimit,
     DateTimeOffset StartDateTime,
     DateTimeOffset EndDateTime,

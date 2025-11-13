@@ -18,6 +18,8 @@ public class UniversityEventsConfiguration : IEntityTypeConfiguration<University
             .HasColumnName("description");
         builder.Property(p => p.Title)
             .HasColumnName("title");
+        builder.Property(p => p.Location)
+            .HasColumnName("location");
         builder.Property(p => p.EndDateTime)
             .HasColumnName("end_datetime");
         builder.Property(p => p.StartDateTime)
@@ -34,5 +36,11 @@ public class UniversityEventsConfiguration : IEntityTypeConfiguration<University
                 j => j.HasOne<UniversityEvent>().WithMany().HasForeignKey("university_event_id"),
                 j => j.HasKey("university_event_id", "tag_id")
             );
+
+        builder
+            .HasMany(e => e.Registrations)
+            .WithOne(r => r.UniversityEvent)
+            .HasForeignKey(r => r.UniversityEventId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

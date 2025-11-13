@@ -36,6 +36,7 @@ public class CreateUniversityEventHandler : IRequestHandler<CreateUniversityEven
         var universityEvent = new UniversityEvent(
             request.Title,
             request.Description,
+            request.Location,
             currentUser.Id,
             request.StartDateTime,
             request.EndDateTime,

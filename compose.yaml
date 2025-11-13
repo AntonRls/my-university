@@ -6,7 +6,7 @@
       dockerfile: HacatonMax.WebHost/Dockerfile
     environment:
       "ConnectionStrings__Postgres": "User ID=postgres;Password=password;Host=db.university;Port=5434;Database=my-university"
-      "MaxBot__AccessToken": ""
+      "MaxBot__AccessToken": "f9LHodD0cOJ3pmCMRlaFaRrpZb2vaZgnvlS3ZNqaUWEFIVjfdyA_iRrxSvH4JhwaXXUUtNgU8Zpz-esdTXOB"
       "Elasticsearch__Uri": "http://elasticsearch:9200"
       "RabbitMq__Uri": "amqp://guest:guest@rabbitmq:5672/"
     ports:

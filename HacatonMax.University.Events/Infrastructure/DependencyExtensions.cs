@@ -1,4 +1,5 @@
 using HacatonMax.University.Events.Application.Commands.CreateUniversityEvent;
+using HacatonMax.University.Events.Application.Services;
 using HacatonMax.University.Events.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +18,7 @@ public static class DependencyExtensions
             options.UseNpgsql(configuration.GetConnectionString("Postgres"));
         });
         services.AddScoped<IUniversityEventsRepository, UniversityEventsRepository>();
+        services.AddScoped<IUniversityEventReminderScheduler, UniversityEventReminderScheduler>();
         services.AddMediator(cfg =>
         {
             cfg.RegisterServicesFromAssembly(typeof(CreateUniversityEventCommand).Assembly);

@@ -1,3 +1,4 @@
+using System.Linq;
 using HacatonMax.University.Events.Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,15 +23,17 @@ internal sealed class UniversityEventsRepository : IUniversityEventsRepository
     {
         // TODO: Сюда еще добавить проверку на isFavorite
 
-        if (tags == null)
+        IQueryable<UniversityEvent> query = _context.UniversityEvents
+            .Include(x => x.Tags)
+            .Include(x => x.Registrations)
+            .AsSplitQuery();
+
+        if (tags != null)
         {
-            return await _context.UniversityEvents.Include(x => x.Tags).ToListAsync();
+            query = query.Where(x => x.Tags.Any(t => tags.Contains(t.Id)));
         }
 
-        return await _context.UniversityEvents
-            .Where(x => x.Tags.Any(t => tags.Contains(t.Id)))
-            .Include(x => x.Tags)
-            .ToListAsync();
+        return await query.ToListAsync();
     }
 
     public Task<List<Tag>> GetTags()
@@ -52,6 +55,8 @@ internal sealed class UniversityEventsRepository : IUniversityEventsRepository
         return _context.UniversityEvents
             .Where(x => EF.Functions.ILike(x.Title, pattern) || EF.Functions.ILike(x.Description, pattern))
             .Include(x => x.Tags)
+            .Include(x => x.Registrations)
+            .AsSplitQuery()
             .ToListAsync();
     }
 
@@ -65,6 +70,8 @@ internal sealed class UniversityEventsRepository : IUniversityEventsRepository
     {
         return _context.UniversityEvents
             .Include(x => x.Tags)
+            .Include(x => x.Registrations)
+            .AsSplitQuery()
             .FirstOrDefaultAsync(x => x.Id == eventId);
     }
 
@@ -78,6 +85,8 @@ internal sealed class UniversityEventsRepository : IUniversityEventsRepository
         return await _context.UniversityEvents
             .Where(x => eventIds.Contains(x.Id))
             .Include(x => x.Tags)
+            .Include(x => x.Registrations)
+            .AsSplitQuery()
             .ToListAsync();
     }
 
@@ -90,5 +99,43 @@ internal sealed class UniversityEventsRepository : IUniversityEventsRepository
     public Task SaveChanges()
     {
         return _context.SaveChangesAsync();
+    }
+
+    public Task<int> GetRegistrationsCount(long eventId)
+    {
+        return _context.UniversityEventRegistrations
+            .Where(registration => registration.UniversityEventId == eventId)
+            .CountAsync();
+    }
+
+    public Task<bool> HasUserRegistration(long eventId, long userId)
+    {
+        return _context.UniversityEventRegistrations
+            .AnyAsync(registration => registration.UniversityEventId == eventId && registration.UserId == userId);
+    }
+
+    public async Task AddRegistration(UniversityEventRegistration registration)
+    {
+        await _context.UniversityEventRegistrations.AddAsync(registration);
+        await _context.SaveChangesAsync();
+    }
+
+    public Task<List<UniversityEventRegistration>> GetRegistrationsForEvent(long eventId)
+    {
+        return _context.UniversityEventRegistrations
+            .Where(registration => registration.UniversityEventId == eventId)
+            .ToListAsync();
+    }
+
+    public Task<UniversityEventRegistration?> GetUserRegistration(long eventId, long userId)
+    {
+        return _context.UniversityEventRegistrations
+            .FirstOrDefaultAsync(registration => registration.UniversityEventId == eventId && registration.UserId == userId);
+    }
+
+    public async Task RemoveRegistration(UniversityEventRegistration registration)
+    {
+        _context.UniversityEventRegistrations.Remove(registration);
+        await _context.SaveChangesAsync();
     }
 }
