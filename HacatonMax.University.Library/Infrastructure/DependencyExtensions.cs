@@ -53,35 +53,11 @@ public static class DependencyExtensions
 
             return new ElasticsearchClient(settings);
         });
+        services.AddSingleton<RabbitMqConnectionFactory>();
         services.AddSingleton<IConnection>(provider =>
         {
-            var options = provider.GetRequiredService<IOptions<RabbitMqOptions>>().Value;
-
-            if (string.IsNullOrWhiteSpace(options.Uri))
-            {
-                throw new InvalidOperationException("Не настроен адрес RabbitMQ");
-            }
-
-            var factory = new ConnectionFactory
-            {
-                Uri = new Uri(options.Uri),
-                DispatchConsumersAsync = true,
-                AutomaticRecoveryEnabled = true,
-                TopologyRecoveryEnabled = true,
-                NetworkRecoveryInterval = TimeSpan.FromSeconds(10)
-            };
-
-            if (!string.IsNullOrWhiteSpace(options.Username))
-            {
-                factory.UserName = options.Username;
-            }
-
-            if (!string.IsNullOrWhiteSpace(options.Password))
-            {
-                factory.Password = options.Password;
-            }
-
-            return factory.CreateConnection("my-university-library-indexing");
+            var connectionFactory = provider.GetRequiredService<RabbitMqConnectionFactory>();
+            return connectionFactory.CreateConnection();
         });
         services.AddScoped<IBookRepository, BookRepository>();
         services.AddSingleton<IBookSearchService, BookSearchService>();
