@@ -6,5 +6,5 @@ namespace HacatonMax.University.StudentsProject.Application.Commands.CreateStude
 public record CreateStudentProjectsCommand(
     string Title,
     string Description,
-    List<SkillDto> NeedSkills,
+    List<SkillDto>? NeedSkills = null,
     long? EventId = null) : IRequest<StudentProjectsDto>;

@@ -32,8 +32,13 @@ public class StudentProjectsController(IMediator mediator)
     [HttpPost]
     // TODO: Раскомментировать проверку авторизации после настройки получения токена
     // [Authorize]
-    public Task<StudentProjectsDto> CrateStudentProject([FromBody] CreateStudentProjectsCommand command)
+    public Task<StudentProjectsDto> CrateStudentProject([FromBody] CreateStudentProjectRequest request)
     {
+        var command = new CreateStudentProjectsCommand(
+            request.Title,
+            request.Description,
+            request.NeedSkills,
+            request.EventId);
         return mediator.Send(command);
     }
 

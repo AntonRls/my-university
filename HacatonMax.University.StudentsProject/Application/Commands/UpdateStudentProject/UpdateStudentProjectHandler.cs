@@ -54,8 +54,8 @@ public class UpdateStudentProjectHandler : IRequestHandler<UpdateStudentProjectC
         project.UpdateDetails(request.Title, request.Description);
         project.UpdateEvent(request.EventId);
 
-        var skillsDictionary = request.NeedSkills
-            .ToDictionary(skill => skill.Id, skill => skill.Name);
+        var skillsDictionary = request.NeedSkills?
+            .ToDictionary(skill => skill.Id, skill => skill.Name) ?? new Dictionary<Guid, string>();
 
         await _studentProjectsRepository.Update(project, skillsDictionary);
 

@@ -42,12 +42,14 @@ public class CreateStudentProjectsHandler : IRequestHandler<CreateStudentProject
 
         var currentUser = _userContextService.GetCurrentUser();
 
+        var skills = request.NeedSkills?.Select(x => new Skill(x.Id, x.Name)).ToList() ?? new List<Skill>();
+
         var studentProject = new StudentProject(
             Guid.NewGuid(),
             request.Title,
             request.Description,
             currentUser.Id,
-            request.NeedSkills.Select(x => new Skill(x.Id, x.Name)).ToList(),
+            skills,
             request.EventId);
 
         var creatorParticipant = new StudentProjectParticipant(
