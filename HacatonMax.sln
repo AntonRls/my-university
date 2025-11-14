@@ -26,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdminService", "AdminServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.Admin", "HacatonMax.Admin\HacatonMax.Admin.csproj", "{5E824EBB-3787-4AD7-8DCD-1E0A0BBB2861}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.University.Admin", "HacatonMax.University.Admin\HacatonMax.University.Admin.csproj", "{45E8C7E8-8052-4AFC-BBF0-ED4F04311BC8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.University.UsersManager", "HacatonMax.University.UsersManager\HacatonMax.University.UsersManager.csproj", "{45E8C7E8-8052-4AFC-BBF0-ED4F04311BC8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.University.Structure", "HacatonMax.University.Structure\HacatonMax.University.Structure.csproj", "{0C549D93-C509-4982-8C54-A54918422D95}"
 EndProject

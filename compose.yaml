@@ -9,6 +9,7 @@
       "MaxBot__AccessToken": ""
       "Elasticsearch__Uri": "http://elasticsearch:9200"
       "RabbitMq__Uri": "amqp://guest:guest@rabbitmq:5672/"
+      "TenantSettings__UniversityName": "Центральный Университет"
     ports:
       - "5099:5099"
     depends_on:

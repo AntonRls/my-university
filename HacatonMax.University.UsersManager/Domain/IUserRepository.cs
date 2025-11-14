@@ -7,4 +7,6 @@ public interface IUserRepository
     Task<List<User>> GetUserWhoWaitApprove();
 
     Task UpdateApproveStatusInUser(long userId, ApproveStatus status);
+
+    Task<List<User>> GetUsersByIds(long[] userIds);
 }

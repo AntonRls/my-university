@@ -25,7 +25,7 @@ namespace HacatonMax.University.Admin.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("HacatonMax.University.Admin.Domain.User", b =>
+            modelBuilder.Entity("HacatonMax.University.UsersManager.Domain.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()

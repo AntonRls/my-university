@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using HacatonMax.Bot.MaxProvider;
 using HacatonMax.Common.HangfireProvider;
 using HacatonMax.Common.Middleware;
+using HacatonMax.Common.Options;
 using HacatonMax.WebHost;
 using HacatonMax.University.Admin.Infrastructure;
 using HacatonMax.University.Auth;
@@ -19,6 +20,7 @@ using Microsoft.OpenApi.Models;
 var seedOptions = StudentProjectsSeedOptions.Parse(args, out var filteredArgs);
 
 var builder = WebApplication.CreateBuilder(filteredArgs);
+builder.Services.Configure<TenantSettings>(builder.Configuration.GetSection(nameof(TenantSettings)));
 builder.Services.AddCors(x =>
 {
     x.AddPolicy("AllowAll",
