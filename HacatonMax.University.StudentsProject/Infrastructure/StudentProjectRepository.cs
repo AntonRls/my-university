@@ -44,8 +44,9 @@ internal class StudentProjectRepository : IStudentProjectsRepository
         }
 
         return await query
+            .AsSplitQuery()
             .Include(x => x.NeedSkills)
-            .Include(x => x.Participants)
+            .Include(x => x.Participants.OrderBy(p => p.CreatedAt))
                 .ThenInclude(participant => participant.ParticipantRoles)
                     .ThenInclude(participantRole => participantRole.TeamRole)
             .AsNoTracking()
@@ -79,8 +80,9 @@ internal class StudentProjectRepository : IStudentProjectsRepository
     public async Task<StudentProject?> GetById(Guid id)
     {
         return await _context.StudentProjects
+            .AsSplitQuery()
             .Include(project => project.NeedSkills)
-            .Include(project => project.Participants)
+            .Include(project => project.Participants.OrderBy(p => p.CreatedAt))
                 .ThenInclude(participant => participant.ParticipantRoles)
                     .ThenInclude(participantRole => participantRole.TeamRole)
             .FirstOrDefaultAsync(project => project.Id == id);

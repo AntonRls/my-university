@@ -42,10 +42,8 @@ public class UpdateStudentProjectParticipantRolesHandler : IRequestHandler<Updat
             throw new NotFoundException($"Участник с идентификатором {request.ParticipantId} не найден.");
         }
 
-        if (participant.IsCreator)
-        {
-            throw new BadRequestException("Нельзя изменять роли создателя проекта.");
-        }
+        // Создатель может изменять роли всех участников, включая свою собственную
+        // Проверка на создателя уже выполнена выше (строка 34)
 
         if (participant.Status != StudentProjectParticipantStatus.Approved)
         {
@@ -58,7 +56,18 @@ public class UpdateStudentProjectParticipantRolesHandler : IRequestHandler<Updat
             request.NewRoles,
             cancellationToken);
 
-        participant.SetParticipantRoles(participantRoles);
+        // Удаляем старые роли из контекста явно
+        var oldRoles = participant.ParticipantRoles.ToList();
+        foreach (var oldRole in oldRoles)
+        {
+            participant.ParticipantRoles.Remove(oldRole);
+        }
+
+        // Добавляем новые роли
+        foreach (var newRole in participantRoles)
+        {
+            participant.ParticipantRoles.Add(newRole);
+        }
 
         await _studentProjectsRepository.SaveChanges();
     }

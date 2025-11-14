@@ -32,7 +32,8 @@ internal static class StudentProjectDtoMapper
     public static StudentProjectParticipantDto ToParticipantDto(StudentProjectParticipant participant)
     {
         var roles = participant.ParticipantRoles
-            .Select(role => new TeamRoleDto(role.TeamRoleId, role.TeamRole.Name, role.TeamRole.Description))
+            .Where(role => role.TeamRole != null)
+            .Select(role => new TeamRoleDto(role.TeamRoleId, role.TeamRole!.Name, role.TeamRole.Description))
             .ToList();
 
         return new StudentProjectParticipantDto(

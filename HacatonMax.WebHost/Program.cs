@@ -3,16 +3,23 @@ using System.Text.Json.Serialization;
 using HacatonMax.Bot.MaxProvider;
 using HacatonMax.Common.HangfireProvider;
 using HacatonMax.Common.Middleware;
+using HacatonMax.WebHost;
 using HacatonMax.University.Admin.Infrastructure;
 using HacatonMax.University.Auth;
 using HacatonMax.University.Events.Infrastructure;
 using HacatonMax.University.Library.Infrastructure;
 using HacatonMax.University.StudentsProject;
 using HacatonMax.University.StudentsProject.Infrastructure;
+using HacatonMax.University.StudentsProject.Infrastructure.Seeds;
+using HacatonMax.University.Users;
+using HacatonMax.University.Users.Infrastructure;
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
-var builder = WebApplication.CreateBuilder(args);
+var seedOptions = StudentProjectsSeedOptions.Parse(args, out var filteredArgs);
+
+var builder = WebApplication.CreateBuilder(filteredArgs);
 builder.Services.AddCors(x =>
 {
     x.AddPolicy("AllowAll",
@@ -52,12 +59,18 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services
     .AddUniversityAdmin(builder.Configuration)
     .AddAuthModule(builder.Configuration)
+    .AddUniversityUsersModule(builder.Configuration)
     .AddUniversityStudentProjectsModule(builder.Configuration)
     .AddUniversityEventsModule(builder.Configuration)
     .AddUniversityLibraryModule(builder.Configuration);
 
+builder.Services.AddRequestMetrics();
+builder.Services.AddSingleton(seedOptions);
+builder.Services.AddScoped<StudentProjectsSeeder>();
+
 var app = builder.Build();
 app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseRequestMetrics();
 app.UseCors("AllowAll");
 
 app.UseAuthentication();
@@ -65,6 +78,18 @@ app.UseAuthorization();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.MapControllers();
+
+// Metrics endpoint
+app.MapGet("/metrics", () => Results.Ok(new
+{
+    message = "Metrics are being collected via System.Diagnostics.Metrics",
+    available_metrics = new[]
+    {
+        "http_requests_total - Total number of HTTP requests (counter)",
+        "http_request_duration_seconds - HTTP request duration in seconds (histogram)"
+    },
+    note = "Use a metrics listener (e.g., prometheus-net) to export metrics in Prometheus format"
+}));
 
 using (var scope = app.Services.CreateScope())
 {
@@ -81,7 +106,17 @@ using (var scope = app.Services.CreateScope())
 
     var adminDb = services.GetRequiredService<AdminDbContext>();
     adminDb.Database.Migrate();
+
+    var usersDb = services.GetRequiredService<UsersDbContext>();
+    usersDb.Database.Migrate();
+
+    if (seedOptions.Enabled)
+    {
+        var seeder = services.GetRequiredService<StudentProjectsSeeder>();
+        await seeder.SeedAsync(seedOptions, CancellationToken.None);
+    }
 }
+
 
 app.UseHangfireDashboard();
 app.Run("http://0.0.0.0:5099");

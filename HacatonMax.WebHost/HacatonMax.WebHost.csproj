@@ -23,6 +23,7 @@
         <ProjectReference Include="..\HacatonMax.University.Library\HacatonMax.University.Library.csproj" />
         <ProjectReference Include="..\HacatonMax.University.Auth\HacatonMax.University.Auth.csproj" />
         <ProjectReference Include="..\HacatonMax.University.Admin\HacatonMax.University.Admin.csproj" />
+        <ProjectReference Include="..\HacatonMax.University.Users\HacatonMax.University.Users.csproj" />
     </ItemGroup>
 
     <ItemGroup>
