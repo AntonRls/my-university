@@ -18,7 +18,7 @@ public class UsersController(IMediator mediator)
     /// Получить пользователя по ID
     /// </summary>
     [HttpGet("{id:long}")]
-    public Task<UserDto?> GetUserById([FromRoute] long id)
+    public Task<SimpleUserDto?> GetUserById([FromRoute] long id)
     {
         return mediator.Send(new GetUserByIdCommand(id));
     }
@@ -27,10 +27,10 @@ public class UsersController(IMediator mediator)
     /// Получить всех пользователей по ID университета
     /// </summary>
     [HttpGet("by-university/{universityId:long}")]
-    public async Task<List<UserDto>> GetUsersByUniversity([FromRoute] long universityId, [FromServices] IUserRepository userRepository)
+    public async Task<List<SimpleUserDto>> GetUsersByUniversity([FromRoute] long universityId, [FromServices] IUserRepository userRepository)
     {
         var users = await userRepository.GetByUniversityId(universityId);
-        return users.Select(u => new UserDto(
+        return users.Select(u => new SimpleUserDto(
             u.Id,
             u.FirstName,
             u.LastName,
@@ -44,7 +44,7 @@ public class UsersController(IMediator mediator)
     /// </summary>
     [HttpPost]
     [Authorize]
-    public Task<UserDto> CreateOrUpdateUser([FromBody] CreateOrUpdateUserRequest request)
+    public Task<SimpleUserDto> CreateOrUpdateUser([FromBody] CreateOrUpdateUserRequest request)
     {
         var command = new CreateOrUpdateUserCommand(
             request.Id,

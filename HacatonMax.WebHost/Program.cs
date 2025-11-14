@@ -15,7 +15,6 @@ using HacatonMax.University.Users;
 using HacatonMax.University.Users.Infrastructure;
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 
 var seedOptions = StudentProjectsSeedOptions.Parse(args, out var filteredArgs);
 
@@ -70,26 +69,14 @@ builder.Services.AddScoped<StudentProjectsSeeder>();
 
 var app = builder.Build();
 app.UseMiddleware<ErrorHandlingMiddleware>();
-app.UseRequestMetrics();
 app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseSwagger();
-app.UseSwaggerUI();
 app.MapControllers();
 
-// Metrics endpoint
-app.MapGet("/metrics", () => Results.Ok(new
-{
-    message = "Metrics are being collected via System.Diagnostics.Metrics",
-    available_metrics = new[]
-    {
-        "http_requests_total - Total number of HTTP requests (counter)",
-        "http_request_duration_seconds - HTTP request duration in seconds (histogram)"
-    },
-    note = "Use a metrics listener (e.g., prometheus-net) to export metrics in Prometheus format"
-}));
+app.UseSwagger();
+app.UseSwaggerUI();
 
 using (var scope = app.Services.CreateScope())
 {
@@ -119,4 +106,4 @@ using (var scope = app.Services.CreateScope())
 
 
 app.UseHangfireDashboard();
-app.Run("http://0.0.0.0:5099");
+app.Run();

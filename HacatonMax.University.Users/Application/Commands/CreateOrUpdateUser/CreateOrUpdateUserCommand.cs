@@ -8,5 +8,5 @@ public record CreateOrUpdateUserCommand(
     string FirstName,
     string LastName,
     string? Username = null,
-    string? Email = null) : IRequest<UserDto>;
+    string? Email = null) : IRequest<SimpleUserDto>;
 

@@ -4,7 +4,7 @@ using TimeWarp.Mediator;
 
 namespace HacatonMax.University.Users.Application.Commands.GetUserById;
 
-public class GetUserByIdHandler : IRequestHandler<GetUserByIdCommand, UserDto?>
+public class GetUserByIdHandler : IRequestHandler<GetUserByIdCommand, SimpleUserDto?>
 {
     private readonly IUserRepository _userRepository;
 
@@ -13,7 +13,7 @@ public class GetUserByIdHandler : IRequestHandler<GetUserByIdCommand, UserDto?>
         _userRepository = userRepository;
     }
 
-    public async Task<UserDto?> Handle(GetUserByIdCommand request, CancellationToken cancellationToken)
+    public async Task<SimpleUserDto?> Handle(GetUserByIdCommand request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetById(request.Id);
 
@@ -22,7 +22,7 @@ public class GetUserByIdHandler : IRequestHandler<GetUserByIdCommand, UserDto?>
             return null;
         }
 
-        return new UserDto(
+        return new SimpleUserDto(
             user.Id,
             user.FirstName,
             user.LastName,

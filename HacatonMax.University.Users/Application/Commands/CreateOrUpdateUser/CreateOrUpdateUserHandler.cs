@@ -4,7 +4,7 @@ using TimeWarp.Mediator;
 
 namespace HacatonMax.University.Users.Application.Commands.CreateOrUpdateUser;
 
-public class CreateOrUpdateUserHandler : IRequestHandler<CreateOrUpdateUserCommand, UserDto>
+public class CreateOrUpdateUserHandler : IRequestHandler<CreateOrUpdateUserCommand, SimpleUserDto>
 {
     private readonly IUserRepository _userRepository;
 
@@ -13,7 +13,7 @@ public class CreateOrUpdateUserHandler : IRequestHandler<CreateOrUpdateUserComma
         _userRepository = userRepository;
     }
 
-    public async Task<UserDto> Handle(CreateOrUpdateUserCommand request, CancellationToken cancellationToken)
+    public async Task<SimpleUserDto> Handle(CreateOrUpdateUserCommand request, CancellationToken cancellationToken)
     {
         var existingUser = await _userRepository.GetById(request.Id);
 
@@ -36,7 +36,7 @@ public class CreateOrUpdateUserHandler : IRequestHandler<CreateOrUpdateUserComma
 
         await _userRepository.Save(user);
 
-        return new UserDto(
+        return new SimpleUserDto(
             user.Id,
             user.FirstName,
             user.LastName,

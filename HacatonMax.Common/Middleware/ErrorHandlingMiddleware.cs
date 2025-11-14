@@ -2,7 +2,6 @@ using System.Net;
 using System.Text.Json;
 using HacatonMax.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 
 namespace HacatonMax.Common.Middleware;
 
@@ -23,6 +22,7 @@ public class ErrorHandlingMiddleware
         }
         catch (Exception ex)
         {
+            Console.WriteLine(ex.ToString());
             await HandleExceptionAsync(context, ex);
         }
     }

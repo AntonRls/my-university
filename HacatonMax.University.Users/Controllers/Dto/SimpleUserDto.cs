@@ -1,6 +1,6 @@
 namespace HacatonMax.University.Users.Controllers.Dto;
 
-public record UserDto(
+public record SimpleUserDto(
     long Id,
     string FirstName,
     string LastName,
