@@ -14,6 +14,7 @@ using HacatonMax.University.StudentsProject.Application.Commands.UpdateStudentPr
 using HacatonMax.University.StudentsProject.Application.Commands.UpdateStudentProjectParticipantRoles;
 using HacatonMax.University.StudentsProject.Application.Common;
 using HacatonMax.University.StudentsProject.Controllers.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TimeWarp.Mediator;
 
@@ -21,17 +22,17 @@ namespace HacatonMax.University.StudentsProject.Controllers;
 
 [ApiController]
 [Route("student-projects")]
+[Authorize]
 public class StudentProjectsController(IMediator mediator)
 {
     [HttpGet]
+    [AllowAnonymous]
     public Task<List<StudentProjectsDto>> GetStudentProjects([FromQuery] GetStudentProjectsCommand command)
     {
         return mediator.Send(command);
     }
 
     [HttpPost]
-    // TODO: Раскомментировать проверку авторизации после настройки получения токена
-    // [Authorize]
     public Task<StudentProjectsDto> CrateStudentProject([FromBody] CreateStudentProjectRequest request)
     {
         var command = new CreateStudentProjectsCommand(
@@ -43,8 +44,6 @@ public class StudentProjectsController(IMediator mediator)
     }
 
     [HttpPut("{projectId:guid}")]
-    // TODO: Раскомментировать проверку авторизации после настройки получения токена
-    // [Authorize]
     public Task<StudentProjectsDto> UpdateStudentProject([FromRoute] Guid projectId, [FromBody] UpdateStudentProjectRequest request)
     {
         var command = new UpdateStudentProjectCommand(
@@ -58,8 +57,6 @@ public class StudentProjectsController(IMediator mediator)
     }
 
     [HttpPost("{projectId:guid}/participants/requests")]
-    // TODO: Раскомментировать проверку авторизации после настройки получения токена
-    // [Authorize]
     public Task RequestParticipation([FromRoute] Guid projectId, [FromBody] RequestStudentProjectParticipationRequest request)
     {
         var command = new RequestStudentProjectParticipationCommand(
@@ -70,8 +67,6 @@ public class StudentProjectsController(IMediator mediator)
     }
 
     [HttpPost("{projectId:guid}/participants/{participantId:guid}/approve")]
-    // TODO: Раскомментировать проверку авторизации после настройки получения токена
-    // [Authorize]
     public Task ApproveParticipant([FromRoute] Guid projectId, [FromRoute] Guid participantId, [FromBody] ApproveStudentProjectParticipantRequest request)
     {
         var command = new ApproveStudentProjectParticipantCommand(
@@ -83,8 +78,6 @@ public class StudentProjectsController(IMediator mediator)
     }
 
     [HttpPost("{projectId:guid}/participants/{participantId:guid}/reject")]
-    // TODO: Раскомментировать проверку авторизации после настройки получения токена
-    // [Authorize]
     public Task RejectParticipant([FromRoute] Guid projectId, [FromRoute] Guid participantId)
     {
         var command = new RejectStudentProjectParticipantCommand(projectId, participantId);
@@ -92,8 +85,6 @@ public class StudentProjectsController(IMediator mediator)
     }
 
     [HttpPut("{projectId:guid}/participants/{participantId:guid}/roles")]
-    // TODO: Раскомментировать проверку авторизации после настройки получения токена
-    // [Authorize]
     public Task UpdateParticipantRoles([FromRoute] Guid projectId, [FromRoute] Guid participantId, [FromBody] UpdateParticipantRolesRequest request)
     {
         var command = new UpdateStudentProjectParticipantRolesCommand(
@@ -105,8 +96,6 @@ public class StudentProjectsController(IMediator mediator)
     }
 
     [HttpDelete("{projectId:guid}/participants/{participantId:guid}")]
-    // TODO: Раскомментировать проверку авторизации после настройки получения токена
-    // [Authorize]
     public Task RemoveParticipant([FromRoute] Guid projectId, [FromRoute] Guid participantId)
     {
         var command = new RemoveStudentProjectParticipantCommand(projectId, participantId);
@@ -114,20 +103,20 @@ public class StudentProjectsController(IMediator mediator)
     }
 
     [HttpGet("skills")]
+    [AllowAnonymous]
     public Task<List<SkillDto>> GetAllSkills()
     {
         return mediator.Send(new GetAllSkillsCommand());
     }
 
     [HttpGet("team-roles")]
+    [AllowAnonymous]
     public Task<List<TeamRoleDto>> GetTeamRoles()
     {
         return mediator.Send(new GetTeamRolesCommand());
     }
 
     [HttpPost("team-roles")]
-    // TODO: Раскомментировать проверку авторизации после настройки получения токена
-    // [Authorize]
     public Task<TeamRoleDto> CreateTeamRole([FromBody] CreateTeamRoleRequest request)
     {
         var command = new CreateTeamRoleCommand(request.Name, request.Description);
