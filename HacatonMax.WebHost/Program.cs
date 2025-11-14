@@ -69,14 +69,14 @@ builder.Services.AddScoped<StudentProjectsSeeder>();
 
 var app = builder.Build();
 app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseRequestMetrics();
 app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
-
 app.UseSwagger();
 app.UseSwaggerUI();
+app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
@@ -106,4 +106,4 @@ using (var scope = app.Services.CreateScope())
 
 
 app.UseHangfireDashboard();
-app.Run();
+app.Run("http://0.0.0.0:5099");
