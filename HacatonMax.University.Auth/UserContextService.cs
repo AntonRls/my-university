@@ -18,7 +18,7 @@ public class UserContextService : IUserContextService
     {
         var user = _httpContextAccessor.HttpContext?.User;
 
-        if (user == null || !user.Identity?.IsAuthenticated == true)
+        if (user == null || user.Identity?.IsAuthenticated != true)
         {
             throw new ForbiddenException("Not valid token");
         }

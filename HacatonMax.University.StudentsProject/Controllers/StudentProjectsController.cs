@@ -6,6 +6,7 @@ using HacatonMax.University.StudentsProject.Application.Commands.CreateStudentPr
 using HacatonMax.University.StudentsProject.Application.Commands.CreateTeamRole;
 using HacatonMax.University.StudentsProject.Application.Commands.GetAllSkills;
 using HacatonMax.University.StudentsProject.Application.Commands.GetStudentProjects;
+using HacatonMax.University.StudentsProject.Application.Commands.GetStudentProjectById;
 using HacatonMax.University.StudentsProject.Application.Commands.GetTeamRoles;
 using HacatonMax.University.StudentsProject.Application.Commands.RemoveStudentProjectParticipant;
 using HacatonMax.University.StudentsProject.Application.Commands.RequestStudentProjectParticipation;
@@ -29,6 +30,14 @@ public class StudentProjectsController(IMediator mediator)
     [AllowAnonymous]
     public Task<List<StudentProjectsDto>> GetStudentProjects([FromQuery] GetStudentProjectsCommand command)
     {
+        return mediator.Send(command);
+    }
+
+    [HttpGet("{projectId:guid}")]
+    [AllowAnonymous]
+    public Task<StudentProjectsDto> GetStudentProjectById([FromRoute] Guid projectId)
+    {
+        var command = new GetStudentProjectByIdCommand(projectId);
         return mediator.Send(command);
     }
 

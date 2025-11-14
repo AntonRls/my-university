@@ -33,12 +33,20 @@ public class RequestStudentProjectParticipationHandler : IRequestHandler<Request
 
         var currentUser = _userContextService.GetCurrentUser();
 
+        var existingParticipant = project.FindParticipantByUser(currentUser.Id);
+        
+        // Проверяем, является ли пользователь создателем проекта
         if (project.CreatorId == currentUser.Id)
         {
-            throw new BadRequestException("Создатель проекта уже состоит в команде.");
+            // Если создатель уже является участником (что должно быть всегда), 
+            // то он не может подать заявку
+            if (existingParticipant != null)
+            {
+                throw new BadRequestException("Создатель проекта уже состоит в команде.");
+            }
+            // Если создатель почему-то не является участником, это ошибка данных
+            throw new BadRequestException("Создатель проекта должен быть участником команды.");
         }
-
-        var existingParticipant = project.FindParticipantByUser(currentUser.Id);
         if (existingParticipant != null)
         {
             throw existingParticipant.Status switch
