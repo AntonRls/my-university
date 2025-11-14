@@ -33,12 +33,20 @@ public class RequestStudentProjectParticipationHandler : IRequestHandler<Request
 
         var currentUser = _userContextService.GetCurrentUser();
 
+        var existingParticipant = project.FindParticipantByUser(currentUser.Id);
+        
+        // Проверяем, является ли пользователь создателем проекта
         if (project.CreatorId == currentUser.Id)
         {
-            throw new BadRequestException("Создатель проекта уже состоит в команде.");
+            // Если создатель уже является участником (что должно быть всегда), 
+            // то он не может подать заявку
+            if (existingParticipant != null)
+            {
+                throw new BadRequestException("Создатель проекта уже состоит в команде.");
+            }
+            // Если создатель почему-то не является участником, это ошибка данных
+            throw new BadRequestException("Создатель проекта должен быть участником команды.");
         }
-
-        var existingParticipant = project.FindParticipantByUser(currentUser.Id);
         if (existingParticipant != null)
         {
             throw existingParticipant.Status switch
@@ -70,7 +78,10 @@ public class RequestStudentProjectParticipationHandler : IRequestHandler<Request
             participant.SetParticipantRoles(participantRoles);
         }
 
-        project.AddParticipant(participant);
+        // Explicitly add the participant to the context to ensure it's tracked as Added
+        // This prevents EF Core from trying to UPDATE instead of INSERT
+        // The foreign key relationship (StudentProjectId) will maintain the association
+        await _studentProjectsRepository.AddParticipant(participant);
 
         await _studentProjectsRepository.SaveChanges();
     }

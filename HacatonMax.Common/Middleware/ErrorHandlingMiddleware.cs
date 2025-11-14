@@ -2,6 +2,7 @@ using System.Net;
 using System.Text.Json;
 using HacatonMax.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace HacatonMax.Common.Middleware;
 
@@ -29,18 +30,19 @@ public class ErrorHandlingMiddleware
 
     private Task HandleExceptionAsync(HttpContext context, Exception ex)
     {
-        var statusCode = ex switch
+        var (statusCode, message) = ex switch
         {
-            BadRequestException => HttpStatusCode.BadRequest,
-            NotFoundException => HttpStatusCode.NotFound,
-            ServiceUnavailableException => HttpStatusCode.ServiceUnavailable,
-            _ => HttpStatusCode.InternalServerError
+            BadRequestException => (HttpStatusCode.BadRequest, ex.Message),
+            NotFoundException => (HttpStatusCode.NotFound, ex.Message),
+            ServiceUnavailableException => (HttpStatusCode.ServiceUnavailable, ex.Message),
+            DbUpdateConcurrencyException => (HttpStatusCode.Conflict, "Данные были изменены другим пользователем. Пожалуйста, обновите страницу и попробуйте снова."),
+            _ => (HttpStatusCode.InternalServerError, ex.Message)
         };
 
         var response = new
         {
             Success = false,
-            Detail = ex.Message,
+            Detail = message,
             Type = ex.GetType().Name
         };
 

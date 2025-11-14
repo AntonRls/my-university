@@ -56,19 +56,14 @@ public class UpdateStudentProjectParticipantRolesHandler : IRequestHandler<Updat
             request.NewRoles,
             cancellationToken);
 
-        // Удаляем старые роли из контекста явно
-        var oldRoles = participant.ParticipantRoles.ToList();
-        foreach (var oldRole in oldRoles)
-        {
-            participant.ParticipantRoles.Remove(oldRole);
-        }
+        // Обновляем роли через репозиторий для корректной работы с in-memory БД
+        // Это удалит старые роли и добавит новые в одной операции
+        await _studentProjectsRepository.UpdateParticipantRoles(participant.Id, participantRoles);
 
-        // Добавляем новые роли
-        foreach (var newRole in participantRoles)
-        {
-            participant.ParticipantRoles.Add(newRole);
-        }
+        // Обновляем коллекцию в доменной модели для согласованности
+        participant.SetParticipantRoles(participantRoles);
 
+        // Сохраняем изменения
         await _studentProjectsRepository.SaveChanges();
     }
 
