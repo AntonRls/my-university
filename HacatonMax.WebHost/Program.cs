@@ -8,6 +8,7 @@ using HacatonMax.University.Admin.Infrastructure;
 using HacatonMax.University.Auth;
 using HacatonMax.University.Events.Infrastructure;
 using HacatonMax.University.Library.Infrastructure;
+using HacatonMax.University.Structure.Infrastructure;
 using HacatonMax.University.StudentsProject;
 using HacatonMax.University.StudentsProject.Infrastructure;
 using HacatonMax.University.StudentsProject.Infrastructure.Seeds;
@@ -52,6 +53,7 @@ builder.Services.AddSwaggerGen(c =>
 
     var libraryDocx = Path.Combine(AppContext.BaseDirectory, $"{typeof(HacatonMax.University.Library.Controllers.UniversityBooksController).Assembly.GetName().Name}.xml");
     var adminDocx = Path.Combine(AppContext.BaseDirectory, $"{typeof(HacatonMax.University.Admin.Controllers.AdminController).Assembly.GetName().Name}.xml");
+    var structureDocx = Path.Combine(AppContext.BaseDirectory, $"{typeof(HacatonMax.University.Structure.Controllers.StructureController).Assembly.GetName().Name}.xml");
 
     c.IncludeXmlComments(libraryDocx, includeControllerXmlComments: true);
     c.IncludeXmlComments(adminDocx, includeControllerXmlComments: true);
@@ -80,6 +82,7 @@ builder.Services.AddSwaggerGen(c =>
             Array.Empty<string>()
         }
     });
+    c.IncludeXmlComments(structureDocx, includeControllerXmlComments: true);
 });
 builder.Services
     .AddUniversityAdmin(builder.Configuration)
@@ -87,7 +90,8 @@ builder.Services
     .AddUniversityUsersModule(builder.Configuration)
     .AddUniversityStudentProjectsModule(builder.Configuration)
     .AddUniversityEventsModule(builder.Configuration)
-    .AddUniversityLibraryModule(builder.Configuration);
+    .AddUniversityLibraryModule(builder.Configuration)
+    .AddUniversityStructureModule(builder.Configuration);
 
 builder.Services.AddRequestMetrics();
 builder.Services.AddSingleton(seedOptions);
@@ -122,6 +126,9 @@ using (var scope = app.Services.CreateScope())
 
     var usersDb = services.GetRequiredService<UsersDbContext>();
     usersDb.Database.Migrate();
+
+    var structureDb = services.GetRequiredService<StructureDbContext>();
+    structureDb.Database.Migrate();
 
     if (seedOptions.Enabled)
     {

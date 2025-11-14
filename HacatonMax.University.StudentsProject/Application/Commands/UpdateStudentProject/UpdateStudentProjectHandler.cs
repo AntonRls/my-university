@@ -69,7 +69,7 @@ public class UpdateStudentProjectHandler : IRequestHandler<UpdateStudentProjectC
                 linkedEvent.EndDateTime);
         }
 
-        return StudentProjectDtoMapper.ToDto(project, eventDto);
+        return StudentProjectDtoMapper.ToDto(project, eventDto, currentUser.Id);
     }
 }
 
