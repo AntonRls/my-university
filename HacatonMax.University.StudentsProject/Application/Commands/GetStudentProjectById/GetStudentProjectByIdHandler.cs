@@ -1,4 +1,5 @@
 using HacatonMax.Common.Exceptions;
+using HacatonMax.University.Auth.Domain;
 using HacatonMax.University.Events.Domain;
 using HacatonMax.University.StudentsProject.Application.Mappers;
 using HacatonMax.University.StudentsProject.Controllers.Dto;
@@ -11,13 +12,16 @@ public class GetStudentProjectByIdHandler : IRequestHandler<GetStudentProjectByI
 {
     private readonly IStudentProjectsRepository _studentProjectsRepository;
     private readonly IUniversityEventsRepository _universityEventsRepository;
+    private readonly IUserContextService _userContextService;
 
     public GetStudentProjectByIdHandler(
         IStudentProjectsRepository studentProjectsRepository,
-        IUniversityEventsRepository universityEventsRepository)
+        IUniversityEventsRepository universityEventsRepository,
+        IUserContextService userContextService)
     {
         _studentProjectsRepository = studentProjectsRepository;
         _universityEventsRepository = universityEventsRepository;
+        _userContextService = userContextService;
     }
 
     public async Task<StudentProjectsDto> Handle(GetStudentProjectByIdCommand request, CancellationToken cancellationToken)
@@ -42,7 +46,8 @@ public class GetStudentProjectByIdHandler : IRequestHandler<GetStudentProjectByI
             }
         }
 
-        return StudentProjectDtoMapper.ToDto(project, eventDto);
+        var currentUserId = _userContextService.GetCurrentUserOrDefault()?.Id;
+        return StudentProjectDtoMapper.ToDto(project, eventDto, currentUserId);
     }
 }
 

@@ -1,3 +1,4 @@
+using HacatonMax.University.Auth.Domain;
 using HacatonMax.University.Events.Domain;
 using HacatonMax.University.StudentsProject.Application.Mappers;
 using HacatonMax.University.StudentsProject.Controllers.Dto;
@@ -10,18 +11,22 @@ public class GetStudentProjectsHandler : IRequestHandler<GetStudentProjectsComma
 {
     private readonly IStudentProjectsRepository _studentProjectsRepository;
     private readonly IUniversityEventsRepository _universityEventsRepository;
+    private readonly IUserContextService _userContextService;
 
     public GetStudentProjectsHandler(
         IStudentProjectsRepository studentProjectsRepository,
-        IUniversityEventsRepository universityEventsRepository)
+        IUniversityEventsRepository universityEventsRepository,
+        IUserContextService userContextService)
     {
         _studentProjectsRepository = studentProjectsRepository;
         _universityEventsRepository = universityEventsRepository;
+        _userContextService = userContextService;
     }
 
     public async Task<List<StudentProjectsDto>> Handle(GetStudentProjectsCommand request, CancellationToken cancellationToken)
     {
         var projects = await _studentProjectsRepository.GetProjectsByFilter(request.NeedSkills, request.EventId);
+        var currentUserId = _userContextService.GetCurrentUserOrDefault()?.Id;
 
         var eventIds = projects
             .Where(project => project.EventId.HasValue)
@@ -48,7 +53,7 @@ public class GetStudentProjectsHandler : IRequestHandler<GetStudentProjectsComma
                         eventEntity.EndDateTime);
                 }
 
-                return StudentProjectDtoMapper.ToDto(project, eventDto);
+                return StudentProjectDtoMapper.ToDto(project, eventDto, currentUserId);
             })
             .ToList();
     }

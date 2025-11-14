@@ -74,6 +74,6 @@ public class CreateStudentProjectsHandler : IRequestHandler<CreateStudentProject
                 linkedEvent.EndDateTime);
         }
 
-        return StudentProjectDtoMapper.ToDto(studentProject, eventDto);
+        return StudentProjectDtoMapper.ToDto(studentProject, eventDto, currentUser.Id);
     }
 }

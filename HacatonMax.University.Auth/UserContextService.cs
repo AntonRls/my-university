@@ -16,18 +16,33 @@ public class UserContextService : IUserContextService
 
     public User GetCurrentUser()
     {
-        var user = _httpContextAccessor.HttpContext?.User;
-
-        if (user == null || user.Identity?.IsAuthenticated != true)
+        var user = GetCurrentUserOrDefault();
+        if (user == null)
         {
             throw new ForbiddenException("Not valid token");
         }
 
-        var id = long.Parse(user.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        var firstName = user.FindFirst("firstName")?.Value;
-        var lastName = user.FindFirst("lastName")?.Value;
-        var username = user.FindFirst(ClaimTypes.Name)?.Value;
+        return user;
+    }
 
-        return new User(id, firstName!, lastName!, username!);
+    public User? GetCurrentUserOrDefault()
+    {
+        var claimsPrincipal = _httpContextAccessor.HttpContext?.User;
+        if (claimsPrincipal == null || claimsPrincipal.Identity?.IsAuthenticated != true)
+        {
+            return null;
+        }
+
+        var idValue = claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (!long.TryParse(idValue, out var id))
+        {
+            return null;
+        }
+
+        var firstName = claimsPrincipal.FindFirst("firstName")?.Value ?? string.Empty;
+        var lastName = claimsPrincipal.FindFirst("lastName")?.Value ?? string.Empty;
+        var username = claimsPrincipal.FindFirst(ClaimTypes.Name)?.Value ?? string.Empty;
+
+        return new User(id, firstName, lastName, username);
     }
 }

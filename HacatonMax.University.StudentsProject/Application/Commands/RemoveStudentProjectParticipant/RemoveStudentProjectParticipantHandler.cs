@@ -33,9 +33,9 @@ public class RemoveStudentProjectParticipantHandler : IRequestHandler<RemoveStud
         }
 
         var currentUser = _userContextService.GetCurrentUser();
-        if (project.CreatorId != currentUser.Id && participant.UserId != currentUser.Id)
+        if (project.CreatorId != currentUser.Id)
         {
-            throw new ForbiddenException("Вы не можете удалить участника этого проекта.");
+            throw new ForbiddenException("Только создатель проекта может удалять участников.");
         }
 
         project.RemoveParticipant(participant);

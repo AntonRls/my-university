@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HacatonMax.Bot.Domain;
 using HacatonMax.Common.Exceptions;
 using HacatonMax.University.Auth.Domain;
 using HacatonMax.University.StudentsProject.Application.Common;
@@ -14,13 +15,16 @@ public class RequestStudentProjectParticipationHandler : IRequestHandler<Request
 {
     private readonly IStudentProjectsRepository _studentProjectsRepository;
     private readonly IUserContextService _userContextService;
+    private readonly IBotProvider _botProvider;
 
     public RequestStudentProjectParticipationHandler(
         IStudentProjectsRepository studentProjectsRepository,
-        IUserContextService userContextService)
+        IUserContextService userContextService,
+        IBotProvider botProvider)
     {
         _studentProjectsRepository = studentProjectsRepository;
         _userContextService = userContextService;
+        _botProvider = botProvider;
     }
 
     public async Task Handle(RequestStudentProjectParticipationCommand request, CancellationToken cancellationToken)
@@ -84,6 +88,8 @@ public class RequestStudentProjectParticipationHandler : IRequestHandler<Request
         await _studentProjectsRepository.AddParticipant(participant);
 
         await _studentProjectsRepository.SaveChanges();
+
+        await NotifyProjectOwner(project, currentUser);
     }
 
     private async Task<List<StudentProjectParticipantRole>> ResolveParticipantRoles(
@@ -147,6 +153,43 @@ public class RequestStudentProjectParticipationHandler : IRequestHandler<Request
         return resolvedRoles
             .Select(role => new StudentProjectParticipantRole(Guid.NewGuid(), participantId, role.Id))
             .ToList();
+    }
+
+    private Task NotifyProjectOwner(StudentProject project, User applicant)
+    {
+        if (project.CreatorId == applicant.Id)
+        {
+            return Task.CompletedTask;
+        }
+
+        var notificationText = BuildOwnerNotificationMessage(project, applicant);
+
+        return _botProvider.SendMessage(new Message
+        {
+            UserId = project.CreatorId,
+            Text = notificationText
+        });
+    }
+
+    private static string BuildOwnerNotificationMessage(StudentProject project, User applicant)
+    {
+        var nameParts = new[]
+        {
+            applicant.FirstName,
+            applicant.LastName
+        }.Where(part => !string.IsNullOrWhiteSpace(part));
+
+        var displayName = string.Join(" ", nameParts);
+        if (string.IsNullOrWhiteSpace(displayName))
+        {
+            displayName = "Новый участник";
+        }
+
+        var usernameSegment = string.IsNullOrWhiteSpace(applicant.Username)
+            ? string.Empty
+            : $" (@{applicant.Username})";
+
+        return $"{displayName}{usernameSegment} отправил(а) заявку на участие в проекте \"{project.Title}\".";
     }
 }
 

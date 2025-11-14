@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HacatonMax.University.StudentsProject\HacatonMax.University.StudentsProject.csproj" />
+    <ProjectReference Include="..\HacatonMax.Bot\HacatonMax.Bot.csproj" />
     <ProjectReference Include="..\HacatonMax.University.Auth\HacatonMax.University.Auth.csproj" />
   </ItemGroup>
 
