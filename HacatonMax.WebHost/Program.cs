@@ -13,8 +13,10 @@ using HacatonMax.University.Structure.Infrastructure;
 using HacatonMax.University.StudentsProject;
 using HacatonMax.University.StudentsProject.Infrastructure;
 using HacatonMax.University.StudentsProject.Infrastructure.Seeds;
+using HacatonMax.WebHost.Controllers.Dto;
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 var seedOptions = StudentProjectsSeedOptions.Parse(args, out var filteredArgs);
@@ -97,6 +99,7 @@ builder.Services.AddSingleton(seedOptions);
 builder.Services.AddScoped<StudentProjectsSeeder>();
 
 var app = builder.Build();
+app.MapGet("/", (IOptions<TenantSettings> tenantSettings) => new TenantDto(tenantSettings.Value.UniversityName, tenantSettings.Value.TenantName));
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseRequestMetrics();
 app.UseCors("AllowAll");

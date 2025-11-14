@@ -32,8 +32,13 @@ public class UserRepository : IUserRepository
                 setters.SetProperty(u => u.Status, status));
     }
 
-    public Task<List<User>> GetUsersByIds(long[] userIds)
+    public Task<List<User>> GetUsersByIds(long[]? userIds)
     {
+        if (userIds == null || userIds.Length == 0)
+        {
+            return _context.Users.AsNoTracking().ToListAsync();
+        }
+
         return _context.Users.Where(x => userIds.Contains(x.Id)).AsNoTracking().ToListAsync();
     }
 }

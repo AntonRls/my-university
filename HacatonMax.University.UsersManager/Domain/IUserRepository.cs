@@ -8,5 +8,5 @@ public interface IUserRepository
 
     Task UpdateApproveStatusInUser(long userId, ApproveStatus status);
 
-    Task<List<User>> GetUsersByIds(long[] userIds);
+    Task<List<User>> GetUsersByIds(long[]? userIds);
 }
