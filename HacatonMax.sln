@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# 
+#
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.WebHost", "HacatonMax.WebHost\HacatonMax.WebHost.csproj", "{539E0DA0-70E1-467B-981C-0E36FDC557E0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.MaxClient", "HacatonMax.MaxClient\HacatonMax.MaxClient.csproj", "{DE2FCECF-4B2D-4CA0-8750-F476B982A898}"
@@ -28,11 +28,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.Admin", "Hacaton
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.University.Admin", "HacatonMax.University.Admin\HacatonMax.University.Admin.csproj", "{45E8C7E8-8052-4AFC-BBF0-ED4F04311BC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.University.Users", "HacatonMax.University.Users\HacatonMax.University.Users.csproj", "{B8F3D9A1-2C4E-4B5D-9F6A-1E2D3C4B5A6F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.University.Structure", "HacatonMax.University.Structure\HacatonMax.University.Structure.csproj", "{0C549D93-C509-4982-8C54-A54918422D95}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HacatonMax.University.StudentsProject.Tests", "HacatonMax.University.StudentsProject.Tests\HacatonMax.University.StudentsProject.Tests.csproj", "{88965368-4A11-4C86-A2F4-7462B066FCE3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1A7CEC2E-E4DF-44BB-B3F8-63C1C981A05D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,10 +80,6 @@ Global
 		{45E8C7E8-8052-4AFC-BBF0-ED4F04311BC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45E8C7E8-8052-4AFC-BBF0-ED4F04311BC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45E8C7E8-8052-4AFC-BBF0-ED4F04311BC8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B8F3D9A1-2C4E-4B5D-9F6A-1E2D3C4B5A6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8F3D9A1-2C4E-4B5D-9F6A-1E2D3C4B5A6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8F3D9A1-2C4E-4B5D-9F6A-1E2D3C4B5A6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8F3D9A1-2C4E-4B5D-9F6A-1E2D3C4B5A6F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0C549D93-C509-4982-8C54-A54918422D95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0C549D93-C509-4982-8C54-A54918422D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C549D93-C509-4982-8C54-A54918422D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -95,5 +91,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5E824EBB-3787-4AD7-8DCD-1E0A0BBB2861} = {3FBAC9D7-1496-4129-8A9F-32F316C7B456}
+		{88965368-4A11-4C86-A2F4-7462B066FCE3} = {1A7CEC2E-E4DF-44BB-B3F8-63C1C981A05D}
 	EndGlobalSection
 EndGlobal

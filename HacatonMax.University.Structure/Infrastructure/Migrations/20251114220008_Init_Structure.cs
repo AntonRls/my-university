@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HacatonMax.University.Structure.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate_Structure : Migration
+    public partial class Init_Structure : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +22,6 @@ namespace HacatonMax.University.Structure.Infrastructure.Migrations
                 {
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    tenant_id = table.Column<long>(type: "bigint", nullable: false),
                     name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     code = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
                     created_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -41,7 +40,6 @@ namespace HacatonMax.University.Structure.Infrastructure.Migrations
                 {
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    tenant_id = table.Column<long>(type: "bigint", nullable: false),
                     faculty_id = table.Column<long>(type: "bigint", nullable: false),
                     name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     degree_level = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
@@ -68,7 +66,6 @@ namespace HacatonMax.University.Structure.Infrastructure.Migrations
                 {
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    tenant_id = table.Column<long>(type: "bigint", nullable: false),
                     program_id = table.Column<long>(type: "bigint", nullable: false),
                     course_number = table.Column<int>(type: "integer", nullable: false),
                     title = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
@@ -96,7 +93,6 @@ namespace HacatonMax.University.Structure.Infrastructure.Migrations
                 {
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    tenant_id = table.Column<long>(type: "bigint", nullable: false),
                     program_course_id = table.Column<long>(type: "bigint", nullable: false),
                     type = table.Column<string>(type: "text", nullable: false),
                     label = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
@@ -148,7 +144,6 @@ namespace HacatonMax.University.Structure.Infrastructure.Migrations
                 {
                     group_id = table.Column<long>(type: "bigint", nullable: false),
                     student_id = table.Column<long>(type: "bigint", nullable: false),
-                    tenant_id = table.Column<long>(type: "bigint", nullable: false),
                     membership_type = table.Column<string>(type: "text", nullable: false),
                     joined_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
@@ -165,37 +160,10 @@ namespace HacatonMax.University.Structure.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_faculties_tenant_id_code",
-                schema: "structure",
-                table: "faculties",
-                columns: new[] { "tenant_id", "code" },
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_faculties_tenant_id_name",
-                schema: "structure",
-                table: "faculties",
-                columns: new[] { "tenant_id", "name" });
-
-            migrationBuilder.CreateIndex(
                 name: "IX_group_members_student_id",
                 schema: "structure",
                 table: "group_members",
                 column: "student_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_group_members_tenant_id",
-                schema: "structure",
-                table: "group_members",
-                column: "tenant_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_group_members_tenant_id_student_id",
-                schema: "structure",
-                table: "group_members",
-                columns: new[] { "tenant_id", "student_id" },
-                unique: true,
-                filter: "membership_type = 'Primary'");
 
             migrationBuilder.CreateIndex(
                 name: "IX_groups_program_course_id",
@@ -204,36 +172,16 @@ namespace HacatonMax.University.Structure.Infrastructure.Migrations
                 column: "program_course_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_groups_tenant_id_program_course_id_label",
-                schema: "structure",
-                table: "groups",
-                columns: new[] { "tenant_id", "program_course_id", "label" },
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_program_courses_program_id",
                 schema: "structure",
                 table: "program_courses",
                 column: "program_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_program_courses_tenant_id_program_id_course_number_title",
-                schema: "structure",
-                table: "program_courses",
-                columns: new[] { "tenant_id", "program_id", "course_number", "title" },
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_programs_faculty_id",
+                name: "IX_programs_faculty_id_name",
                 schema: "structure",
                 table: "programs",
-                column: "faculty_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_programs_tenant_id_faculty_id_name",
-                schema: "structure",
-                table: "programs",
-                columns: new[] { "tenant_id", "faculty_id", "name" },
+                columns: new[] { "faculty_id", "name" },
                 unique: true);
         }
 

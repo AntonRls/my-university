@@ -6,7 +6,7 @@ public class CustomGroupMeta
     {
     }
 
-    private CustomGroupMeta(
+    public CustomGroupMeta(
         long? createdByUserId,
         CustomGroupCreatorRole createdByRole,
         CustomGroupVisibility visibility,
@@ -29,13 +29,4 @@ public class CustomGroupMeta
     public CustomGroupModerationStatus ModerationStatus { get; private set; }
 
     public Group Group { get; private set; } = null!;
-
-    public static CustomGroupMeta Create(
-        long? createdByUserId,
-        CustomGroupCreatorRole createdByRole,
-        CustomGroupVisibility visibility,
-        CustomGroupModerationStatus moderationStatus)
-    {
-        return new CustomGroupMeta(createdByUserId, createdByRole, visibility, moderationStatus);
-    }
 }

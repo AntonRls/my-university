@@ -12,7 +12,6 @@ public class ProgramCourseConfiguration : IEntityTypeConfiguration<ProgramCourse
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id).HasColumnName("id");
-        builder.Property(x => x.TenantId).HasColumnName("tenant_id").IsRequired();
         builder.Property(x => x.ProgramId).HasColumnName("program_id").IsRequired();
         builder.Property(x => x.CourseNumber).HasColumnName("course_number").IsRequired();
         builder.Property(x => x.Title).HasColumnName("title").HasMaxLength(256).IsRequired();
@@ -25,7 +24,5 @@ public class ProgramCourseConfiguration : IEntityTypeConfiguration<ProgramCourse
             .WithMany(x => x.Courses)
             .HasForeignKey(x => x.ProgramId)
             .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasIndex(x => new { x.TenantId, x.ProgramId, x.CourseNumber, x.Title }).IsUnique();
     }
 }

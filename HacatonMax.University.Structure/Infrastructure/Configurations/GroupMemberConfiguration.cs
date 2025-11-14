@@ -12,7 +12,6 @@ public class GroupMemberConfiguration : IEntityTypeConfiguration<GroupMember>
         builder.HasKey(x => new { x.GroupId, x.StudentId });
 
         builder.Property(x => x.GroupId).HasColumnName("group_id");
-        builder.Property(x => x.TenantId).HasColumnName("tenant_id").IsRequired();
         builder.Property(x => x.StudentId).HasColumnName("student_id").IsRequired();
         builder.Property(x => x.MembershipType).HasColumnName("membership_type").HasConversion<string>().IsRequired();
         builder.Property(x => x.JoinedAt).HasColumnName("joined_at").IsRequired();
@@ -23,9 +22,5 @@ public class GroupMemberConfiguration : IEntityTypeConfiguration<GroupMember>
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasIndex(x => x.StudentId);
-        builder.HasIndex(x => x.TenantId);
-        builder.HasIndex(x => new { x.TenantId, x.StudentId })
-            .HasFilter("membership_type = 'Primary'")
-            .IsUnique();
     }
 }

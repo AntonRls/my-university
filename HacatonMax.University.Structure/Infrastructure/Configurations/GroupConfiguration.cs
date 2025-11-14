@@ -12,7 +12,6 @@ public class GroupConfiguration : IEntityTypeConfiguration<Group>
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id).HasColumnName("id");
-        builder.Property(x => x.TenantId).HasColumnName("tenant_id").IsRequired();
         builder.Property(x => x.ProgramCourseId).HasColumnName("program_course_id").IsRequired();
         builder.Property(x => x.Type).HasColumnName("type").HasConversion<string>().IsRequired();
         builder.Property(x => x.Label).HasColumnName("label").HasMaxLength(128).IsRequired();
@@ -31,7 +30,5 @@ public class GroupConfiguration : IEntityTypeConfiguration<Group>
             .WithOne(x => x.Group)
             .HasForeignKey<CustomGroupMeta>(x => x.GroupId)
             .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasIndex(x => new { x.TenantId, x.ProgramCourseId, x.Label }).IsUnique();
     }
 }

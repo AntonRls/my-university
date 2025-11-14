@@ -9,9 +9,11 @@ public class Faculty
         Programs = new List<AcademicProgram>();
     }
 
-    private Faculty(long tenantId, string name, string code)
+    public Faculty(string name, string code)
     {
-        TenantId = tenantId;
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+        ArgumentException.ThrowIfNullOrWhiteSpace(code);
+
         Name = name;
         Code = code;
         CreatedAt = DateTimeOffset.UtcNow;
@@ -20,8 +22,6 @@ public class Faculty
     }
 
     public long Id { get; private set; }
-
-    public long TenantId { get; private set; }
 
     public string Name { get; private set; }
 
@@ -34,13 +34,6 @@ public class Faculty
     public DateTimeOffset? DeletedAt { get; private set; }
 
     public ICollection<AcademicProgram> Programs { get; private set; }
-
-    public static Faculty Create(long tenantId, string name, string code)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(name);
-        ArgumentException.ThrowIfNullOrWhiteSpace(code);
-        return new Faculty(tenantId, name.Trim(), code.Trim().ToUpperInvariant());
-    }
 
     public void UpdateTimestamp()
     {

@@ -21,7 +21,7 @@ public class AdminController(IMediator mediator)
     }
 
     /// <summary>
-    /// Получить людей, которые ждут рассмотрение на вступление в ВУХ
+    /// Получить людей, которые ждут рассмотрение на вступление в ВУЗ
     /// </summary>
     [HttpGet("incoming-students-queue")]
     public Task<List<UserDto>> GetIncomingStudentsQueue()

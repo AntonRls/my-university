@@ -12,7 +12,6 @@ public class AcademicProgramConfiguration : IEntityTypeConfiguration<AcademicPro
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id).HasColumnName("id");
-        builder.Property(x => x.TenantId).HasColumnName("tenant_id").IsRequired();
         builder.Property(x => x.FacultyId).HasColumnName("faculty_id").IsRequired();
         builder.Property(x => x.Name).HasColumnName("name").HasMaxLength(256).IsRequired();
         builder.Property(x => x.DegreeLevel).HasColumnName("degree_level").HasMaxLength(64).IsRequired();
@@ -25,6 +24,6 @@ public class AcademicProgramConfiguration : IEntityTypeConfiguration<AcademicPro
             .HasForeignKey(x => x.FacultyId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasIndex(x => new { x.TenantId, x.FacultyId, x.Name }).IsUnique();
+        builder.HasIndex(x => new { x.FacultyId, x.Name }).IsUnique();
     }
 }

@@ -8,53 +8,7 @@ public class Group
         Members = new List<GroupMember>();
     }
 
-    private Group(
-        long tenantId,
-        long programCourseId,
-        GroupType type,
-        string label,
-        int capacity,
-        bool isPrimaryAllowed)
-    {
-        TenantId = tenantId;
-        ProgramCourseId = programCourseId;
-        Type = type;
-        Label = label;
-        Capacity = capacity;
-        IsPrimaryAllowed = isPrimaryAllowed;
-        CreatedAt = DateTimeOffset.UtcNow;
-        UpdatedAt = CreatedAt;
-        Members = new List<GroupMember>();
-    }
-
-    public long Id { get; private set; }
-
-    public long TenantId { get; private set; }
-
-    public long ProgramCourseId { get; private set; }
-
-    public GroupType Type { get; private set; }
-
-    public string Label { get; private set; }
-
-    public int Capacity { get; private set; }
-
-    public bool IsPrimaryAllowed { get; private set; }
-
-    public DateTimeOffset CreatedAt { get; private set; }
-
-    public DateTimeOffset UpdatedAt { get; private set; }
-
-    public DateTimeOffset? DeletedAt { get; private set; }
-
-    public ProgramCourse ProgramCourse { get; private set; } = null!;
-
-    public CustomGroupMeta? CustomMeta { get; private set; }
-
-    public ICollection<GroupMember> Members { get; private set; }
-
-    public static Group Create(
-        long tenantId,
+    public Group(
         long programCourseId,
         GroupType type,
         string label,
@@ -77,8 +31,39 @@ public class Group
             isPrimaryAllowed = false;
         }
 
-        return new Group(tenantId, programCourseId, type, label.Trim(), capacity, isPrimaryAllowed);
+        ProgramCourseId = programCourseId;
+        Type = type;
+        Label = label;
+        Capacity = capacity;
+        IsPrimaryAllowed = isPrimaryAllowed;
+        CreatedAt = DateTimeOffset.UtcNow;
+        UpdatedAt = CreatedAt;
+        Members = new List<GroupMember>();
     }
+
+    public long Id { get; private set; }
+
+    public long ProgramCourseId { get; private set; }
+
+    public GroupType Type { get; private set; }
+
+    public string Label { get; private set; }
+
+    public int Capacity { get; private set; }
+
+    public bool IsPrimaryAllowed { get; private set; }
+
+    public DateTimeOffset CreatedAt { get; private set; }
+
+    public DateTimeOffset UpdatedAt { get; private set; }
+
+    public DateTimeOffset? DeletedAt { get; private set; }
+
+    public ProgramCourse ProgramCourse { get; private set; } = null!;
+
+    public CustomGroupMeta? CustomMeta { get; private set; }
+
+    public ICollection<GroupMember> Members { get; private set; }
 
     public void AttachCustomMeta(CustomGroupMeta meta)
     {

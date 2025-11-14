@@ -9,9 +9,8 @@ public class AcademicProgram
         Courses = new List<ProgramCourse>();
     }
 
-    private AcademicProgram(long tenantId, long facultyId, string name, string degreeLevel)
+    public AcademicProgram(long facultyId, string name, string degreeLevel)
     {
-        TenantId = tenantId;
         FacultyId = facultyId;
         Name = name;
         DegreeLevel = degreeLevel;
@@ -21,8 +20,6 @@ public class AcademicProgram
     }
 
     public long Id { get; private set; }
-
-    public long TenantId { get; private set; }
 
     public long FacultyId { get; private set; }
 
@@ -39,13 +36,6 @@ public class AcademicProgram
     public Faculty Faculty { get; private set; } = null!;
 
     public ICollection<ProgramCourse> Courses { get; private set; }
-
-    public static AcademicProgram Create(long tenantId, long facultyId, string name, string degreeLevel)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(name);
-        ArgumentException.ThrowIfNullOrWhiteSpace(degreeLevel);
-        return new AcademicProgram(tenantId, facultyId, name.Trim(), degreeLevel.Trim());
-    }
 
     public void UpdateTimestamp()
     {

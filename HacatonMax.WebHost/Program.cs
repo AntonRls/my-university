@@ -12,8 +12,6 @@ using HacatonMax.University.Structure.Infrastructure;
 using HacatonMax.University.StudentsProject;
 using HacatonMax.University.StudentsProject.Infrastructure;
 using HacatonMax.University.StudentsProject.Infrastructure.Seeds;
-using HacatonMax.University.Users;
-using HacatonMax.University.Users.Infrastructure;
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -87,7 +85,6 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services
     .AddUniversityAdmin(builder.Configuration)
     .AddAuthModule(builder.Configuration)
-    .AddUniversityUsersModule(builder.Configuration)
     .AddUniversityStudentProjectsModule(builder.Configuration)
     .AddUniversityEventsModule(builder.Configuration)
     .AddUniversityLibraryModule(builder.Configuration)
@@ -124,9 +121,6 @@ using (var scope = app.Services.CreateScope())
     var adminDb = services.GetRequiredService<AdminDbContext>();
     adminDb.Database.Migrate();
 
-    var usersDb = services.GetRequiredService<UsersDbContext>();
-    usersDb.Database.Migrate();
-
     var structureDb = services.GetRequiredService<StructureDbContext>();
     structureDb.Database.Migrate();
 
@@ -136,7 +130,6 @@ using (var scope = app.Services.CreateScope())
         await seeder.SeedAsync(seedOptions, CancellationToken.None);
     }
 }
-
 
 app.UseHangfireDashboard();
 app.Run("http://0.0.0.0:5099");

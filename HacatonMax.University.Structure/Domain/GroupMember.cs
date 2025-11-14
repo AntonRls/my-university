@@ -6,18 +6,15 @@ public class GroupMember
     {
     }
 
-    private GroupMember(long groupId, long tenantId, long studentId, GroupMembershipType membershipType)
+    public GroupMember(long groupId, long studentId, GroupMembershipType membershipType)
     {
         GroupId = groupId;
-        TenantId = tenantId;
         StudentId = studentId;
         MembershipType = membershipType;
         JoinedAt = DateTimeOffset.UtcNow;
     }
 
     public long GroupId { get; private set; }
-
-    public long TenantId { get; private set; }
 
     public long StudentId { get; private set; }
 
@@ -26,9 +23,4 @@ public class GroupMember
     public DateTimeOffset JoinedAt { get; private set; }
 
     public Group Group { get; private set; } = null!;
-
-    public static GroupMember Create(long groupId, long tenantId, long studentId, GroupMembershipType membershipType)
-    {
-        return new GroupMember(groupId, tenantId, studentId, membershipType);
-    }
 }

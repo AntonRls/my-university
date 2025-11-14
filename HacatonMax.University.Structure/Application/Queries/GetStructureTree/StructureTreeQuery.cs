@@ -1,4 +1,3 @@
-using HacatonMax.University.Structure.Application.Abstractions;
 using HacatonMax.University.Structure.Domain;
 using HacatonMax.University.Structure.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -11,21 +10,16 @@ public record GetStructureTreeQuery : IRequest<StructureTreeDto>;
 public sealed class GetStructureTreeQueryHandler : IRequestHandler<GetStructureTreeQuery, StructureTreeDto>
 {
     private readonly StructureDbContext _dbContext;
-    private readonly ITenantContextAccessor _tenantContextAccessor;
 
-    public GetStructureTreeQueryHandler(StructureDbContext dbContext, ITenantContextAccessor tenantContextAccessor)
+    public GetStructureTreeQueryHandler(StructureDbContext dbContext)
     {
         _dbContext = dbContext;
-        _tenantContextAccessor = tenantContextAccessor;
     }
 
     public async Task<StructureTreeDto> Handle(GetStructureTreeQuery request, CancellationToken cancellationToken)
     {
-        var tenantId = _tenantContextAccessor.TenantId;
-
         var faculties = await _dbContext.Faculties
             .AsNoTracking()
-            .Where(x => x.TenantId == tenantId)
             .Include(x => x.Programs)
                 .ThenInclude(p => p.Courses)
                     .ThenInclude(c => c.Groups)
