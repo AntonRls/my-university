@@ -15,6 +15,7 @@ using HacatonMax.University.Users;
 using HacatonMax.University.Users.Infrastructure;
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var seedOptions = StudentProjectsSeedOptions.Parse(args, out var filteredArgs);
 
@@ -54,6 +55,31 @@ builder.Services.AddSwaggerGen(c =>
 
     c.IncludeXmlComments(libraryDocx, includeControllerXmlComments: true);
     c.IncludeXmlComments(adminDocx, includeControllerXmlComments: true);
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Введите JWT токен в формате: Bearer {token}",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 builder.Services
     .AddUniversityAdmin(builder.Configuration)
