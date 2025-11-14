@@ -78,7 +78,10 @@ public class RequestStudentProjectParticipationHandler : IRequestHandler<Request
             participant.SetParticipantRoles(participantRoles);
         }
 
-        project.AddParticipant(participant);
+        // Explicitly add the participant to the context to ensure it's tracked as Added
+        // This prevents EF Core from trying to UPDATE instead of INSERT
+        // The foreign key relationship (StudentProjectId) will maintain the association
+        await _studentProjectsRepository.AddParticipant(participant);
 
         await _studentProjectsRepository.SaveChanges();
     }

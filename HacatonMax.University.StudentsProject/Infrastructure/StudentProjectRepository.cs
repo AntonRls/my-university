@@ -133,7 +133,51 @@ internal class StudentProjectRepository : IStudentProjectsRepository
     public async Task AddTeamRoles(IEnumerable<TeamRole> roles)
     {
         await _context.TeamRoles.AddRangeAsync(roles);
-        await _context.SaveChangesAsync();
+        // Don't save changes here - let the caller handle all saves at once
+        // to avoid concurrency issues with tracked entities
+    }
+
+    public async Task AddParticipant(StudentProjectParticipant participant)
+    {
+        // Explicitly add the participant to ensure it's tracked as Added, not Modified
+        await _context.StudentProjectParticipants.AddAsync(participant);
+        
+        // Also add any participant roles
+        if (participant.ParticipantRoles.Count > 0)
+        {
+            await _context.StudentProjectParticipantRoles.AddRangeAsync(participant.ParticipantRoles);
+        }
+    }
+
+    public async Task RemoveParticipantRoles(Guid participantId)
+    {
+        var rolesToRemove = await _context.StudentProjectParticipantRoles
+            .Where(r => r.ParticipantId == participantId)
+            .ToListAsync();
+
+        if (rolesToRemove.Count > 0)
+        {
+            _context.StudentProjectParticipantRoles.RemoveRange(rolesToRemove);
+        }
+    }
+
+    public async Task UpdateParticipantRoles(Guid participantId, List<StudentProjectParticipantRole> newRoles)
+    {
+        // Удаляем старые роли
+        var rolesToRemove = await _context.StudentProjectParticipantRoles
+            .Where(r => r.ParticipantId == participantId)
+            .ToListAsync();
+
+        if (rolesToRemove.Count > 0)
+        {
+            _context.StudentProjectParticipantRoles.RemoveRange(rolesToRemove);
+        }
+
+        // Добавляем новые роли
+        if (newRoles.Count > 0)
+        {
+            await _context.StudentProjectParticipantRoles.AddRangeAsync(newRoles);
+        }
     }
 
     private Task<List<Skill>> GetExistsSkills(Guid[] skillIds)

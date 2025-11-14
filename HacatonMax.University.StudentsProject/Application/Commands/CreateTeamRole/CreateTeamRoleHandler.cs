@@ -31,6 +31,7 @@ public sealed class CreateTeamRoleHandler : IRequestHandler<CreateTeamRoleComman
 
         var newRole = new TeamRole(Guid.NewGuid(), normalizedName, request.Description?.Trim());
         await _studentProjectsRepository.AddTeamRoles(new[] { newRole });
+        await _studentProjectsRepository.SaveChanges();
 
         return new TeamRoleDto(newRole.Id, newRole.Name, newRole.Description);
     }

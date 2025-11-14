@@ -35,4 +35,10 @@ public interface IStudentProjectsRepository
     Task<List<TeamRole>> GetTeamRolesByNames(IEnumerable<string> names);
 
     Task AddTeamRoles(IEnumerable<TeamRole> roles);
+
+    Task AddParticipant(StudentProjectParticipant participant);
+
+    Task RemoveParticipantRoles(Guid participantId);
+
+    Task UpdateParticipantRoles(Guid participantId, List<StudentProjectParticipantRole> newRoles);
 }
