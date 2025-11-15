@@ -1,6 +1,6 @@
 using System.Text.Json;
+using HacatonMax.Auth;
 using HacatonMax.Common.Middleware;
-using HacatonMax.University.Auth;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);

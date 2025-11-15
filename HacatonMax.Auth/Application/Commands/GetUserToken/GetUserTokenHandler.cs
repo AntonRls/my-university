@@ -3,12 +3,11 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Web;
+using HacatonMax.Auth.Domain;
 using HacatonMax.Common.Exceptions;
-using HacatonMax.University.Auth.Domain;
-using Microsoft.Extensions.Configuration;
 using TimeWarp.Mediator;
 
-namespace HacatonMax.University.Auth.Application.Commands.GetUserToken;
+namespace HacatonMax.Auth.Application.Commands.GetUserToken;
 
 public class GetUserTokenHandler : IRequestHandler<GetUserTokenCommand, string>
 {

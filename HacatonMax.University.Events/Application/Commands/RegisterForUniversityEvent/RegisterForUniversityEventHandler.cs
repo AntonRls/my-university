@@ -1,6 +1,5 @@
-using System;
+using HacatonMax.Common.AuthHelper;
 using HacatonMax.Common.Exceptions;
-using HacatonMax.University.Auth.Domain;
 using HacatonMax.University.Events.Application.Common;
 using HacatonMax.University.Events.Application.Services;
 using HacatonMax.University.Events.Controllers.Dto;

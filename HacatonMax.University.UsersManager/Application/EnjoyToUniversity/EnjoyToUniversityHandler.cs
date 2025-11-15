@@ -1,5 +1,5 @@
+using HacatonMax.Common.AuthHelper;
 using HacatonMax.University.Admin.Domain;
-using HacatonMax.University.Auth.Domain;
 using TimeWarp.Mediator;
 using User = HacatonMax.University.Admin.Domain.User;
 

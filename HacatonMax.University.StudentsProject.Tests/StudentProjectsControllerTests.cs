@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using HacatonMax.Bot.Domain;
+using HacatonMax.Common.AuthHelper;
 using HacatonMax.Common.Exceptions;
 using HacatonMax.University.StudentsProject.Application.Commands.ApproveStudentProjectParticipant;
 using HacatonMax.University.StudentsProject.Application.Commands.GetStudentProjectById;
@@ -989,7 +990,7 @@ internal class TestUniversityEventsRepository : HacatonMax.University.Events.Dom
 }
 
 // Test helper для UserContextService
-internal class TestUserContextService : HacatonMax.University.Auth.Domain.IUserContextService
+internal class TestUserContextService : IUserContextService
 {
     private readonly long? _userId;
 
@@ -998,7 +999,7 @@ internal class TestUserContextService : HacatonMax.University.Auth.Domain.IUserC
         _userId = userId;
     }
 
-    public HacatonMax.University.Auth.Domain.User GetCurrentUser()
+    public User GetCurrentUser()
     {
         var user = GetCurrentUserOrDefault();
         if (user == null)
@@ -1009,10 +1010,10 @@ internal class TestUserContextService : HacatonMax.University.Auth.Domain.IUserC
         return user;
     }
 
-    public HacatonMax.University.Auth.Domain.User? GetCurrentUserOrDefault()
+    public User? GetCurrentUserOrDefault()
     {
         return _userId.HasValue
-            ? new HacatonMax.University.Auth.Domain.User(_userId.Value, "Test", "User", "testuser")
+            ? new User(_userId.Value, "Test", "User", "testuser")
             : null;
     }
 }

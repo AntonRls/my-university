@@ -18,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HacatonMax.University.Auth\HacatonMax.University.Auth.csproj" />
+      <ProjectReference Include="..\HacatonMax.Common\HacatonMax.Common.csproj" />
     </ItemGroup>
 
 </Project>

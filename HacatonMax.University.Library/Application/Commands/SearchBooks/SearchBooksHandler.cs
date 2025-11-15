@@ -1,5 +1,5 @@
+using HacatonMax.Common.AuthHelper;
 using HacatonMax.Common.Exceptions;
-using HacatonMax.University.Auth.Domain;
 using HacatonMax.University.Library.Controllers.Dto;
 using HacatonMax.University.Library.Domain;
 using TimeWarp.Mediator;

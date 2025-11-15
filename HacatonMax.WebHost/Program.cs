@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using HacatonMax.Bot.MaxProvider;
+using HacatonMax.Common.AuthHelper;
 using HacatonMax.Common.HangfireProvider;
 using HacatonMax.Common.Middleware;
 using HacatonMax.Common.Options;

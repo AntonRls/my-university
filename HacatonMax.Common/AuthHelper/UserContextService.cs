@@ -1,9 +1,8 @@
 using System.Security.Claims;
 using HacatonMax.Common.Exceptions;
-using HacatonMax.University.Auth.Domain;
 using Microsoft.AspNetCore.Http;
 
-namespace HacatonMax.University.Auth;
+namespace HacatonMax.Common.AuthHelper;
 
 public class UserContextService : IUserContextService
 {

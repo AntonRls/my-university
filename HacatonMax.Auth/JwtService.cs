@@ -1,11 +1,10 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using HacatonMax.University.Auth.Domain;
-using Microsoft.Extensions.Configuration;
+using HacatonMax.Auth.Domain;
 using Microsoft.IdentityModel.Tokens;
 
-namespace HacatonMax.University.Auth;
+namespace HacatonMax.Auth;
 
 public class JwtService : IJwtService
 {

@@ -1,4 +1,4 @@
-using HacatonMax.University.Auth.Domain;
+using HacatonMax.Common.AuthHelper;
 using HacatonMax.University.Library.Domain;
 using TimeWarp.Mediator;
 

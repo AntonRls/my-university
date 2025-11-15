@@ -1,6 +1,6 @@
 using HacatonMax.Common.Abstractions;
+using HacatonMax.Common.AuthHelper;
 using HacatonMax.Common.Exceptions;
-using HacatonMax.University.Auth.Domain;
 using HacatonMax.University.Library.Application.Commands.SendNotificationEstimatedReservationTimeBook;
 using HacatonMax.University.Library.Domain;
 using TimeWarp.Mediator;

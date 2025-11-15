@@ -20,8 +20,4 @@
     <PackageReference Include="TimeWarp.Mediator" Version="13.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\HacatonMax.University.Auth\HacatonMax.University.Auth.csproj" />
-  </ItemGroup>
-
 </Project>

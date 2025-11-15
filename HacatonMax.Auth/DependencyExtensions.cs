@@ -1,9 +1,9 @@
 using System.Text;
-using HacatonMax.University.Auth.Application.Commands.GetUserToken;
-using HacatonMax.University.Auth.Domain;
+using HacatonMax.Auth.Application.Commands.GetUserToken;
+using HacatonMax.Auth.Domain;
 using Microsoft.IdentityModel.Tokens;
 
-namespace HacatonMax.University.Auth;
+namespace HacatonMax.Auth;
 
 public static class DependencyExtensions
 {

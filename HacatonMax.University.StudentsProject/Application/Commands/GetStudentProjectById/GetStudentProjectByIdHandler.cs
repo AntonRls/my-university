@@ -1,5 +1,5 @@
+using HacatonMax.Common.AuthHelper;
 using HacatonMax.Common.Exceptions;
-using HacatonMax.University.Auth.Domain;
 using HacatonMax.University.Events.Domain;
 using HacatonMax.University.StudentsProject.Application.Mappers;
 using HacatonMax.University.StudentsProject.Controllers.Dto;

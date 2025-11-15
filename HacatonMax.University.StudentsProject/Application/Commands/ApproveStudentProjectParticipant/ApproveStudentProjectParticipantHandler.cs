@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using HacatonMax.Common.AuthHelper;
 using HacatonMax.Common.Exceptions;
-using HacatonMax.University.Auth.Domain;
 using HacatonMax.University.StudentsProject.Application.Common;
 using HacatonMax.University.StudentsProject.Domain;
 using TimeWarp.Mediator;

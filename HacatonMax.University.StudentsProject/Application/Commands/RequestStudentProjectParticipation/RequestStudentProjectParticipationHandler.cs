@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using HacatonMax.Bot.Domain;
+using HacatonMax.Common.AuthHelper;
 using HacatonMax.Common.Exceptions;
-using HacatonMax.University.Auth.Domain;
+using HacatonMax.University.Admin.Domain;
 using HacatonMax.University.StudentsProject.Application.Common;
 using HacatonMax.University.StudentsProject.Domain;
 using TimeWarp.Mediator;
+using User = HacatonMax.Common.AuthHelper.User;
 
 namespace HacatonMax.University.StudentsProject.Application.Commands.RequestStudentProjectParticipation;
 

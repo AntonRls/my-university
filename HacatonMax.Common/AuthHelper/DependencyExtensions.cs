@@ -1,16 +1,14 @@
 using System.Text;
-using HacatonMax.University.Auth;
-using HacatonMax.University.Auth.Application.Commands.GetUserToken;
-using HacatonMax.University.Auth.Domain;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace HacatonMax.WebHost;
+namespace HacatonMax.Common.AuthHelper;
 
 public static class DependencyExtensions
 {
     public static IServiceCollection AddAuthModule(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<IJwtService, JwtService>();
         services.AddHttpContextAccessor();
         services.AddScoped<IUserContextService, UserContextService>();
         services.AddAuthentication("Bearer")
@@ -30,11 +28,6 @@ public static class DependencyExtensions
                 };
             });
         services.AddAuthorization();
-
-        services.AddMediator(cfg =>
-        {
-            cfg.RegisterServicesFromAssembly(typeof(GetUserTokenCommand).Assembly);
-        });
         return services;
     }
 }

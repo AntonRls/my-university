@@ -1,4 +1,4 @@
-namespace HacatonMax.University.Auth.Domain;
+namespace HacatonMax.Auth.Domain;
 
 public interface IJwtService
 {

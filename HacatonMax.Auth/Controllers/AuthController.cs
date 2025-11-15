@@ -1,9 +1,9 @@
-using HacatonMax.University.Auth.Application.Commands.GetUserToken;
-using HacatonMax.University.Auth.Controllers.Dto;
+using HacatonMax.Auth.Application.Commands.GetUserToken;
+using HacatonMax.Auth.Controllers.Dto;
 using Microsoft.AspNetCore.Mvc;
 using TimeWarp.Mediator;
 
-namespace HacatonMax.University.Auth.Controllers;
+namespace HacatonMax.Auth.Controllers;
 
 [ApiController]
 [Route("auth")]

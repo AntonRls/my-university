@@ -1,4 +1,4 @@
-using HacatonMax.University.Auth.Domain;
+using HacatonMax.Common.AuthHelper;
 using HacatonMax.University.Events.Application.Common;
 using HacatonMax.University.Events.Controllers.Dto;
 using HacatonMax.University.Events.Domain;
