@@ -18,6 +18,11 @@ public class UserInUniversity
 
     public ApproveStatus ApproveStatus { get; private set; }
 
+    public void UpdateStatus(ApproveStatus status)
+    {
+        ApproveStatus = status;
+    }
+
     private UserInUniversity()
     {
     }

@@ -38,4 +38,10 @@ public class UsersController
 
         return new NoContentResult();
     }
+
+    [HttpPost("{userId:long}/universities/{universityId:long}")]
+    public async Task InsertStudentWithStatus([FromQuery] long userId, [FromRoute] long universityId, [FromQuery] ApproveStatus status)
+    {
+        await _universityRepository.UpdateStatus(userId, universityId, status);
+    }
 }

@@ -1,3 +1,4 @@
+using HacatonMax.Admin.Integration;
 using HacatonMax.University.Admin.Application.UpdateUserApproveStatus;
 using HacatonMax.University.Admin.Domain;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ public static class DependencyExtensions
         {
             cfg.RegisterServicesFromAssembly(typeof(UpdateUserApproveStatusCommand).Assembly);
         });
+        services.AddAdminUniversitiesHttpClient();
         return services;
     }
 }

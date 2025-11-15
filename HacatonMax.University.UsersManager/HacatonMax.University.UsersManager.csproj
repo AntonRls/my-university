@@ -19,6 +19,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\HacatonMax.Common\HacatonMax.Common.csproj" />
+      <ProjectReference Include="..\HacatonMax.Admin.Integration\HacatonMax.Admin.Integration.csproj" />
     </ItemGroup>
 
 </Project>

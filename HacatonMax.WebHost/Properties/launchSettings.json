@@ -9,7 +9,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "MaxBot__AccessToken": "",
-        "Elasticsearch__Uri": "http://localhost:9200"
+        "Elasticsearch__Uri": "http://localhost:9200",
+        "AdminUniversities__BaseAddress": "https://linguabigben.ru:5002"
       }
     },
     "https": {

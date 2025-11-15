@@ -9,4 +9,6 @@ public interface IUniversityRepository
     Task<List<UserInUniversity>> GetUserUniversities(long userId);
 
     Task<bool> RemoveUserFromUniversity(long userId, long universityId);
+
+    Task UpdateStatus(long userId, long universityId, ApproveStatus status);
 }

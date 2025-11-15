@@ -31,6 +31,31 @@ internal class UniversityRepository : IUniversityRepository
             .ToListAsync();
     }
 
+    public async Task UpdateStatus(long userId, long universityId, ApproveStatus status)
+    {
+        var university = await _dbContext.Universities.FirstOrDefaultAsync(x => x.Id == universityId);
+        if (university == null)
+        {
+            return;
+        }
+        var exist = await _dbContext.UsersInUniversity.FirstOrDefaultAsync(x => x.UserId == userId && x.UniversityId == universityId);
+
+        if (exist == null)
+        {
+            var userInUniversity = new UserInUniversity(userId, university.TenantName, universityId);
+            userInUniversity.UpdateStatus(status);
+            await _dbContext.UsersInUniversity.AddAsync(userInUniversity);
+        }
+        else
+        {
+            await _dbContext.UsersInUniversity
+                .Where(x => x.UserId == userId && x.UniversityId == universityId)
+                .ExecuteUpdateAsync(x => x.SetProperty(setter => setter.ApproveStatus, status));
+        }
+
+        await _dbContext.SaveChangesAsync();
+    }
+
     public async Task<bool> RemoveUserFromUniversity(long userId, long universityId)
     {
         var entity = await _dbContext.UsersInUniversity
