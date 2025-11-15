@@ -73,3 +73,6 @@ The application exposes performance metrics at `/metrics`. This endpoint provide
 ### Slow Query Logging
 
 In development mode, EF Core automatically logs queries taking longer than 200ms. Check application logs for warnings about slow database queries.
+
+## Requirements 
+<a href="https://github.com/AntonRls/my-university/blob/main/requirements_back.txt">Requirements для бэка</a>
