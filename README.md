@@ -11,7 +11,7 @@ docker compose up --build
 docker compose -f compose.yaml up --build
 ```
 
-## Тестирование
+## Ручное тестирование
 После запуска у вас поднимется 3-backend сервиса: AuthService, Admin и Tenant со всеми сервисами для студента (расписание, подбор проектов, календарь мероприятий университета, библиотека, дедлайны студента).<br>Сваггеры будут находиться на таких URL:<br>
 <ul>
 <li>http://localhost:5099/swagger - Tenant со сервисами для студента</li>
@@ -22,6 +22,12 @@ docker compose -f compose.yaml up --build
 Для всех сервисов мы подготовили единый AccessToken, его вы можете вставить нажав на кнопку Authorize в сваггере. Он нужен, чтобы сервисы понимали что вы авторизированы, иначе будет 401 ошибка:
 ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijk3Njc4OTc3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IiIsImZpcnN0TmFtZSI6ItCh0LXRgNCz0LXQuSIsImxhc3ROYW1lIjoi0KfQtdGA0L3Ri9GI0ZHQsiIsImV4cCI6MTc2NTc3MDk0NywiaXNzIjoiTXlVbml2ZXJzaXR5IiwiYXVkIjoiTXlVbml2ZXJzaXR5VXNlcnMifQ.ul7fYPPsZctsVp5XLZrb04fJy32WVzDXMvVLHuHKzNY
+```
+
+## Автоматическое тестирование
+У нас так-же подготовлены автоматически тесты, их вы можете запустить прописав такую команду из корня проекта:
+```
+dotnet test
 ```
 
 ## Архитектурный подход тенантов
