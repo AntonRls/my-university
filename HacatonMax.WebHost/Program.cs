@@ -6,7 +6,6 @@ using HacatonMax.Common.Middleware;
 using HacatonMax.Common.Options;
 using HacatonMax.WebHost;
 using HacatonMax.University.Admin.Infrastructure;
-using HacatonMax.University.Auth;
 using HacatonMax.University.Events.Infrastructure;
 using HacatonMax.University.Library.Infrastructure;
 using HacatonMax.University.Structure.Infrastructure;

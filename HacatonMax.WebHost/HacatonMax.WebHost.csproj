@@ -21,7 +21,6 @@
         <ProjectReference Include="..\HacatonMax.University.StudentsProject\HacatonMax.University.StudentsProject.csproj" />
         <ProjectReference Include="..\HacatonMax.University.Events\HacatonMax.University.Events.csproj" />
         <ProjectReference Include="..\HacatonMax.University.Library\HacatonMax.University.Library.csproj" />
-        <ProjectReference Include="..\HacatonMax.University.Auth\HacatonMax.University.Auth.csproj" />
         <ProjectReference Include="..\HacatonMax.University.UsersManager\HacatonMax.University.UsersManager.csproj" />
         <ProjectReference Include="..\HacatonMax.University.Structure\HacatonMax.University.Structure.csproj" />
     </ItemGroup>

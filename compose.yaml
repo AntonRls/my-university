@@ -31,6 +31,15 @@
       - "5001:5001"
     depends_on:
       - db.admin
+  hacatonmax.auth:
+    image: hacatonmax.auth
+    build:
+      context: .
+      dockerfile: HacatonMax.University.Auth/Dockerfile
+    environment:
+      "MaxBot__AccessToken": ""
+    ports:
+      - "5050:5050"
 
   db.university:
     image: postgres:16
