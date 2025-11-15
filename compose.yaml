@@ -35,7 +35,7 @@
     image: hacatonmax.auth
     build:
       context: .
-      dockerfile: HacatonMax.University.Auth/Dockerfile
+      dockerfile: HacatonMax.Auth/Dockerfile
     environment:
       "MaxBot__AccessToken": ""
     ports:
