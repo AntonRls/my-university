@@ -7,6 +7,7 @@ using HacatonMax.Common.Middleware;
 using HacatonMax.Common.Options;
 using HacatonMax.WebHost;
 using HacatonMax.University.Admin.Infrastructure;
+using HacatonMax.University.Deadlines.Infrastructure;
 using HacatonMax.University.Events.Infrastructure;
 using HacatonMax.University.Library.Infrastructure;
 using HacatonMax.University.Structure.Infrastructure;
@@ -96,7 +97,8 @@ builder.Services
     .AddUniversityEventsModule(builder.Configuration)
     .AddUniversityLibraryModule(builder.Configuration)
     .AddUniversityStructureModule(builder.Configuration)
-    .AddUniversityScheduleModule(builder.Configuration);
+    .AddUniversityScheduleModule(builder.Configuration)
+    .AddUniversityDeadlinesModule(builder.Configuration);
 
 builder.Services.AddRequestMetrics();
 builder.Services.AddSingleton(seedOptions);
@@ -135,6 +137,9 @@ using (var scope = app.Services.CreateScope())
 
     var scheduleDb = services.GetRequiredService<ScheduleDbContext>();
     scheduleDb.Database.Migrate();
+
+    var deadlinesDb = services.GetRequiredService<DeadlinesDbContext>();
+    deadlinesDb.Database.Migrate();
 
     if (seedOptions.Enabled)
     {

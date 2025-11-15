@@ -3,8 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable><GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,5 +23,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HacatonMax.Common\HacatonMax.Common.csproj" />
+    <ProjectReference Include="..\HacatonMax.Bot\HacatonMax.Bot.csproj" />
+    <ProjectReference Include="..\HacatonMax.University.Structure\HacatonMax.University.Structure.csproj" />
+    <ProjectReference Include="..\HacatonMax.University.Schedule\HacatonMax.University.Schedule.csproj" />
   </ItemGroup>
+
 </Project>
+
+
