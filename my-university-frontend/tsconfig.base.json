@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noUncheckedSideEffectImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@shared-ui/*": ["libs/shared-ui/src/*"],
+      "@shared/ui": ["libs/shared-ui/src/ui"],
+      "@shared/ui/*": ["libs/shared-ui/src/ui/*"],
+      "@shared/icons": ["libs/shared-ui/src/icons"],
+      "@shared/icons/*": ["libs/shared-ui/src/icons/*"],
+      "@api": ["libs/api/src"],
+      "@api/*": ["libs/api/src/*"],
+      "@api/shared/api/*": ["libs/api/src/shared/api/*"],
+      "@api/services": ["libs/api/src/services"],
+      "@api/services/*": ["libs/api/src/services/*"],
+      "@api/types/*": ["libs/api/src/types/*"],
+      "@app/*": ["apps/my-university/src/app/*"],
+      "@entities/*": ["apps/my-university/src/entities/*"],
+      "@features/*": ["apps/my-university/src/features/*"],
+      "@widgets/*": ["apps/my-university/src/widgets/*"],
+      "@shared/*": ["apps/my-university/src/shared/*"],
+      "@processes/*": ["apps/my-university/src/processes/*"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

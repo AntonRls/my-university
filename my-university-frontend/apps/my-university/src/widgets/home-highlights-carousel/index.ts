@@ -1,0 +1,2 @@
+export { HomeHighlightsCarousel } from './HomeHighlightsCarousel';
+

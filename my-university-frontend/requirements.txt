@@ -1,0 +1,107 @@
+# Frontend Dependencies
+# Этот файл содержит описание всех библиотек и их версий, используемых в проекте
+# Для установки зависимостей используйте: npm install
+
+# ==============================================================================
+# PRODUCTION DEPENDENCIES (dependencies)
+# ==============================================================================
+
+# UI библиотеки
+@maxhub/max-ui==^0.1.12              # UI компоненты от MaxHub
+lucide-react==^0.553.0                # Иконки для React
+sonner==^2.0.7                        # Toast уведомления
+
+# React и основные библиотеки
+react==^18.3.1                        # React библиотека
+react-dom==^18.3.1                    # React DOM рендерер
+react-router-dom==^6.28.0             # Роутинг для React приложений
+
+# State Management
+jotai==^2.15.1                        # Атомарное управление состоянием
+
+# UI компоненты и утилиты
+react-quill==^2.0.0                   # Rich text редактор
+swiper==^12.0.3                       # Слайдер/карусель компонент
+qrcode.react==^4.2.0                  # Генератор QR кодов для React
+dompurify==^3.3.0                     # Санитизация HTML контента
+
+# ==============================================================================
+# DEVELOPMENT DEPENDENCIES (devDependencies)
+# ==============================================================================
+
+# Build Tools
+nx==22.0.3                            # Nx - монорепо инструмент
+vite==^7.1.0                          # Сборщик и dev сервер
+@vitejs/plugin-react==^4.7.0          # Vite плагин для React
+@nx/vite==22.0.3                      # Nx интеграция с Vite
+@nx/react==^22.0.3                    # Nx плагин для React
+@nx/web==22.0.3                       # Nx плагин для веб приложений
+@nx/docker==22.0.3                    # Nx плагин для Docker
+
+# TypeScript
+typescript==~5.8.3                    # TypeScript компилятор
+@types/react==^18.3.18                # Типы для React
+@types/react-dom==^18.3.5             # Типы для React DOM
+@types/node==^22.10.1                 # Типы для Node.js
+@types/dompurify==^3.0.5              # Типы для DOMPurify
+
+# Linting и Formatting
+eslint==^9.32.0                       # ESLint - линтер для JavaScript/TypeScript
+@eslint/js==^9.32.0                   # ESLint JavaScript конфигурация
+@typescript-eslint/parser==^8.46.3    # TypeScript парсер для ESLint
+@typescript-eslint/eslint-plugin==^8.46.3  # ESLint плагин для TypeScript
+eslint-plugin-react==^7.37.5          # ESLint плагин для React
+eslint-plugin-react-hooks==^7.0.1     # ESLint плагин для React Hooks
+eslint-plugin-feature-sliced==^0.0.2  # ESLint плагин для Feature-Sliced Design
+eslint-config-prettier==^10.1.8       # Отключает конфликтующие правила Prettier
+prettier==^3.6.2                      # Prettier - форматтер кода
+globals==^16.3.0                      # Глобальные переменные для ESLint
+
+# Style Linting
+stylelint==^16.25.0                   # Линтер для CSS/SCSS
+stylelint-config-standard-scss==^16.0.0  # Стандартная конфигурация для SCSS
+stylelint-config-prettier-scss==^1.0.0  # Интеграция Prettier с Stylelint для SCSS
+
+# Styling
+sass==^1.82.0                         # Sass/SCSS препроцессор
+tailwindcss==^3.4.14                  # Tailwind CSS фреймворк
+tailwindcss-animate==^1.0.7           # Анимации для Tailwind CSS
+tailwind-merge==^3.4.0                # Утилита для объединения Tailwind классов
+autoprefixer==^10.4.21                # Автоматическое добавление префиксов CSS
+class-variance-authority==^0.7.1      # Утилита для управления вариантами классов
+
+# Testing
+vitest==^3.0.0                        # Тестовый фреймворк
+@vitest/ui==^3.0.0                    # UI для Vitest
+@testing-library/react==^16.3.0       # Утилиты для тестирования React компонентов
+@testing-library/jest-dom==^6.9.1     # Дополнительные матчеры для Jest DOM
+
+# React Compiler
+babel-plugin-react-compiler==^1.0.0   # React Compiler плагин для Babel
+
+# Utilities
+jiti==2.4.2                           # Динамический импорт TypeScript/ESM модулей
+
+# ==============================================================================
+# ПРИМЕЧАНИЯ
+# ==============================================================================
+# 
+# 1. Для установки всех зависимостей выполните:
+#    npm install
+#
+# 2. Для установки только production зависимостей:
+#    npm install --production
+#
+# 3. Версии указаны в формате package.json (с ^ и ~)
+#    - ^ означает совместимость с минорными обновлениями
+#    - ~ означает совместимость с патч обновлениями
+#    - == означает точную версию
+#
+# 4. Для обновления зависимостей используйте:
+#    npm update
+#
+# 5. Для проверки устаревших пакетов:
+#    npm outdated
+#
+# ==============================================================================
+

@@ -1,0 +1,50 @@
+.root {
+  min-height: var(--app-viewport-height, 100dvh);
+  padding: 24px 16px 32px;
+  background: #242c3b;
+
+  @media (prefers-color-scheme: dark) {
+    background: #222834;
+  }
+
+  @media (width >= 768px) {
+    padding: 32px 24px 48px;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.title {
+  margin: 0;
+  display: inline-flex;
+  flex-direction: column;
+  color: #fff;
+  font-size: clamp(26px, 4vw, 34px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.titleLine {
+  display: inline-flex;
+}
+
+.actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 120px;
+}

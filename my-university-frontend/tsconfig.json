@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.base.json",
+  "files": [],
+  "references": [
+    { "path": "./apps/my-university/tsconfig.json" },
+    { "path": "./apps/my-university-admin-platform/tsconfig.json" },
+    { "path": "./libs/shared-ui/tsconfig.json" },
+    { "path": "./libs/api/tsconfig.json" }
+  ]
+}

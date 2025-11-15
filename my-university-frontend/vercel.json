@@ -1,0 +1,13 @@
+{
+  "buildCommand": "nx build my-university --configuration=production",
+  "outputDirectory": "dist/apps/my-university",
+  "installCommand": "npm install",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+

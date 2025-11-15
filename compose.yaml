@@ -1,4 +1,30 @@
 ﻿services:
+  frontend:
+    container_name: my-university-frontend
+    build:
+      context: ./my-university-frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_TENANT_API_BASE_URL: ${VITE_TENANT_API_BASE_URL:-http://host.docker.internal:5099}
+        VITE_AUTH_API_BASE_URL: ${VITE_AUTH_API_BASE_URL:-http://host.docker.internal:5050}
+        VITE_ADMIN_API_BASE_URL: ${VITE_ADMIN_API_BASE_URL:-http://host.docker.internal:5001}
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://host.docker.internal:5099}
+        VITE_DEFAULT_AUTH_TOKEN: ${VITE_DEFAULT_AUTH_TOKEN:-}
+    environment:
+      TENANT_API_BASE_URL: ${TENANT_API_BASE_URL:-http://host.docker.internal:5099}
+      AUTH_API_BASE_URL: ${AUTH_API_BASE_URL:-http://host.docker.internal:5050}
+      ADMIN_API_BASE_URL: ${ADMIN_API_BASE_URL:-http://host.docker.internal:5001}
+      DEFAULT_AUTH_TOKEN: ${DEFAULT_AUTH_TOKEN:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijk3Njc4OTc3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IiIsImZpcnN0TmFtZSI6ItCh0LXRgNCz0LXQuSIsImxhc3ROYW1lIjoi0KfQtdGA0L3Ri9GI0ZHQsiIsImV4cCI6MTc2NTc3MDk0NywiaXNzIjoiTXlVbml2ZXJzaXR5IiwiYXVkIjoiTXlVbml2ZXJzaXR5VXNlcnMifQ.ul7fYPPsZctsVp5XLZrb04fJy32WVzDXMvVLHuHKzNY}
+    ports:
+      - "4173:80"
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget -qO- http://localhost/health || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 3
   hacatonmax.webhost:
     image: hacatonmax.webhost
     build:

@@ -1,0 +1,32 @@
+{
+  "name": "shared-ui",
+  "sourceRoot": "libs/shared-ui/src",
+  "projectType": "library",
+  "targets": {
+    "typecheck": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{workspaceRoot}/dist/libs/shared-ui"],
+      "options": {
+        "project": "libs/shared-ui/tsconfig.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared-ui/src/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{workspaceRoot}/coverage/libs/shared-ui"],
+      "options": {
+        "configFile": "libs/shared-ui/vite.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:ui"]
+}

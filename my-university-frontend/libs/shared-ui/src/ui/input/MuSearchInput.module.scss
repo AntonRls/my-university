@@ -1,0 +1,21 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  inline-size: 100%;
+}
+
+.icon {
+  position: absolute;
+  inset-inline-start: 18px;
+  inline-size: 20px;
+  block-size: 20px;
+  color: rgb(255 255 255 / 44%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.input {
+  padding-inline-start: 48px;
+}
+

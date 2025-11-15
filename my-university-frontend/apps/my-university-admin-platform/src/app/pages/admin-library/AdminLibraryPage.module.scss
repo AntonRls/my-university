@@ -1,0 +1,355 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  @media (width >= 1100px) {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 28px;
+  }
+}
+
+.formCard {
+  border-radius: 28px;
+  padding: clamp(20px, 3vw, 28px);
+  background: linear-gradient(150deg, rgba(65 80 120 / 82%), rgba(33 44 70 / 88%));
+  border: 1px solid rgba(255 255 255 / 14%);
+  box-shadow:
+    0 18px 40px rgba(11 18 32 / 35%),
+    inset 0 1px 0 rgba(255 255 255 / 10%);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.formHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formTitle {
+  margin: 0;
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.formSubtitle {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(225 236 255 / 82%);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.label {
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(230 237 255 / 88%);
+}
+
+.input,
+.textarea,
+.numberInput {
+  inline-size: 100%;
+  border-radius: 18px;
+  border: 1px solid rgba(255 255 255 / 14%);
+  padding: 14px 16px;
+  background:
+    linear-gradient(140deg, rgba(54 68 102 / 85%), rgba(29 39 58 / 85%)) padding-box,
+    linear-gradient(140deg, rgba(96 172 246 / 45%), rgba(98 120 247 / 40%)) border-box;
+  color: #f6f9ff;
+  font-size: 15px;
+
+  &:focus-visible {
+    outline: 3px solid rgba(132 198 255 / 45%);
+    outline-offset: 2px;
+  }
+}
+
+.textarea {
+  min-block-size: 120px;
+  resize: vertical;
+}
+
+.tagsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tagsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tagButton {
+  border: 1px solid rgba(255 255 255 / 18%);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  background: rgba(255 255 255 / 10%);
+  color: rgba(218 228 255 / 85%);
+  transition: transform 0.15s ease, background 0.2s ease;
+
+  &:hover {
+    background: rgba(255 255 255 / 16%);
+    transform: translateY(-1px);
+  }
+}
+
+.tagButtonSelected {
+  background: linear-gradient(135deg, rgba(132 226 255 / 90%), rgba(114 132 255 / 90%));
+  color: #0f1626;
+  border-color: transparent;
+  box-shadow: 0 10px 22px rgba(14 20 36 / 40%);
+}
+
+.actionsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.buttonContent {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.secondaryAction {
+  font-size: 14px;
+  color: rgba(210 222 245 / 75%);
+}
+
+.formError {
+  padding: 12px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255 120 132 / 40%);
+  background: rgba(255 92 102 / 16%);
+  color: #ffd9dd;
+  font-size: 14px;
+}
+
+.booksCard {
+  border-radius: 28px;
+  padding: clamp(20px, 3vw, 28px);
+  background: linear-gradient(160deg, rgba(46 56 82 / 78%), rgba(22 27 40 / 88%));
+  border: 1px solid rgba(255 255 255 / 12%);
+  box-shadow:
+    0 18px 36px rgba(9 14 26 / 35%),
+    inset 0 1px 0 rgba(255 255 255 / 8%);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.booksHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.booksTitle {
+  margin: 0;
+  font-size: clamp(20px, 2.5vw, 24px);
+  font-weight: 600;
+}
+
+.booksMeta {
+  font-size: 14px;
+  color: rgba(204 214 238 / 75%);
+}
+
+.searchSection {
+  display: flex;
+  gap: 12px;
+}
+
+.searchInput {
+  inline-size: 100%;
+  border-radius: 18px;
+  border: 1px solid rgba(255 255 255 / 14%);
+  padding: 12px 16px;
+  background: rgba(27 34 52 / 60%);
+  color: #f6f9ff;
+  font-size: 15px;
+
+  &:focus-visible {
+    outline: 3px solid rgba(132 198 255 / 45%);
+    outline-offset: 2px;
+  }
+
+  &::placeholder {
+    color: rgba(180 195 220 / 60%);
+  }
+}
+
+.filterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filterLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(210 222 245 / 85%);
+}
+
+.filterTagsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.filterTagButton {
+  border: 1px solid rgba(255 255 255 / 18%);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  background: rgba(255 255 255 / 8%);
+  color: rgba(218 228 255 / 75%);
+  transition: transform 0.15s ease, background 0.2s ease;
+
+  &:hover {
+    background: rgba(255 255 255 / 14%);
+    transform: translateY(-1px);
+  }
+}
+
+.filterTagButtonSelected {
+  background: linear-gradient(135deg, rgba(132 226 255 / 70%), rgba(114 132 255 / 70%));
+  color: #0f1626;
+  border-color: transparent;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bookCard {
+  border-radius: 20px;
+  padding: 18px;
+  background: rgba(27 34 52 / 80%);
+  border: 1px solid rgba(255 255 255 / 12%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bookCardActive {
+  border-color: rgba(134 214 255 / 65%);
+  box-shadow: 0 18px 32px rgba(12 20 36 / 40%);
+}
+
+.bookTitleRow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bookTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: #f5f8ff;
+}
+
+.bookAuthor {
+  font-size: 14px;
+  color: rgba(196 212 242 / 85%);
+}
+
+.bookDescription {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(208 218 240 / 88%);
+}
+
+.bookCount {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(168 186 226 / 85%);
+}
+
+.bookTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bookTag {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(100 150 255 / 16%);
+  color: rgba(174 208 255 / 90%);
+  font-size: 13px;
+}
+
+.bookActions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.emptyState,
+.errorState,
+.loadingState {
+  border-radius: 18px;
+  padding: 20px;
+  background: rgba(20 26 40 / 70%);
+  border: 1px dashed rgba(255 255 255 / 16%);
+  color: rgba(206 216 238 / 80%);
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.supportText {
+  font-size: 13px;
+  color: rgba(188 204 232 / 75%);
+}

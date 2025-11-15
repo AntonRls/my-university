@@ -1,0 +1,405 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-bottom: 96px;
+}
+
+.searchInput {
+  width: min(720px, 100%);
+}
+
+.calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.calendarHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-self: flex-start;
+}
+
+.calendarMonthPrimary {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+}
+
+.calendarMonthSecondary {
+  margin: 0;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9aa5c1;
+}
+
+.calendarMonth {
+  display: inline-block;
+}
+
+.calendarDaysScroller {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.calendarDaysScrollerInner {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 6px;
+  flex-wrap: nowrap;
+  min-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 8px 4px 12px;
+  margin-inline: -4px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.calendarDaysScrollerInner::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.calendarDaysScrollerInner::-webkit-scrollbar-thumb {
+  background: rgb(104 116 144 / 60%);
+  border-radius: 999px;
+}
+
+.dayButton {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 60px;
+  min-height: 64px;
+  padding: 6px 8px;
+  border-radius: 18px;
+  border: 1px solid rgb(90 104 135 / 40%);
+  background: rgb(53 63 86 / 70%);
+  color: #d5dbf0;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+  scroll-snap-align: center;
+}
+
+.dayButton:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgb(79 92 120 / 60%);
+}
+
+.dayButton:hover {
+  border-color: rgb(126 140 170 / 80%);
+  background: rgb(63 74 99 / 80%);
+
+  &.dayButtonActive {
+    background: #3f41c8;
+  }
+}
+
+.dayButtonWeekday {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+.dayButtonDate {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.dayButtonToday {
+  background: rgb(63 74 96 / 75%);
+  color: #ffe0a3;
+  border-color: #ffe0a3;
+}
+
+.dayButtonWeekend {
+  background: rgb(111 55 64 / 45%);
+  color: #ffd4d4;
+  border-color: rgb(255 164 164 / 65%);
+}
+
+.dayButtonActive {
+  background: #4b4ced;
+  color: #ffffff;
+  border-color: #4b4ced;
+}
+
+.dayButtonDisabled {
+  color: rgb(183 192 210 / 65%);
+  border-color: rgb(87 97 124 / 40%);
+  cursor: not-allowed;
+}
+
+.dayButtonDisabled:not(.dayButtonWeekend) {
+  background: rgb(45 54 74 / 60%);
+}
+
+.selectedDayEvents {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.swipeWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.selectedDayEventsWrapper {
+  touch-action: pan-y;
+  will-change: transform;
+}
+
+.swipeOverlay {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #2c3245;
+  border: 1px solid rgb(70 78 109);
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 20;
+}
+
+.swipeOverlayVisible {
+  opacity: 1;
+}
+
+.swipeOverlayRight {
+  right: 16px;
+  align-items: flex-end;
+}
+
+.swipeOverlayLeft {
+  left: 16px;
+  align-items: flex-start;
+}
+
+.swipeOverlayTitle {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.swipeOverlaySubtitle {
+  font-size: 11px;
+  color: #aab5cd;
+}
+
+.swipeWrapper {
+  position: relative;
+}
+.selectedDayEventCard {
+  touch-action: pan-y;
+}
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 24px;
+  min-height: 40vh;
+}
+
+.loaderSpinner {
+  color: inherit;
+}
+
+.stateCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 24px;
+  border-radius: 24px;
+  background: transparent;
+  border: none;
+  text-align: center;
+  color: #ffffff;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+}
+
+.stateIcon {
+  width: 32px;
+  height: 32px;
+  align-self: center;
+  color: #ffb347;
+}
+
+.stateTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.stateMessage {
+  margin: 0;
+  font-size: 14px;
+  color: #d0d6e4;
+}
+
+.actionButton {
+  color: #e8ecf3;
+}
+
+.actionButtonActive {
+  color: #ffffff;
+  background: #4b4ced;
+}
+
+.actionIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.actionSpinner {
+  color: currentColor;
+}
+
+.sheet {
+  padding-bottom: 16px;
+}
+
+.sheetContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sheetEmptyState {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 24px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.sheetEmptyIcon {
+  width: 32px;
+  height: 32px;
+  color: #ffb347;
+}
+
+.sheetEmptyTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.sheetEmptyMessage {
+  margin: 0;
+  font-size: 14px;
+  color: #d0d6e4;
+}
+
+.sheetSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sheetSectionTitle {
+  margin: 0;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8f9aae;
+}
+
+.sheetList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sheetItem {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgb(45 53 72 / 75%);
+  border: 1px solid rgb(255 255 255 / 8%);
+}
+
+.sheetItemTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.sheetItemMeta {
+  font-size: 13px;
+  color: #d0d6e4;
+}
+
+.sheetItemMetaSecondary {
+  font-size: 12px;
+  color: #9aa5c1;
+}
+
+.searchResultsHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-self: flex-start;
+}
+
+.searchResultsTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+}
+
+.searchResultsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+

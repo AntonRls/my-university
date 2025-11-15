@@ -1,0 +1,51 @@
+.notification {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgb(75 76 237 / 12%);
+  border: 1px solid rgb(75 76 237 / 24%);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 20%);
+
+  @media (width >= 480px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #fff;
+}
+
+.message {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #b0b6c4;
+}
+
+.button {
+  flex-shrink: 0;
+  white-space: nowrap;
+
+  @media (width >= 480px) {
+    min-width: 200px;
+  }
+}
+

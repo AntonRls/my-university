@@ -1,0 +1,364 @@
+.sheet {
+  max-height: 90vh;
+  position: relative;
+}
+
+.content {
+  padding: 0 !important;
+}
+
+.headerActions {
+  position: absolute;
+  top: 68px;
+  right: 20px;
+  z-index: 10;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.coverSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 0 8px;
+  gap: 12px;
+  text-align: center;
+}
+
+.coverContainer {
+  position: relative;
+  width: 170px;
+  height: 230px;
+  padding: 0;
+  background: transparent;
+  border-radius: 18px;
+  transition: transform 200ms ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible .coverCard {
+    box-shadow: 0 18px 44px rgba(15, 23, 42, 0.55), 0 0 0 3px rgba(99, 102, 241, 0.45);
+  }
+}
+
+.coverContainer[role='button'] {
+  cursor: pointer;
+
+  &:hover .coverCard {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.45);
+  }
+
+  &:active .coverCard {
+    transform: translateY(0) scale(0.98);
+  }
+}
+
+.coverContainerActive .coverCard {
+  transform: translateY(-1px) scale(1.005);
+  box-shadow: 0 16px 44px rgba(15, 23, 42, 0.5);
+}
+
+.coverContainerDisabled .coverCard {
+  opacity: 0.7;
+  filter: grayscale(0.12);
+  transform: none;
+}
+
+.coverCard {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.2);
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.coverFace {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-radius: 18px;
+  padding: 20px;
+  opacity: 1;
+  transition: opacity 220ms ease, transform 260ms ease, visibility 220ms ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.coverFaceHidden {
+  opacity: 0;
+  transform: translateY(12px) scale(0.96);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.coverFaceFront {
+  background: linear-gradient(135deg, #3730a3 0%, #2563eb 50%, #1d4ed8 100%);
+  color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.2);
+}
+
+.coverFaceBack {
+  background: radial-gradient(circle at center, rgba(37, 99, 235, 0.35), rgb(17 24 39));
+  color: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.2);
+}
+
+.coverIcon {
+  width: 80px;
+  height: 80px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.coverTitle {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.coverQrWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  min-height: 0;
+}
+
+.coverQr {
+  display: block !important;
+  width: 190px !important;
+  height: 190px !important;
+  max-width: calc(100% - 40px);
+  max-height: calc(100% - 40px);
+  flex-shrink: 0;
+  margin: 0 auto;
+  
+  svg {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 auto;
+    vertical-align: top;
+  }
+}
+
+.coverBackHint {
+  font-size: 14px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.coverHint {
+  font-size: 14px;
+  color: rgba(229, 231, 235, 0.6);
+  max-width: 220px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+@media (max-width: 480px) {
+  .coverContainer {
+    width: 150px;
+    height: 210px;
+  }
+
+  .coverQr {
+    width: 170px;
+    height: 170px;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.bookTitle {
+  margin: 0 0 16px;
+  text-align: center;
+  font-size: clamp(24px, 5vw, 32px);
+  font-weight: 700;
+  line-height: 1.3;
+  color: rgba(249, 250, 251, 0.96);
+  letter-spacing: -0.02em;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(229, 231, 235, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.value {
+  font-size: 16px;
+  color: rgba(249, 250, 251, 0.94);
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.placeholder {
+  color: rgba(229, 231, 235, 0.45);
+  font-style: italic;
+}
+
+.availability {
+  font-weight: 600;
+  color: #a3e635;
+
+  &.availabilityEmpty {
+    color: #f87171;
+  }
+
+  &.availabilityUnknown {
+    color: rgba(233, 236, 244, 0.6);
+  }
+}
+
+.valueHighlight {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(249, 250, 251, 0.96);
+  font-weight: 600;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tag {
+  padding: 6px 12px;
+  background: rgba(249, 250, 251, 0.08);
+  border-radius: 16px;
+  font-size: 14px;
+  color: rgba(229, 231, 235, 0.75);
+  font-weight: 600;
+}
+
+.footer {
+  padding: 16px;
+}
+
+.footerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.actionError {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.actionErrorTitle {
+  font-weight: 600;
+  color: #fca5a5;
+}
+
+.actionErrorDescription {
+  color: #fecaca;
+}
+
+.footerActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.favoriteButton {
+  flex-shrink: 0;
+  color: rgb(122 156 255 / 72%);
+  transition: color 200ms ease, background-color 200ms ease;
+
+  &:not(:disabled):hover {
+    color: #7a9cff;
+    background-color: rgba(122, 156, 255, 0.12);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+.favoriteButtonActive {
+  color: #7a9cff;
+
+  &:not(:disabled):hover {
+    background-color: rgba(122, 156, 255, 0.18);
+  }
+}
+
+.favoriteIcon {
+  inline-size: 20px;
+  block-size: 20px;
+  flex-shrink: 0;
+}
+
+.buttonIcon {
+  inline-size: 18px;
+  block-size: 18px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .headerActions {
+    top: 10px;
+    right: 16px;
+  }
+}
+

@@ -1,0 +1,31 @@
+.notificationButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 44px;
+  block-size: 44px;
+  padding: 0;
+  border-radius: 16px;
+  border: 1px solid rgb(255 255 255 / 12%);
+  background: rgb(255 255 255 / 5%);
+  color: #fff;
+
+  &:hover {
+    border-color: rgb(255 255 255 / 24%);
+    background: rgb(255 255 255 / 12%);
+  }
+
+  &:active {
+    background: rgb(255 255 255 / 18%);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgb(104 118 255 / 40%);
+    outline-offset: 2px;
+  }
+}
+
+.notificationIcon {
+  inline-size: 22px;
+  block-size: 22px;
+}

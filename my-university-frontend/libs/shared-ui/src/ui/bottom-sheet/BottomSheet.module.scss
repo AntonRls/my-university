@@ -1,0 +1,196 @@
+.portalHost {
+  position: absolute;
+  inset: 0;
+  z-index: 1400;
+  pointer-events: none;
+}
+
+.portalRoot {
+  position: fixed;
+  inset: 0;
+  z-index: 1400;
+  pointer-events: none;
+}
+
+.portalRootContent {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  pointer-events: none;
+}
+
+.portalRootActive {
+  pointer-events: auto;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(8 11 18 / 30%), rgb(12 16 24 / 65%));
+  opacity: 0;
+  transition: opacity 280ms ease;
+  pointer-events: none;
+}
+
+.overlayVisible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sheet {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-inline-size: 720px;
+  inline-size: 100%;
+  min-inline-size: 0;
+  margin: 0 auto;
+  padding: 12px 20px 24px;
+  min-block-size: min(500px, 90vh);
+  block-size: 90vh;
+  max-block-size: 90vh;
+  border-radius: 24px 24px 0 0;
+  border: 1px solid rgb(255 255 255 / 8%);
+  background: rgb(19 24 36 / 92%);
+  backdrop-filter: blur(28px);
+  box-shadow:
+    0 -12px 36px rgb(0 0 0 / 35%),
+    0 2px 8px rgb(0 0 0 / 18%) inset;
+  transform: translateY(100%);
+  transition:
+    transform 280ms cubic-bezier(0.24, 0.96, 0.24, 1),
+    box-shadow 280ms ease;
+  pointer-events: auto;
+  overflow: hidden;
+}
+
+.sheetOpen {
+  box-shadow:
+    0 -16px 48px rgb(0 0 0 / 40%),
+    0 1px 0 rgb(255 255 255 / 8%) inset;
+}
+
+.handle {
+  display: flex;
+  justify-content: center;
+  padding-block: 6px 10px;
+  cursor: grab;
+  touch-action: none;
+}
+
+.sheetDragging {
+  transition: none;
+
+  .handle {
+    cursor: grabbing;
+  }
+}
+
+.handleBar {
+  inline-size: 44px;
+  block-size: 4px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 28%);
+}
+
+.header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  margin: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 8%);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: background 180ms ease, color 180ms ease;
+
+  &:hover {
+    background: rgb(255 255 255 / 12%);
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 2px rgb(255 255 255 / 24%);
+  }
+}
+
+.backIcon {
+  inline-size: 20px;
+  block-size: 20px;
+}
+
+.backLabel {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 auto;
+  text-align: right;
+}
+
+.title {
+  font-size: clamp(18px, 4vw, 20px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.description {
+  font-size: 14px;
+  color: rgb(230 234 244 / 72%);
+}
+
+.content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-inline: 4px;
+  min-block-size: 0;
+  overscroll-behavior: contain;
+}
+
+.footer {
+  padding-inline: 4px;
+  padding-bottom: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (width <= 480px) {
+  .sheet {
+    padding: 10px 16px 20px;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .backButton {
+    padding-inline: 10px;
+  }
+
+  .backLabel {
+    font-size: 14px;
+  }
+
+  .content,
+  .footer {
+    padding-inline: 0;
+  }
+}
+

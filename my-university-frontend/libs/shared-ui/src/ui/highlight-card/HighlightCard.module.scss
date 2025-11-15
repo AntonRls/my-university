@@ -1,0 +1,51 @@
+.highlightSection {
+  inline-size: 100%;
+  min-inline-size: 0;
+  padding: 20px 20px 30px;
+  border-radius: 24px;
+  border: 1px solid rgb(255 255 255 / 7%);
+  background: linear-gradient(135deg, rgb(53 63 84 / 42%), rgb(34 40 52 / 64%));
+
+  --highlight-shadow-drop: 0 18px 48px rgb(0 0 0 / 32%);
+  --highlight-shadow-inset: none;
+
+  box-shadow: var(--highlight-shadow-inset);
+  transition: box-shadow 320ms ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: space-between;
+  block-size: 207px;
+  flex: 1 1 auto;
+}
+
+.highlightSectionVisible {
+  box-shadow:
+    var(--highlight-shadow-drop),
+    var(--highlight-shadow-inset);
+}
+
+.highlightSectionAccent {
+  border-color: rgb(118 144 255 / 45%);
+  background: linear-gradient(135deg, rgb(92 118 255 / 30%), rgb(64 92 224 / 42%));
+
+  --highlight-shadow-drop: 0 18px 48px rgb(32 48 140 / 30%);
+  --highlight-shadow-inset: inset 0 1px 0 rgb(255 255 255 / 16%);
+}
+
+.highlightSectionUrgent {
+  border-color: rgb(255 120 90 / 50%);
+  background: linear-gradient(135deg, rgb(255 120 90 / 36%), rgb(255 74 100 / 46%));
+
+  --highlight-shadow-drop: 0 20px 52px rgb(255 84 45 / 28%);
+  --highlight-shadow-inset: inset 0 1px 0 rgb(255 226 214 / 22%);
+}
+
+.sectionTitle {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(20px, 3.2vw, 24px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+

@@ -1,0 +1,47 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "types": ["vite/client"],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@shared-ui/*": ["libs/shared-ui/src/*"],
+      "@shared/ui": ["libs/shared-ui/src/ui"],
+      "@shared/ui/*": ["libs/shared-ui/src/ui/*"],
+      "@shared/icons": ["libs/shared-ui/src/icons"],
+      "@shared/icons/*": ["libs/shared-ui/src/icons/*"],
+      "@shared/utils/className": ["apps/my-university-admin-platform/src/shared/utils/className.ts"],
+      "@shared/utils": ["apps/my-university/src/shared/utils"],
+      "@shared/utils/*": ["apps/my-university/src/shared/utils/*"],
+      "@api": ["libs/api/src"],
+      "@api/*": ["libs/api/src/*"],
+      "@api/services": ["libs/api/src/services"],
+      "@api/services/*": ["libs/api/src/services/*"],
+      "@api/admin": ["libs/api/src/admin"],
+      "@api/admin/*": ["libs/api/src/admin/*"],
+      "@api/structure": ["libs/api/src/structure"],
+      "@api/structure/*": ["libs/api/src/structure/*"],
+      "@api/shared/api/*": ["libs/api/src/shared/api/*"],
+      "@api/types/*": ["libs/api/src/types/*"],
+      "@app/*": ["apps/my-university/src/app/*"],
+      "@entities/*": ["apps/my-university/src/entities/*"],
+      "@features/*": ["apps/my-university/src/features/*"],
+      "@widgets/*": ["apps/my-university/src/widgets/*"],
+      "@shared/*": ["apps/my-university/src/shared/*"],
+      "@processes/*": ["apps/my-university/src/processes/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "vite-env.d.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "dist"
+  ]
+}

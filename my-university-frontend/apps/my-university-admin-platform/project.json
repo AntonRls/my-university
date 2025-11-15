@@ -1,0 +1,79 @@
+{
+  "name": "my-university-admin-platform",
+  "sourceRoot": "apps/my-university-admin-platform/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/my-university-admin-platform",
+        "configFile": "apps/my-university-admin-platform/vite.config.ts"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "configFile": "apps/my-university-admin-platform/vite.config.ts"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "my-university-admin-platform:build:development"
+        },
+        "production": {
+          "buildTarget": "my-university-admin-platform:build:production"
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview",
+      "defaultConfiguration": "production",
+      "options": {
+        "configFile": "apps/my-university-admin-platform/vite.config.ts"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "my-university-admin-platform:build:development"
+        },
+        "production": {
+          "buildTarget": "my-university-admin-platform:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/my-university-admin-platform/src/**/*.{ts,tsx,js,jsx}",
+          "apps/my-university-admin-platform/vite.config.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{workspaceRoot}/coverage/apps/my-university-admin-platform"],
+      "options": {
+        "configFile": "apps/my-university-admin-platform/vite.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "typecheck": {
+      "executor": "@nx/run-commands",
+      "options": {
+        "command": "tsc --noEmit -p apps/my-university-admin-platform/tsconfig.json"
+      }
+    }
+  },
+  "tags": ["scope:frontend", "type:app"]
+}

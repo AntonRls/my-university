@@ -1,0 +1,82 @@
+.wrapper {
+  flex: 1;
+  display: flex;
+}
+
+.button {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+
+  &:not(:disabled):active {
+    transform: scale(0.98);
+  }
+}
+
+.buttonSecondary {
+  .button {
+    background: var(--color-primary, #3b82f6);
+    color: white;
+
+    &:not(:disabled):hover {
+      background: var(--color-primary-dark, #2563eb);
+    }
+  }
+}
+
+.buttonDanger {
+  .button {
+    background: rgba(239, 68, 68, 0.18);
+    color: #fecaca;
+
+    &:not(:disabled):hover {
+      background: rgba(239, 68, 68, 0.28);
+    }
+  }
+}
+
+.buttonFavorite {
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(122, 156, 255, 0.18);
+    color: #7a9cff;
+
+    &:not(:disabled):hover {
+      background: rgba(122, 156, 255, 0.28);
+    }
+
+    :global(svg) {
+      inline-size: 18px;
+      block-size: 18px;
+      flex-shrink: 0;
+    }
+  }
+}
+
+.loaderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.spinner {
+  flex-shrink: 0;
+}
+
+.text {
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .button {
+    width: 100%;
+  }
+}
+

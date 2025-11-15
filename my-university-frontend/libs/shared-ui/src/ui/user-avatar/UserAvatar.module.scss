@@ -1,0 +1,17 @@
+.iconContainer {
+  background: transparent !important;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.icon {
+  color: rgb(255 255 255 / 60%);
+  opacity: 0.8;
+}
+

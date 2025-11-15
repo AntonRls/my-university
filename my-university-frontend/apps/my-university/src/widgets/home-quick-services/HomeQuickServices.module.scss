@@ -1,0 +1,108 @@
+.quickServicesGrid {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+  gap: 12px;
+}
+
+.quickService {
+  --quick-service-bg: rgb(255 255 255 / 4%);
+  --quick-service-bg-hover: rgb(255 255 255 / 8%);
+  --quick-service-bg-active: rgb(255 255 255 / 12%);
+  --quick-service-border: rgb(255 255 255 / 12%);
+  --quick-service-border-hover: rgb(255 255 255 / 18%);
+
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  inline-size: 72px;
+  block-size: 72px;
+  border-radius: 16px;
+  border: 1px solid var(--quick-service-border);
+  background: var(--quick-service-bg);
+  color: #fff;
+  text-decoration: none;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease;
+
+  .quickServiceContent {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    background: var(--quick-service-bg-hover);
+    border-color: var(--quick-service-border-hover);
+  }
+
+  &:active {
+    transform: translateY(0);
+    background: var(--quick-service-bg-active);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgb(104 118 255 / 40%);
+    outline-offset: 2px;
+  }
+}
+
+.quickService_events {
+  --quick-service-bg: linear-gradient(135deg, rgb(255 120 175 / 55%), rgb(220 70 135 / 40%));
+  --quick-service-bg-hover: linear-gradient(135deg, rgb(255 130 185 / 62%), rgb(230 82 145 / 48%));
+  --quick-service-bg-active: linear-gradient(135deg, rgb(255 110 165 / 68%), rgb(212 60 120 / 54%));
+  --quick-service-border: rgb(255 120 175 / 70%);
+  --quick-service-border-hover: rgb(255 132 185 / 78%);
+}
+
+.quickService_library {
+  --quick-service-bg: linear-gradient(135deg, rgb(110 170 255 / 55%), rgb(70 128 230 / 40%));
+  --quick-service-bg-hover: linear-gradient(135deg, rgb(120 182 255 / 62%), rgb(82 140 236 / 48%));
+  --quick-service-bg-active: linear-gradient(135deg, rgb(100 162 240 / 68%), rgb(60 112 210 / 54%));
+  --quick-service-border: rgb(110 170 255 / 70%);
+  --quick-service-border-hover: rgb(122 182 255 / 78%);
+}
+
+.quickService_calendar {
+  --quick-service-bg: linear-gradient(135deg, rgb(255 186 120 / 55%), rgb(242 150 68 / 42%));
+  --quick-service-bg-hover: linear-gradient(135deg, rgb(255 196 135 / 62%), rgb(246 162 88 / 50%));
+  --quick-service-bg-active: linear-gradient(135deg, rgb(245 174 105 / 68%), rgb(230 138 60 / 56%));
+  --quick-service-border: rgb(255 186 120 / 70%);
+  --quick-service-border-hover: rgb(255 198 140 / 78%);
+}
+
+.quickService_deadlines {
+  --quick-service-bg: linear-gradient(135deg, rgb(186 140 255 / 55%), rgb(150 100 232 / 40%));
+  --quick-service-bg-hover: linear-gradient(135deg, rgb(198 152 255 / 62%), rgb(162 112 240 / 48%));
+  --quick-service-bg-active: linear-gradient(135deg, rgb(178 132 245 / 68%), rgb(142 92 220 / 54%));
+  --quick-service-border: rgb(186 140 255 / 70%);
+  --quick-service-border-hover: rgb(198 152 255 / 78%);
+}
+
+.quickService_teams {
+  --quick-service-bg: linear-gradient(135deg, rgb(110 215 185 / 55%), rgb(60 170 145 / 40%));
+  --quick-service-bg-hover: linear-gradient(135deg, rgb(120 226 195 / 62%), rgb(74 182 156 / 48%));
+  --quick-service-bg-active: linear-gradient(135deg, rgb(102 206 176 / 68%), rgb(52 160 132 / 54%));
+  --quick-service-border: rgb(110 215 185 / 70%);
+  --quick-service-border-hover: rgb(122 226 196 / 78%);
+}
+
+.quickServiceIcon {
+  inline-size: 22px;
+  block-size: 22px;
+}
+
+.quickServiceLabel {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgb(255 255 255 / 82%);
+}
+

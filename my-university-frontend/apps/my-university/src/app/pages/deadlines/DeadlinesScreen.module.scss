@@ -1,0 +1,188 @@
+:global {
+  button {
+    cursor: pointer;
+  }
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 32px;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.tabButton {
+  flex: 1;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  background: var(--mu-color-surface-raised);
+  color: var(--mu-color-text-secondary);
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+}
+
+.tabButtonActive {
+  border-color: var(--mu-color-primary);
+  color: var(--mu-color-text-primary);
+  background: var(--mu-color-surface-primary);
+}
+
+.section {
+  background: var(--mu-color-surface-raised);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 20px rgba(16, 24, 40, 0.08);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.deadlinesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.deadlineCard {
+  border: 1px solid var(--mu-color-border);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.deadlineHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.deadlineTitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.deadlineStatus {
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--mu-color-surface-primary);
+}
+
+.deadlineMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 14px;
+  color: var(--mu-color-text-secondary);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.emptyState {
+  border: 1px dashed var(--mu-color-border);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  color: var(--mu-color-text-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.emptyStateTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--mu-color-text-primary);
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fieldLabel {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.select,
+.input,
+.textArea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--mu-color-border);
+  padding: 10px 14px;
+  font-size: 15px;
+  background: #fff;
+}
+
+.sheetContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.richTextWrapper {
+  border: 1px solid var(--mu-color-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.infoText {
+  font-size: 13px;
+  color: var(--mu-color-text-secondary);
+}
+
+.groupSelector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.groupSelect {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--mu-color-border);
+  padding: 12px 14px;
+}
+
+.groupActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+

@@ -1,0 +1,35 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 24px;
+  border-radius: 24px;
+  background: transparent;
+  border: none;
+  text-align: center;
+  color: #ffffff;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  align-self: center;
+  color: #ffb347;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.message {
+  margin: 0;
+  color: #d0d6e4;
+  font-size: 14px;
+  line-height: 1.5;
+}
+

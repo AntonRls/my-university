@@ -1,0 +1,22 @@
+export type { FromEnum, KeysOf } from './utils';
+export type {
+  Platform,
+  ChatType,
+  ImpactStyle,
+  NotificationType,
+  BiometricType,
+  ShareStatus,
+  Chat,
+  WebAppUser,
+  WebAppStartParam,
+  WebAppData,
+  BackButton,
+  ScreenCapture,
+  HapticFeedback,
+  DeviceStorage,
+  SecureStorage,
+  BiometricManager,
+  WebAppEventType,
+  WebAppEventCallback,
+  WebApp,
+} from './max-bridge';

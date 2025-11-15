@@ -1,0 +1,30 @@
+name: my-university-frontend
+
+services:
+  frontend:
+    container_name: my-university-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_TENANT_API_BASE_URL: ${VITE_TENANT_API_BASE_URL:-http://host.docker.internal:5099}
+        VITE_AUTH_API_BASE_URL: ${VITE_AUTH_API_BASE_URL:-http://host.docker.internal:5050}
+        VITE_ADMIN_API_BASE_URL: ${VITE_ADMIN_API_BASE_URL:-http://host.docker.internal:5001}
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://host.docker.internal:5099}
+        VITE_DEFAULT_AUTH_TOKEN: ${VITE_DEFAULT_AUTH_TOKEN:-}
+    environment:
+      TENANT_API_BASE_URL: ${TENANT_API_BASE_URL:-http://host.docker.internal:5099}
+      AUTH_API_BASE_URL: ${AUTH_API_BASE_URL:-http://host.docker.internal:5050}
+      ADMIN_API_BASE_URL: ${ADMIN_API_BASE_URL:-http://host.docker.internal:5001}
+      DEFAULT_AUTH_TOKEN: ${DEFAULT_AUTH_TOKEN:-}
+    ports:
+      - "4173:80"
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget -qO- http://localhost/health || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
