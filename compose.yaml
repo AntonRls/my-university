@@ -29,7 +29,7 @@
     environment:
       "ConnectionStrings__Postgres": "User ID=postgres;Password=password;Host=db.admin;Port=5433;Database=my-admin"
     ports:
-      - "5002:5002"
+      - "5001:5001"
     depends_on:
       - db.admin
   hacatonmax.auth:
@@ -40,7 +40,7 @@
     environment:
       "MaxBot__AccessToken": ""
     ports:
-      - "5004:5004"
+      - "50504:5050"
 
   db.university:
     image: postgres:16
