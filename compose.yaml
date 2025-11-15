@@ -40,7 +40,7 @@
     environment:
       "MaxBot__AccessToken": ""
     ports:
-      - "50504:5050"
+      - "5050:5050"
 
   db.university:
     image: postgres:16
