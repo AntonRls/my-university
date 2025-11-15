@@ -3,6 +3,7 @@ using HacatonMax.University.Structure.Application.Commands.CreateFaculty;
 using HacatonMax.University.Structure.Application.Commands.CreateGroup;
 using HacatonMax.University.Structure.Application.Commands.CreateProgram;
 using HacatonMax.University.Structure.Application.Commands.CreateProgramCourse;
+using HacatonMax.University.Structure.Application.Queries.GetMyGroups;
 using HacatonMax.University.Structure.Application.Queries.GetStructureTree;
 using HacatonMax.University.Structure.Controllers.Dto;
 using Microsoft.AspNetCore.Authorization;
@@ -83,5 +84,12 @@ public class StructureController(IMediator mediator)
     {
         var command = new AddGroupMemberCommand(groupId, request.StudentId, request.MembershipType);
         return mediator.Send(command);
+    }
+
+    [HttpGet("me/groups")]
+    [Authorize]
+    public Task<IReadOnlyCollection<UserGroupDto>> GetMyGroups()
+    {
+        return mediator.Send(new GetMyGroupsQuery());
     }
 }

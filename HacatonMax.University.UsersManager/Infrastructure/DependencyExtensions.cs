@@ -1,4 +1,5 @@
 using HacatonMax.Admin.Integration;
+using HacatonMax.Common.AuthHelper;
 using HacatonMax.University.Admin.Application.UpdateUserApproveStatus;
 using HacatonMax.University.Admin.Domain;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ public static class DependencyExtensions
             options.UseNpgsql(configuration.GetConnectionString("Postgres"));
         });
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUserRoleProvider, UserRoleProvider>();
         services.AddMediator(cfg =>
         {
             cfg.RegisterServicesFromAssembly(typeof(UpdateUserApproveStatusCommand).Assembly);
