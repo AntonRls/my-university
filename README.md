@@ -110,14 +110,14 @@ The application exposes performance metrics at `/metrics`. This endpoint provide
 
 Подробные инструкции: `perf/README.md`.
 
-### Performance Documentation
+### Документация по производительности
 
-- `docs/perf/student-projects.md` - Student projects performance optimizations and monitoring
-- `perf/README.md` - Load testing guide
+- `docs/perf/student-projects.md` - Оптимизация и мониторинг производительности студенческих проектов
+- `perf/README.md` - Руководство по нагрузочному тестированию
 
 ### Slow Query Logging
 
-In development mode, EF Core automatically logs queries taking longer than 200ms. Check application logs for warnings about slow database queries.
+В режиме разработки EF Core автоматически регистрирует запросы, занимающие более 200 мс. Проверьте журналы приложения на наличие предупреждений о медленных запросах к базе данных.
 
 ## Requirements 
 <a href="https://github.com/AntonRls/my-university/blob/main/requirements_back.txt">Requirements для бэка</a>
