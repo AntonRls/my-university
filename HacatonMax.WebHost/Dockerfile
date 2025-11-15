@@ -9,14 +9,15 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["HacatonMax.WebHost/HacatonMax.WebHost.csproj", "HacatonMax.WebHost/"]
 COPY ["HacatonMax.Common/HacatonMax.Common.csproj", "HacatonMax.Common/"]
+COPY ["HacatonMax.Admin.Integration/HacatonMax.Admin.Integration.csproj", "HacatonMax.Admin.Integration/"]
 COPY ["HacatonMax.University.Library/HacatonMax.University.Library.csproj", "HacatonMax.University.Library/"]
 COPY ["HacatonMax.Bot/HacatonMax.Bot.csproj", "HacatonMax.Bot/"]
 COPY ["HacatonMax.MaxClient/HacatonMax.MaxClient.csproj", "HacatonMax.MaxClient/"]
 COPY ["HacatonMax.University.UsersManager/HacatonMax.University.UsersManager.csproj", "HacatonMax.University.UsersManager/"]
 COPY ["HacatonMax.University.StudentsProject/HacatonMax.University.StudentsProject.csproj", "HacatonMax.University.StudentsProject/"]
 COPY ["HacatonMax.University.Events/HacatonMax.University.Events.csproj", "HacatonMax.University.Events/"]
-COPY ["HacatonMax.University.Structure/HacatonMax.University.Structure.csproj", "HacatonMax.University.Structure/"]
 COPY ["HacatonMax.University.Schedule/HacatonMax.University.Schedule.csproj", "HacatonMax.University.Schedule/"]
+COPY ["HacatonMax.University.Structure/HacatonMax.University.Structure.csproj", "HacatonMax.University.Structure/"]
 RUN dotnet restore "HacatonMax.WebHost/HacatonMax.WebHost.csproj"
 COPY . .
 WORKDIR "/src/HacatonMax.WebHost"
