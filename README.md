@@ -3,7 +3,8 @@
 
 ## Архитектурный подход тенантов
 ### Процесс получения пользователем списка университетов, в которые он добавлен и дальнейшее взаимодействие с ними
-<img width="2651" height="2305" alt="Без названия 15 ноября 2025 03_47" src="https://github.com/user-attachments/assets/318cbb2d-aee8-43a5-b66f-ab7bb039de50" />
+<img width="671" height="727" alt="Без названия 15 ноября 2025 03_47-2" src="https://github.com/user-attachments/assets/06769a38-8680-498a-93f3-9b769a1649ed" />
+
 
 
 ## Performance Monitoring
