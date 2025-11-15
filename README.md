@@ -5,7 +5,33 @@
 ### Процесс получения пользователем списка университетов, в которые он добавлен и дальнейшее взаимодействие с ними
 <img width="671" height="727" alt="Без названия 15 ноября 2025 03_47-2" src="https://github.com/user-attachments/assets/06769a38-8680-498a-93f3-9b769a1649ed" />
 
+### Детальный пример работы с тенантами
+К дефолтному URL сервиса в тенанте добавляется <tenant_name>, например
 
+было: <b>GET university-events</b> <br>
+стало: <b>GET <tenant_name>/university-events</b>
+
+Сам <tenant_name> возвращается в endpoint'e админки университетов:<br>
+```
+GET users/me
+Bearer <access_token>
+```
+
+response: - массив списка университетов пользователя
+```json
+[
+  {
+    "user_id": 1,
+    "university_tenant_name": "cu",
+    "approve_status": "Approved"
+  },
+  {
+    "user_id": 1,
+    "university_tenant_name": "hse",
+    "approve_status": "Approved"
+  }
+]
+```
 
 ## Performance Monitoring
 
