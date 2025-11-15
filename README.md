@@ -17,7 +17,7 @@ GET users/me
 Bearer <access_token>
 ```
 
-response: - массив списка университетов пользователя
+response: - список университетов пользователя
 ```json
 [
   {
