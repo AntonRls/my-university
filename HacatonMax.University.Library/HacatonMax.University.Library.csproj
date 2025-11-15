@@ -22,6 +22,15 @@
       <ProjectReference Include="..\HacatonMax.Bot\HacatonMax.Bot.csproj" />
       <ProjectReference Include="..\HacatonMax.Common\HacatonMax.Common.csproj" />
       <ProjectReference Include="..\HacatonMax.University.Auth\HacatonMax.University.Auth.csproj" />
+      <ProjectReference Include="..\HacatonMax.University.UsersManager\HacatonMax.University.UsersManager.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Application\Commands\CreateTag\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Application\Commands\CreateTag\CreateTagCommand.cs" />
     </ItemGroup>
     
 </Project>
