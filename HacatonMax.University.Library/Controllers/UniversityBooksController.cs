@@ -1,12 +1,14 @@
 using HacatonMax.University.Library.Application.Commands.CreateBook;
 using HacatonMax.University.Library.Application.Commands.DeleteBook;
 using HacatonMax.University.Library.Application.Commands.GetBookById;
+using HacatonMax.University.Library.Application.Commands.GetBookReservations;
 using HacatonMax.University.Library.Application.Commands.GetBooks;
 using HacatonMax.University.Library.Application.Commands.GetFavoriteBooks;
 using HacatonMax.University.Library.Application.Commands.GetTags;
 using HacatonMax.University.Library.Application.Commands.InvertFavoriteStatusBook;
 using HacatonMax.University.Library.Application.Commands.SearchBooks;
 using HacatonMax.University.Library.Controllers.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TimeWarp.Mediator;
@@ -74,5 +76,15 @@ public class UniversityBooksController(IMediator mediator)
             request.Tags,
             request.Page,
             request.PageSize));
+    }
+
+    /// <summary>
+    /// Получить список резерваций книги
+    /// </summary>
+    [HttpGet("{id:long}/reservations")]
+    [Authorize]
+    public Task<List<BookReservationDto>> GetBookReservations([FromRoute] long id)
+    {
+        return mediator.Send(new GetBookReservationsCommand(id));
     }
 }

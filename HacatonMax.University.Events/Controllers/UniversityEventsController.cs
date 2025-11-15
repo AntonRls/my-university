@@ -1,6 +1,8 @@
 using HacatonMax.University.Events.Application.Commands.CreateUniversityEvent;
 using HacatonMax.University.Events.Application.Commands.DeleteUniversityEvent;
+using HacatonMax.University.Events.Application.Commands.GetEventRegistrations;
 using HacatonMax.University.Events.Application.Commands.GetUniversityEvents;
+using HacatonMax.University.Events.Application.Commands.GetUniversityEventById;
 using HacatonMax.University.Events.Application.Commands.GetUniversityEventTags;
 using HacatonMax.University.Events.Application.Commands.RegisterForUniversityEvent;
 using HacatonMax.University.Events.Application.Commands.SearchUniversityEvents;
@@ -54,6 +56,16 @@ public class UniversityEventsController(IMediator mediator)
         return mediator.Send(command);
     }
 
+    /// <summary>
+    /// Получить событие по ID
+    /// </summary>
+    [HttpGet("{id:long}")]
+    [Authorize]
+    public Task<UniversityEventDto> GetUniversityEventById([FromRoute] long id)
+    {
+        return mediator.Send(new GetUniversityEventByIdCommand(id));
+    }
+
     [HttpGet("tags")]
     [Authorize]
     public Task<List<TagDto>> GetTagsUniversityEvent()
@@ -80,5 +92,15 @@ public class UniversityEventsController(IMediator mediator)
     public Task<UniversityEventDto> UnregisterFromUniversityEvent([FromRoute] long id)
     {
         return mediator.Send(new UnregisterFromUniversityEventCommand(id));
+    }
+
+    /// <summary>
+    /// Получить список участников события
+    /// </summary>
+    [HttpGet("{id:long}/registrations")]
+    [Authorize]
+    public Task<List<EventRegistrationDto>> GetEventRegistrations([FromRoute] long id)
+    {
+        return mediator.Send(new GetEventRegistrationsCommand(id));
     }
 }

@@ -117,6 +117,13 @@ internal sealed class BookRepository : IBookRepository
             .ToListAsync();
     }
 
+    public Task<List<ReservationBook>> GetBookReservations(long bookId)
+    {
+        return _context.ReservationBooks
+            .Where(x => x.BookId == bookId)
+            .ToListAsync();
+    }
+
     public Task DeleteReservation(long bookId, long userId)
     {
         return _context.ReservationBooks
