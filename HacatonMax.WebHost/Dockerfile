@@ -16,6 +16,7 @@ COPY ["HacatonMax.University.UsersManager/HacatonMax.University.UsersManager.csp
 COPY ["HacatonMax.University.StudentsProject/HacatonMax.University.StudentsProject.csproj", "HacatonMax.University.StudentsProject/"]
 COPY ["HacatonMax.University.Events/HacatonMax.University.Events.csproj", "HacatonMax.University.Events/"]
 COPY ["HacatonMax.University.Structure/HacatonMax.University.Structure.csproj", "HacatonMax.University.Structure/"]
+COPY ["HacatonMax.University.Schedule/HacatonMax.University.Schedule.csproj", "HacatonMax.University.Schedule/"]
 RUN dotnet restore "HacatonMax.WebHost/HacatonMax.WebHost.csproj"
 COPY . .
 WORKDIR "/src/HacatonMax.WebHost"

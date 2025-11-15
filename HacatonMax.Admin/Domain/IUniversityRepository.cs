@@ -7,4 +7,6 @@ public interface IUniversityRepository
     Task Save(University university);
 
     Task<List<UserInUniversity>> GetUserUniversities(long userId);
+
+    Task<bool> RemoveUserFromUniversity(long userId, long universityId);
 }

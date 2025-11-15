@@ -23,4 +23,19 @@ public class UsersController
         var userUniversities = await _universityRepository.GetUserUniversities(_userContextService.GetCurrentUser().Id);
         return userUniversities.Select(x => new UserInUniversity(x.UserId, x.UniversityName, x.ApproveStatus)).ToList();
     }
+
+    [HttpDelete("{userId:long}/universities/{universityId:long}")]
+    public async Task<IActionResult> RemoveUserFromUniversity(long userId, long universityId)
+    {
+        _userContextService.GetCurrentUser();
+
+        var removed = await _universityRepository.RemoveUserFromUniversity(userId, universityId);
+
+        if (!removed)
+        {
+            return new NotFoundResult();
+        }
+
+        return new NoContentResult();
+    }
 }

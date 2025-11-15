@@ -30,4 +30,20 @@ internal class UniversityRepository : IUniversityRepository
             .Where(x => x.UserId == userId)
             .ToListAsync();
     }
+
+    public async Task<bool> RemoveUserFromUniversity(long userId, long universityId)
+    {
+        var entity = await _dbContext.UsersInUniversity
+            .FirstOrDefaultAsync(x => x.UserId == userId && x.UniversityId == universityId);
+
+        if (entity == null)
+        {
+            return false;
+        }
+
+        _dbContext.UsersInUniversity.Remove(entity);
+        await _dbContext.SaveChangesAsync();
+
+        return true;
+    }
 }

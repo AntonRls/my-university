@@ -33,6 +33,22 @@ response: - список университетов пользователя
 ### Процесс получения пользователем списка университетов, в которые он добавлен и дальнейшее взаимодействие с ними
 <img width="671" height="727" alt="Без названия 15 ноября 2025 03_47-2" src="https://github.com/user-attachments/assets/06769a38-8680-498a-93f3-9b769a1649ed" />
 
+## Schedule service
+- Все слоты (пары, личные активности, события) лежат в схеме `schedule` (таблицы `entries`, `attendees`) и управляются через `HacatonMax.University.Schedule`.
+- Прокатить миграции:
+  ```bash
+  dotnet ef database update Init_Schedule \
+    --project HacatonMax.University.Schedule/HacatonMax.University.Schedule.csproj \
+    --startup-project HacatonMax.WebHost/HacatonMax.WebHost.csproj \
+    --context ScheduleDbContext
+  ```
+- Основные ручки:
+  - `GET /schedule/groups/{groupId}` — получить пары группы (фильтры `from`, `to`, `deliveryType`).
+  - `POST|PUT|DELETE /schedule/groups/{groupId}/lessons` — CRUD для админов.
+  - `GET /schedule/me` — объединённое расписание студента (группы + личные + события).
+  - `POST|PUT|DELETE /schedule/me/slots` — управление личными активностями.
+- Сервис событий теперь синхронизирует регистрации с расписанием через `IScheduleIntegrationService`.
+
 ## Performance Monitoring
 
 ### Metrics Endpoint

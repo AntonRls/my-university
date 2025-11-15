@@ -127,3 +127,33 @@ HacatonMax.University.Structure/
 
 With this architecture the platform can confidently model institutional hierarchies, enforce membership rules, and power downstream schedule/deadline features without switching stacks or compromising tenant isolation.
 
+## Schedule service
+
+The same PostgreSQL instance hosts the schedule schema to keep joins trivial for analytics and notifications.
+
+- `schedule.entries` — описывает слот расписания. Колонки:
+  - `tenant_id`, `group_id`, `owner_user_id`
+  - `source_type` (`admin_lesson`, `manual_personal`, `university_event`) и `source_entity_id`
+  - `delivery_type` (`offline` или `online`), `physical_location`, `online_link`
+  - временное окно `starts_at`/`ends_at`
+- `schedule.attendees` — связь `entry ↔ user` для персональных подписок (например, события). Enforced unique (`entry_id`, `user_id`).
+- Индексы:
+  - `tenant_id + starts_at` — быстрые выборки по дню/неделе
+  - `tenant_id + group_id + starts_at` — списки пар для группы
+  - `owner_user_id + starts_at` — персональные активности
+  - уникальность по (`tenant_id`, `source_type`, `source_entity_id`) для событий.
+
+### Модуль
+
+- `HacatonMax.University.Schedule` подключается через `AddUniversityScheduleModule`.
+- Контроллеры:
+  - `GroupScheduleController` — CRUD админских уроков (`/schedule/groups/{groupId}`).
+  - `MyScheduleController` — персональные запросы студентом (`/schedule/me`).
+- Интеграция с событиями:
+  - `IScheduleIntegrationService` (контракт в `HacatonMax.Common`) принимает payload события (название, формат, время) и создаёт/обновляет слот + привязывает пользователя.
+  - При отмене регистрации вызывается `RemoveEventSubscriptionAsync`, что удаляет участника и при необходимости слот.
+- Для выборки «моё расписание» агрегируются:
+  1. Все группы пользователя (`structure.group_members`).
+  2. Слоты, где пользователь владелец (`owner_user_id`).
+  3. События, где есть `attendee`.
+

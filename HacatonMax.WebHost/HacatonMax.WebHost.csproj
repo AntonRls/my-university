@@ -23,6 +23,7 @@
         <ProjectReference Include="..\HacatonMax.University.Library\HacatonMax.University.Library.csproj" />
         <ProjectReference Include="..\HacatonMax.University.UsersManager\HacatonMax.University.UsersManager.csproj" />
         <ProjectReference Include="..\HacatonMax.University.Structure\HacatonMax.University.Structure.csproj" />
+        <ProjectReference Include="..\HacatonMax.University.Schedule\HacatonMax.University.Schedule.csproj" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.10" />
     </ItemGroup>
 
