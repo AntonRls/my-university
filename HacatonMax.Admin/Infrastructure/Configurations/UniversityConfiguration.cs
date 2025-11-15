@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HacatonMax.Admin.Infrastructure.Configurations;
 
-public class UniversityConfiguration : IEntityTypeConfiguration<University>
+public class UniversityConfiguration : IEntityTypeConfiguration<Domain.University>
 {
-    public void Configure(EntityTypeBuilder<University> builder)
+    public void Configure(EntityTypeBuilder<Domain.University> builder)
     {
         builder.ToTable("universities");
 

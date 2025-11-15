@@ -12,14 +12,22 @@ internal class UniversityRepository : IUniversityRepository
         _dbContext = dbContext;
     }
 
-    public Task<List<University>> GetAll()
+    public Task<List<Domain.University>> GetAll()
     {
         return _dbContext.Universities.AsNoTracking().ToListAsync();
     }
 
-    public async Task Save(University university)
+    public async Task Save(Domain.University university)
     {
         await _dbContext.Universities.AddAsync(university);
         await _dbContext.SaveChangesAsync();
+    }
+
+    public Task<List<UserInUniversity>> GetUserUniversities(long userId)
+    {
+        return _dbContext.UsersInUniversity
+            .AsNoTracking()
+            .Where(x => x.UserId == userId)
+            .ToListAsync();
     }
 }

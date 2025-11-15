@@ -25,7 +25,7 @@ public class UniversityController
     [HttpPost]
     public async Task CreateUniversity([FromBody] CreateUniversityDto university)
     {
-        await _universityRepository.Save(new University(university.Name, university.TenantName));
+        await _universityRepository.Save(new Domain.University(university.Name, university.TenantName));
     }
 
 }

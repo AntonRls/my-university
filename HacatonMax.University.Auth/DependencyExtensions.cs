@@ -30,11 +30,12 @@ public static class DependencyExtensions
                     )
                 };
             });
+        services.AddAuthorization();
+
         services.AddMediator(cfg =>
         {
             cfg.RegisterServicesFromAssembly(typeof(GetUserTokenCommand).Assembly);
         });
-        services.AddAuthorization();
         return services;
     }
 }

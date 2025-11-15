@@ -14,12 +14,15 @@ internal sealed class AdminDbContext : DbContext
         Database.EnsureCreated();
     }
 
-    public DbSet<University> Universities { get; set; }
+    public DbSet<Domain.University> Universities { get; set; }
+
+    public DbSet<UserInUniversity> UsersInUniversity { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(Schema);
 
         modelBuilder.ApplyConfiguration(new UniversityConfiguration());
+        modelBuilder.ApplyConfiguration(new UserInUniversityConfiguration());
     }
 }
