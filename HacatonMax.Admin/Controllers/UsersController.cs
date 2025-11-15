@@ -40,7 +40,7 @@ public class UsersController
     }
 
     [HttpPost("{userId:long}/universities/{universityId:long}")]
-    public async Task InsertStudentWithStatus([FromQuery] long userId, [FromRoute] long universityId, [FromQuery] ApproveStatus status)
+    public async Task InsertStudentWithStatus([FromRoute] long userId, [FromRoute] long universityId, [FromQuery] ApproveStatus status)
     {
         await _universityRepository.UpdateStatus(userId, universityId, status);
     }

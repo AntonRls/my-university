@@ -20,7 +20,7 @@ public class EnjoyToUniversityHandler : IRequestHandler<EnjoyToUniversityCommand
     {
         var user = _userContextService.GetCurrentUser();
 
-        var enjoyInfoUser = new User(user.FirstName, user.LastName, request.Role, user.Username);
+        var enjoyInfoUser = new User(user.Id, user.FirstName, user.LastName, request.Role, user.Username);
         await _userRepository.Save(enjoyInfoUser);
     }
 }

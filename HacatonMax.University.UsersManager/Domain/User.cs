@@ -14,8 +14,9 @@ public class User
 
     public ApproveStatus Status { get; private set; }
 
-    public User(string firstName, string lastName, UserRole role, string? username)
+    public User(long id, string firstName, string lastName, UserRole role, string? username)
     {
+        Id = id;
         FirstName = firstName;
         LastName = lastName;
         Role = role;
