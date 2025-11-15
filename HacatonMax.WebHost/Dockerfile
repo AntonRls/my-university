@@ -10,7 +10,6 @@ WORKDIR /src
 COPY ["HacatonMax.WebHost/HacatonMax.WebHost.csproj", "HacatonMax.WebHost/"]
 COPY ["HacatonMax.Common/HacatonMax.Common.csproj", "HacatonMax.Common/"]
 COPY ["HacatonMax.University.Library/HacatonMax.University.Library.csproj", "HacatonMax.University.Library/"]
-COPY ["HacatonMax.University.Auth/HacatonMax.University.Auth.csproj", "HacatonMax.University.Auth/"]
 COPY ["HacatonMax.Bot/HacatonMax.Bot.csproj", "HacatonMax.Bot/"]
 COPY ["HacatonMax.MaxClient/HacatonMax.MaxClient.csproj", "HacatonMax.MaxClient/"]
 COPY ["HacatonMax.University.UsersManager/HacatonMax.University.UsersManager.csproj", "HacatonMax.University.UsersManager/"]
